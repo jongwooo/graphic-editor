@@ -17,11 +17,15 @@ public class FileMenu extends JMenu {
         JMenuItem openFile = new JMenuItem("Open File...");
         this.add(openFile);
 
+        this.addSeparator();
+
         JMenuItem saveFile = new JMenuItem("Save");
         this.add(saveFile);
 
         JMenuItem saveFileAs = new JMenuItem("Save As...");
         this.add(saveFileAs);
+
+        this.addSeparator();
 
         JMenuItem quitEditor = new JMenuItem("Quit");
         quitEditor.addActionListener(new ActionListener() {
@@ -31,7 +35,5 @@ public class FileMenu extends JMenu {
             }
         });
         this.add(quitEditor);
-
-        this.addSeparator();
     }
 }
