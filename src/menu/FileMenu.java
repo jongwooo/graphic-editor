@@ -4,17 +4,33 @@ import global.Constant;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import java.util.Arrays;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FileMenu extends JMenu {
     public FileMenu() {
         super(Constant.FILE_MENU_TITLE);
 
-        String[] fileMenuItems = Constant.FILE_MENU_ITEMS;
-        Arrays.stream(fileMenuItems).forEach(menuItems -> {
-           JMenuItem menuItem = new JMenuItem(menuItems);
-           this.add(menuItem);
+        JMenuItem newFile = new JMenuItem("New");
+        this.add(newFile);
+
+        JMenuItem openFile = new JMenuItem("Open File...");
+        this.add(openFile);
+
+        JMenuItem saveFile = new JMenuItem("Save");
+        this.add(saveFile);
+
+        JMenuItem saveFileAs = new JMenuItem("Save As...");
+        this.add(saveFileAs);
+
+        JMenuItem quitEditor = new JMenuItem("Quit");
+        quitEditor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
         });
+        this.add(quitEditor);
 
         this.addSeparator();
     }
