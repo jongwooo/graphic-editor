@@ -1,6 +1,6 @@
 package menu;
 
-import constant.Constant;
+import global.Constant;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

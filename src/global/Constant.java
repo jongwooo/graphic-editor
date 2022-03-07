@@ -1,4 +1,4 @@
-package constant;
+package global;
 
 public class Constant {
     public static final int MAINFRAME_WIDTH = 800;
