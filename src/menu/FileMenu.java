@@ -10,7 +10,7 @@ public class FileMenu extends JMenu {
 
     private JMenuItem newFile;
     private JMenuItem openFile;
-    private JMenuItem closeFile;
+    private JMenuItem closeEditor;
     private JMenuItem saveFile;
     private JMenuItem saveFileAs;
     private JMenuItem printFile;
@@ -25,8 +25,8 @@ public class FileMenu extends JMenu {
         this.openFile = new JMenuItem("Open File...");
         this.add(this.openFile);
 
-        this.closeFile = new JMenuItem("Close File");
-        this.add(this.closeFile);
+        this.closeEditor = new JMenuItem("Close Editor");
+        this.add(this.closeEditor);
 
         this.addSeparator();
 
