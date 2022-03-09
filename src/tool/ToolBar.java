@@ -1,5 +1,6 @@
 package tool;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
@@ -14,16 +15,16 @@ public class ToolBar extends JToolBar {
     public ToolBar() {
         this.setRollover(true);
 
-        this.drawRectangleBtn = new JButton("Rectangle");
+        this.drawRectangleBtn = new JButton(new ImageIcon("src/image/rectangle.png"));
         this.add(this.drawRectangleBtn);
 
-        this.drawOvalBtn = new JButton("Oval");
+        this.drawOvalBtn = new JButton(new ImageIcon("src/image/oval.png"));
         this.add(this.drawOvalBtn);
 
-        this.drawLineBtn = new JButton("Line");
+        this.drawLineBtn = new JButton(new ImageIcon("src/image/line.png"));
         this.add(this.drawLineBtn);
 
-        this.drawPolygonBtn = new JButton("Polygon");
+        this.drawPolygonBtn = new JButton(new ImageIcon("src/image/polygon.png"));
         this.add(this.drawPolygonBtn);
     }
 }
