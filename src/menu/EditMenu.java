@@ -11,6 +11,8 @@ public class EditMenu extends JMenu {
     private JMenuItem cutItem;
     private JMenuItem copyItem;
     private JMenuItem pasteItem;
+    private JMenuItem groupItem;
+    private JMenuItem ungroupItem;
 
     public EditMenu(String menuTitle) {
         super(menuTitle);
@@ -31,5 +33,13 @@ public class EditMenu extends JMenu {
 
         this.pasteItem = new JMenuItem("Paste");
         this.add(this.pasteItem);
+
+        this.addSeparator();
+
+        this.groupItem = new JMenuItem("Group");
+        this.add(this.groupItem);
+
+        this.ungroupItem = new JMenuItem("Ungroup");
+        this.add(this.ungroupItem);
     }
 }
