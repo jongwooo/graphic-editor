@@ -36,7 +36,7 @@ public class FileMenu extends JMenu {
         this.saveFileAs = new JMenuItem("Save As...");
         this.add(this.saveFileAs);
 
-        this.printFile = new JMenuItem("Print");
+        this.printFile = new JMenuItem("Print...");
         this.add(this.printFile);
 
         this.addSeparator();
