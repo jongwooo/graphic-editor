@@ -1,13 +1,20 @@
 package menu;
 
+import global.Constant;
+
 import javax.swing.JMenuBar;
 
 public class MenuBar extends JMenuBar {
-    public MenuBar() {
-        FileMenu fileMenu = new FileMenu();
-        this.add(fileMenu);
+    private static final long serialVersionUID = 1L;
 
-        EditMenu editMenu = new EditMenu();
-        this.add(editMenu);
+    private FileMenu fileMenu;
+    private EditMenu editMenu;
+
+    public MenuBar() {
+        this.fileMenu = new FileMenu(Constant.FILE_MENU_TITLE);
+        this.add(this.fileMenu);
+
+        this.editMenu = new EditMenu(Constant.EDIT_MENU_TITLE);
+        this.add(this.editMenu);
     }
 }

@@ -1,29 +1,35 @@
 package menu;
 
-import global.Constant;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class EditMenu extends JMenu {
-    public EditMenu() {
-        super(Constant.EDIT_MENU_TITLE);
+    private static final long serialVersionUID = 1L;
 
-        JMenuItem undo = new JMenuItem("Undo");
-        this.add(undo);
+    private JMenuItem undo;
+    private JMenuItem redo;
+    private JMenuItem cutItem;
+    private JMenuItem copyItem;
+    private JMenuItem pasteItem;
 
-        JMenuItem redo = new JMenuItem("Redo");
-        this.add(redo);
+    public EditMenu(String menuTitle) {
+        super(menuTitle);
+
+        this.undo = new JMenuItem("Undo");
+        this.add(this.undo);
+
+        this.redo = new JMenuItem("Redo");
+        this.add(this.redo);
 
         this.addSeparator();
 
-        JMenuItem cutItem = new JMenuItem("Cut");
-        this.add(cutItem);
+        this.cutItem = new JMenuItem("Cut");
+        this.add(this.cutItem);
 
-        JMenuItem copyItem = new JMenuItem("Copy");
-        this.add(copyItem);
+        this.copyItem = new JMenuItem("Copy");
+        this.add(this.copyItem);
 
-        JMenuItem pasteItem = new JMenuItem("Paste");
-        this.add(pasteItem);
+        this.pasteItem = new JMenuItem("Paste");
+        this.add(this.pasteItem);
     }
 }

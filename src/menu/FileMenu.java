@@ -1,39 +1,45 @@
 package menu;
 
-import global.Constant;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FileMenu extends JMenu {
-    public FileMenu() {
-        super(Constant.FILE_MENU_TITLE);
+    private static final long serialVersionUID = 1L;
 
-        JMenuItem newFile = new JMenuItem("New");
-        this.add(newFile);
+    private JMenuItem newFile;
+    private JMenuItem openFile;
+    private JMenuItem saveFile;
+    private JMenuItem saveFileAs;
+    private JMenuItem quitEditor;
 
-        JMenuItem openFile = new JMenuItem("Open File...");
-        this.add(openFile);
+    public FileMenu(String menuTitle) {
+        super(menuTitle);
+
+        this.newFile = new JMenuItem("New");
+        this.add(this.newFile);
+
+        this.openFile = new JMenuItem("Open File...");
+        this.add(this.openFile);
 
         this.addSeparator();
 
-        JMenuItem saveFile = new JMenuItem("Save");
-        this.add(saveFile);
+        this.saveFile = new JMenuItem("Save");
+        this.add(this.saveFile);
 
-        JMenuItem saveFileAs = new JMenuItem("Save As...");
-        this.add(saveFileAs);
+        this.saveFileAs = new JMenuItem("Save As...");
+        this.add(this.saveFileAs);
 
         this.addSeparator();
 
-        JMenuItem quitEditor = new JMenuItem("Quit");
-        quitEditor.addActionListener(new ActionListener() {
+        this.quitEditor = new JMenuItem("Quit");
+        this.quitEditor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        this.add(quitEditor);
+        this.add(this.quitEditor);
     }
 }

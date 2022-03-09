@@ -1,15 +1,21 @@
 package tool;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JToolBar;
 
 public class ToolBar extends JToolBar {
+    private static final long serialVersionUID = 1L;
+
+    private JButton drawRectangleBtn;
+    private JButton drawOvalBtn;
+
     public ToolBar() {
         this.setRollover(true);
 
-        JButton drawRectangleBtn = new JButton("Rectangle");
-        this.add(drawRectangleBtn);
+        this.drawRectangleBtn = new JButton("Rectangle");
+        this.add(this.drawRectangleBtn);
 
-        JButton drawOvalBtn = new JButton("Oval");
-        this.add(drawOvalBtn);
+        this.drawOvalBtn = new JButton("Oval");
+        this.add(this.drawOvalBtn);
     }
 }

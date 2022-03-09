@@ -9,24 +9,26 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
-    public MainFrame() {
-        super(Constant.MAINFRAME_TITLE);
+    private static final long serialVersionUID = 1L;
 
+    private MenuBar menuBar;
+    private ToolBar toolBar;
+    private DrawingPanel drawingPanel;
+
+    public MainFrame(String frameTitle) {
+        super(frameTitle);
+
+        this.setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
 
-        MenuBar menuBar = new MenuBar();
-        setJMenuBar(menuBar);
+        this.menuBar = new MenuBar();
+        this.setJMenuBar(this.menuBar);
 
-        ToolBar toolBar = new ToolBar();
-        this.getContentPane().add(toolBar, BorderLayout.NORTH);
+        this.toolBar = new ToolBar();
+        this.getContentPane().add(this.toolBar, BorderLayout.NORTH);
 
-        DrawingPanel drawingPanel = new DrawingPanel();
-        this.add(drawingPanel);
-    }
-
-    public void initialize() {
-        setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+        this.drawingPanel = new DrawingPanel();
+        this.add(this.drawingPanel);
     }
 }
