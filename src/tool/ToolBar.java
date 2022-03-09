@@ -8,6 +8,8 @@ public class ToolBar extends JToolBar {
 
     private JButton drawRectangleBtn;
     private JButton drawOvalBtn;
+    private JButton drawLineBtn;
+    private JButton drawPolygonBtn;
 
     public ToolBar() {
         this.setRollover(true);
@@ -17,5 +19,11 @@ public class ToolBar extends JToolBar {
 
         this.drawOvalBtn = new JButton("Oval");
         this.add(this.drawOvalBtn);
+
+        this.drawLineBtn = new JButton("Line");
+        this.add(this.drawLineBtn);
+
+        this.drawPolygonBtn = new JButton("Polygon");
+        this.add(this.drawPolygonBtn);
     }
 }
