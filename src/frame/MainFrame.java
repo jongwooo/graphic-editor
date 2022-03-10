@@ -20,13 +20,12 @@ public class MainFrame extends JFrame {
 
         this.setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
 
         this.menuBar = new MenuBar();
         this.setJMenuBar(this.menuBar);
 
-        this.toolBar = new ToolBar();
-        this.getContentPane().add(this.toolBar, BorderLayout.NORTH);
+        this.toolBar = new ToolBar(Constant.TOOLBAR_TITLE);
+        this.add(BorderLayout.NORTH, this.toolBar);
 
         this.drawingPanel = new DrawingPanel();
         this.add(this.drawingPanel);

@@ -12,7 +12,8 @@ public class ToolBar extends JToolBar {
     private JButton drawLineBtn;
     private JButton drawPolygonBtn;
 
-    public ToolBar() {
+    public ToolBar(String toolBarTitle) {
+        super(toolBarTitle);
         this.setRollover(true);
 
         this.drawRectangleBtn = new JButton(new ImageIcon("src/image/rectangle.png"));
