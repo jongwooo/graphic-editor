@@ -22,6 +22,7 @@ public class ToolBar extends JToolBar {
         this.cursorBtn.setIcon(new ImageIcon("src/image/cursor.png"));
         this.cursorBtn.setSelectedIcon(new ImageIcon("src/image/selected_cursor.png"));
         toolBtnGroup.add(cursorBtn);
+        toolBtnGroup.setSelected(cursorBtn.getModel(), true);
         this.add(this.cursorBtn);
 
         this.drawRectangleBtn = new JRadioButton();
