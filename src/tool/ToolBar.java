@@ -8,6 +8,7 @@ import javax.swing.JToolBar;
 public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
 
+    private JRadioButton cursorBtn;
     private JRadioButton drawRectangleBtn;
     private JRadioButton drawOvalBtn;
     private JRadioButton drawLineBtn;
@@ -16,6 +17,12 @@ public class ToolBar extends JToolBar {
     public ToolBar(String toolBarTitle) {
         super(toolBarTitle);
         ButtonGroup toolBtnGroup = new ButtonGroup();
+
+        this.cursorBtn = new JRadioButton();
+        this.cursorBtn.setIcon(new ImageIcon("src/image/cursor.png"));
+        this.cursorBtn.setSelectedIcon(new ImageIcon("src/image/selected_cursor.png"));
+        toolBtnGroup.add(cursorBtn);
+        this.add(this.cursorBtn);
 
         this.drawRectangleBtn = new JRadioButton();
         this.drawRectangleBtn.setIcon(new ImageIcon("src/image/rectangle.png"));
