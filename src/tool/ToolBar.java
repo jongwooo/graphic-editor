@@ -16,6 +16,8 @@ public class ToolBar extends JToolBar {
 
     public ToolBar(String toolBarTitle) {
         super(toolBarTitle);
+        this.setBorderPainted(true);
+
         ButtonGroup toolBtnGroup = new ButtonGroup();
 
         this.cursorBtn = new JRadioButton();
