@@ -20,6 +20,7 @@ public class MainFrame extends JFrame {
 
         this.setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout());
 
         this.menuBar = new MenuBar();
         this.setJMenuBar(this.menuBar);
