@@ -18,10 +18,6 @@ public class MainFrame extends JFrame {
     public MainFrame(String frameTitle) {
         super(frameTitle);
 
-        this.setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-
         this.menuBar = new MenuBar();
         this.setJMenuBar(this.menuBar);
 
@@ -30,5 +26,13 @@ public class MainFrame extends JFrame {
 
         this.drawingPanel = new DrawingPanel();
         this.add(this.drawingPanel);
+    }
+
+    public void initialize() {
+        toolBar.initialize(drawingPanel);
+
+        setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 }

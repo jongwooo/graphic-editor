@@ -1,29 +1,48 @@
 package tool;
 
-import global.Constant;
+import global.Constant.ShapeToolItem;
+import panel.DrawingPanel;
 
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JToolBar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
 
+    private DrawingPanel drawingPanel;
+
     public ToolBar(String toolBarTitle) {
         super(toolBarTitle);
-        this.setBorderPainted(true);
 
+        ActionHandler actionHandler = new ActionHandler();
         ButtonGroup toolBtnGroup = new ButtonGroup();
 
-        Arrays.stream(Constant.ShapeToolItem.values()).forEach(shapeToolItem -> {
+        Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton radioButton = new JRadioButton();
-            radioButton.setIcon(new ImageIcon("src/image/" + shapeToolItem.getToolName() + ".png"));
-            radioButton.setSelectedIcon(new ImageIcon("src/image/selected_" + shapeToolItem.getToolName() + ".png"));
+            radioButton.setActionCommand(shapeToolItem.name());
+            radioButton.addActionListener(actionHandler);
+            radioButton.setIcon(new ImageIcon("src/image/" + shapeToolItem.name() + ".png"));
+            radioButton.setSelectedIcon(new ImageIcon("src/image/selected_" + shapeToolItem.name() + ".png"));
             toolBtnGroup.add(radioButton);
-            if(shapeToolItem.selected()) toolBtnGroup.setSelected(radioButton.getModel(), true);
             this.add(radioButton);
         });
+    }
+
+    public void initialize(DrawingPanel drawingPanel) {
+        this.drawingPanel = drawingPanel;
+
+        setBorderPainted(true);
+    }
+
+    private class ActionHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            drawingPanel.setShapeTool(ShapeToolItem.valueOf(e.getActionCommand()));
+        }
     }
 }

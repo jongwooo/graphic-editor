@@ -76,30 +76,10 @@ public class Constant {
     }
 
     public enum ShapeToolItem {
-        cursorBtn("cursor", true),
-        drawRectangleBtn("rectangle"),
-        drawOvalBtn("oval"),
-        drawLineBtn("line"),
-        drawPolygonBtn("polygon");
-
-        private String toolName;
-        private boolean isSelected;
-
-        private ShapeToolItem(String toolName) {
-            this.toolName = toolName;
-        }
-
-        private ShapeToolItem(String toolName, boolean isSelected) {
-            this(toolName);
-            this.isSelected = isSelected;
-        }
-
-        public String getToolName() {
-            return this.toolName;
-        }
-
-        public boolean selected() {
-            return this.isSelected;
-        }
+        cursor,
+        rectangle,
+        oval,
+        line,
+        polygon;
     }
 }
