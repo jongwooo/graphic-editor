@@ -1,5 +1,9 @@
 package tool;
 
+import draw.DrawEllipse;
+import draw.DrawLine;
+import draw.DrawPolygon;
+import draw.DrawRectangle;
 import global.Constant.ShapeToolItem;
 import panel.DrawingPanel;
 
@@ -41,14 +45,22 @@ public class ToolBar extends JToolBar {
     }
 
     private void setDefaultBtn() {
-        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.cursor.ordinal());
+        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
     }
 
     private class ActionHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            drawingPanel.setShapeTool(ShapeToolItem.valueOf(e.getActionCommand()));
+            if(e.getActionCommand().equals(ShapeToolItem.rectangle.name())) {
+                drawingPanel.setDrawShape(new DrawRectangle());
+            } else if (e.getActionCommand().equals(ShapeToolItem.ellipse.name())) {
+                drawingPanel.setDrawShape(new DrawEllipse());
+            } else if (e.getActionCommand().equals(ShapeToolItem.line.name())) {
+                drawingPanel.setDrawShape(new DrawLine());
+            } else if (e.getActionCommand().equals(ShapeToolItem.polygon.name())) {
+                drawingPanel.setDrawShape(new DrawPolygon());
+            }
         }
     }
 }

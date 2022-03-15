@@ -76,9 +76,8 @@ public class Constant {
     }
 
     public enum ShapeToolItem {
-        cursor,
         rectangle,
-        oval,
+        ellipse,
         line,
         polygon;
     }
