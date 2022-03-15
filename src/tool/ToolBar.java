@@ -37,6 +37,12 @@ public class ToolBar extends JToolBar {
         this.drawingPanel = drawingPanel;
 
         setBorderPainted(true);
+        setDefaultBtn();
+    }
+
+    private void setDefaultBtn() {
+        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.cursor.ordinal());
+        defaultBtn.doClick();
     }
 
     private class ActionHandler implements ActionListener {
