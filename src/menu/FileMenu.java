@@ -14,8 +14,9 @@ public class FileMenu extends JMenu {
 
         Arrays.stream(Constant.FileMenuItem.values()).forEach(fileMenuItem -> {
             JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
-            if(fileMenuItem.separated()) this.addSeparator();
             this.add(menuItem);
+
+            if(fileMenuItem.separated()) this.addSeparator();
         });
     }
 }

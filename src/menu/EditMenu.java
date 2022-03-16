@@ -14,8 +14,9 @@ public class EditMenu extends JMenu {
 
         Arrays.stream(Constant.EditMenuItem.values()).forEach(editMenuItem -> {
             JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
-            if (editMenuItem.separated()) this.addSeparator();
             this.add(menuItem);
+
+            if (editMenuItem.separated()) this.addSeparator();
         });
     }
 }
