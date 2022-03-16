@@ -18,6 +18,8 @@ public class MainFrame extends JFrame {
     public MainFrame(String frameTitle) {
         super(frameTitle);
 
+        this.setLayout(new BorderLayout());
+
         this.menuBar = new MenuBar();
         this.setJMenuBar(this.menuBar);
 
@@ -25,7 +27,7 @@ public class MainFrame extends JFrame {
         this.add(BorderLayout.NORTH, this.toolBar);
 
         this.drawingPanel = new DrawingPanel();
-        this.add(this.drawingPanel);
+        this.add(BorderLayout.CENTER, this.drawingPanel);
     }
 
     public void initialize() {
