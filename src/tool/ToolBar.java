@@ -53,13 +53,13 @@ public class ToolBar extends JToolBar {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals(ShapeToolItem.rectangle.name())) {
-                drawingPanel.setDrawShape(new DrawRectangle());
+                drawingPanel.setCurrentShape(new DrawRectangle());
             } else if (e.getActionCommand().equals(ShapeToolItem.ellipse.name())) {
-                drawingPanel.setDrawShape(new DrawEllipse());
+                drawingPanel.setCurrentShape(new DrawEllipse());
             } else if (e.getActionCommand().equals(ShapeToolItem.line.name())) {
-                drawingPanel.setDrawShape(new DrawLine());
+                drawingPanel.setCurrentShape(new DrawLine());
             } else if (e.getActionCommand().equals(ShapeToolItem.polygon.name())) {
-                drawingPanel.setDrawShape(new DrawPolygon());
+                drawingPanel.setCurrentShape(new DrawPolygon());
             }
         }
     }

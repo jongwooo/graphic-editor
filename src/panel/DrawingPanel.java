@@ -12,7 +12,7 @@ import javax.swing.event.MouseInputAdapter;
 public class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private DrawShape drawShape;
+    private DrawShape currentShape;
 
     public DrawingPanel() {
         this.setBackground(Color.WHITE);
@@ -21,20 +21,21 @@ public class DrawingPanel extends JPanel {
         this.addMouseListener(mouseHandler);
         this.addMouseMotionListener(mouseHandler);
     }
-    public void setDrawShape(DrawShape drawShape) {
-        this.drawShape = drawShape;
+
+    public void setCurrentShape(DrawShape currentShape) {
+        this.currentShape = currentShape;
     }
 
     private void startDraw(Point startPoint) {
-        drawShape.startDraw(startPoint);
+        currentShape.startDraw(startPoint);
     }
 
     private void endDraw(Point endPoint) {
         Graphics2D graphics2D = (Graphics2D) getGraphics();
         graphics2D.setXORMode(graphics2D.getBackground());
-        drawShape.draw(graphics2D);
-        drawShape.endDraw(endPoint);
-        drawShape.draw(graphics2D);
+        currentShape.draw(graphics2D);
+        currentShape.endDraw(endPoint);
+        currentShape.draw(graphics2D);
     }
 
     private class MouseHandler extends MouseInputAdapter {
