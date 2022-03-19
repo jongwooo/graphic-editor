@@ -16,8 +16,8 @@ public class DrawLine extends DrawShape {
     }
 
     @Override
-    public void endDraw(Point endPoint) {
+    public void finishDraw(Point finishPoint) {
         Line2D line2D = (Line2D) shape;
-        line2D.setLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        line2D.setLine(startPoint.x, startPoint.y, finishPoint.x, finishPoint.y);
     }
 }

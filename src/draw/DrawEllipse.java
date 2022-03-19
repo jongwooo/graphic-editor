@@ -16,8 +16,8 @@ public class DrawEllipse extends DrawShape{
     }
 
     @Override
-    public void endDraw(Point endPoint) {
+    public void finishDraw(Point finishPoint) {
         Ellipse2D ellipse2D = (Ellipse2D) shape;
-        ellipse2D.setFrameFromDiagonal(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        ellipse2D.setFrameFromDiagonal(startPoint.x, startPoint.y, finishPoint.x, finishPoint.y);
     }
 }

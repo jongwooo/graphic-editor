@@ -17,5 +17,5 @@ public abstract class DrawShape {
     }
 
     public abstract void startDraw(Point startPoint);
-    public abstract void endDraw(Point endPoint);
+    public abstract void finishDraw(Point finishPoint);
 }
