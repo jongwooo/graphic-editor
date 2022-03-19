@@ -1,9 +1,5 @@
 package tool;
 
-import draw.DrawEllipse;
-import draw.DrawLine;
-import draw.DrawPolygon;
-import draw.DrawRectangle;
 import global.Constant.ShapeToolItem;
 import panel.DrawingPanel;
 
@@ -53,13 +49,13 @@ public class ToolBar extends JToolBar {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getActionCommand().equals(ShapeToolItem.rectangle.name())) {
-                drawingPanel.setCurrentShape(new DrawRectangle());
+                drawingPanel.setCurrentShape(ShapeToolItem.rectangle.getShape());
             } else if (e.getActionCommand().equals(ShapeToolItem.ellipse.name())) {
-                drawingPanel.setCurrentShape(new DrawEllipse());
+                drawingPanel.setCurrentShape(ShapeToolItem.ellipse.getShape());
             } else if (e.getActionCommand().equals(ShapeToolItem.line.name())) {
-                drawingPanel.setCurrentShape(new DrawLine());
+                drawingPanel.setCurrentShape(ShapeToolItem.line.getShape());
             } else if (e.getActionCommand().equals(ShapeToolItem.polygon.name())) {
-                drawingPanel.setCurrentShape(new DrawPolygon());
+                drawingPanel.setCurrentShape(ShapeToolItem.polygon.getShape());
             }
         }
     }

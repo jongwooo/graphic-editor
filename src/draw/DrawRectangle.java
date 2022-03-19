@@ -16,8 +16,13 @@ public class DrawRectangle extends DrawShape {
     }
 
     @Override
-    public void finishDraw(Point finishPoint) {
+    public void setCoordinate(Point currentPoint) {
         Rectangle rectangle = (Rectangle) shape;
-        rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, finishPoint.x, finishPoint.y);
+        rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
+    }
+
+    @Override
+    public DrawShape newShape() {
+        return new DrawRectangle();
     }
 }

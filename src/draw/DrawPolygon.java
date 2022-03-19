@@ -16,7 +16,12 @@ public class DrawPolygon extends DrawShape {
     }
 
     @Override
-    public void finishDraw(Point finishPoint) {
+    public void setCoordinate(Point currentPoint) {
 
+    }
+
+    @Override
+    public DrawShape newShape() {
+        return new DrawPolygon();
     }
 }
