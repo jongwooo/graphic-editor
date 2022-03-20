@@ -15,13 +15,16 @@ public class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private DrawShape currentShape;
+    private MouseHandler mouseHandler;
     private Vector<DrawShape> shapes;
 
     public DrawingPanel() {
         this.setBackground(Color.WHITE);
+        this.setForeground(Color.BLACK);
+
         shapes = new Vector<DrawShape>();
 
-        MouseHandler mouseHandler = new MouseHandler();
+        mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
         this.addMouseMotionListener(mouseHandler);
     }
@@ -40,17 +43,17 @@ public class DrawingPanel extends JPanel {
         });
     }
 
+    private void startDraw(Point startPoint) {
+        currentShape = currentShape.newShape();
+        currentShape.startDraw(startPoint);
+    }
+
     private void draw(Point point) {
         Graphics2D graphics2D = (Graphics2D) getGraphics();
         graphics2D.setXORMode(graphics2D.getBackground());
         currentShape.draw(graphics2D);
         currentShape.setCoordinate(point);
         currentShape.draw(graphics2D);
-    }
-
-    private void startDraw(Point startPoint) {
-        currentShape = currentShape.newShape();
-        currentShape.startDraw(startPoint);
     }
 
     private void finishDraw(DrawShape currentShape) {
