@@ -15,12 +15,13 @@ public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
 
     private DrawingPanel drawingPanel;
+    private ActionHandler actionHandler;
+    private ButtonGroup toolBtnGroup;
 
     public ToolBar(String toolBarTitle) {
         super(toolBarTitle);
-
-        ActionHandler actionHandler = new ActionHandler();
-        ButtonGroup toolBtnGroup = new ButtonGroup();
+        actionHandler = new ActionHandler();
+        toolBtnGroup = new ButtonGroup();
 
         Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton radioButton = new JRadioButton();
