@@ -20,17 +20,18 @@ public class MainFrame extends JFrame {
 
         this.setLayout(new BorderLayout());
 
-        this.menuBar = new MenuBar();
-        this.setJMenuBar(this.menuBar);
+        menuBar = new MenuBar();
+        this.setJMenuBar(menuBar);
 
-        this.toolBar = new ToolBar(Constant.TOOLBAR_TITLE);
-        this.add(BorderLayout.NORTH, this.toolBar);
+        toolBar = new ToolBar(Constant.TOOLBAR_TITLE);
+        this.add(BorderLayout.NORTH, toolBar);
 
-        this.drawingPanel = new DrawingPanel();
-        this.add(BorderLayout.CENTER, this.drawingPanel);
+        drawingPanel = new DrawingPanel();
+        this.add(BorderLayout.CENTER, drawingPanel);
     }
 
     public void initialize() {
+        menuBar.initialize(drawingPanel);
         toolBar.initialize(drawingPanel);
 
         setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
