@@ -1,6 +1,6 @@
 package tool;
 
-import global.Constant.ShapeToolItem;
+import global.tool.ShapeToolItem;
 import panel.DrawingPanel;
 
 import javax.swing.ImageIcon;

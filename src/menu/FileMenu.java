@@ -1,6 +1,6 @@
 package menu;
 
-import global.Constant;
+import global.menu.FileMenuItem;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -12,7 +12,7 @@ public class FileMenu extends JMenu {
     public FileMenu(String menuTitle) {
         super(menuTitle);
 
-        Arrays.stream(Constant.FileMenuItem.values()).forEach(fileMenuItem -> {
+        Arrays.stream(FileMenuItem.values()).forEach(fileMenuItem -> {
             JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
             this.add(menuItem);
 

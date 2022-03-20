@@ -1,6 +1,6 @@
 package menu;
 
-import global.Constant;
+import global.menu.EditMenuItem;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -12,7 +12,7 @@ public class EditMenu extends JMenu {
     public EditMenu(String menuTitle) {
         super(menuTitle);
 
-        Arrays.stream(Constant.EditMenuItem.values()).forEach(editMenuItem -> {
+        Arrays.stream(EditMenuItem.values()).forEach(editMenuItem -> {
             JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
             this.add(menuItem);
 
