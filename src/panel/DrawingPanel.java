@@ -2,14 +2,14 @@ package panel;
 
 import draw.DrawShape;
 
+import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
-import javax.swing.JPanel;
-import javax.swing.event.MouseInputAdapter;
 
 public class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -61,18 +61,40 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
-    private class MouseHandler extends MouseInputAdapter {
+    private class MouseHandler implements MouseInputListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
         @Override
         public void mousePressed(MouseEvent e) {
             startDraw(e.getPoint());
         }
 
         @Override
-        public void mouseDragged(MouseEvent e) { draw(e.getPoint());}
+        public void mouseDragged(MouseEvent e) {
+            draw(e.getPoint());
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+
+        }
 
         @Override
         public void mouseReleased(MouseEvent e) {
             finishDraw(currentShape);
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 }
