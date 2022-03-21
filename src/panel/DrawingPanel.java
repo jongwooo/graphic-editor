@@ -56,7 +56,7 @@ public class DrawingPanel extends JPanel {
         currentShape.draw(graphics2D);
     }
 
-    private void finishDraw(DrawShape currentShape) {
+    private void finishDraw() {
         shapes.add(currentShape);
         repaint();
     }
@@ -84,7 +84,7 @@ public class DrawingPanel extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            finishDraw(currentShape);
+            finishDraw();
         }
 
         @Override
