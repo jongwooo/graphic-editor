@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
-public class ActionHandler implements ActionListener {
+public class MenuBarHandler implements ActionListener {
     private static final long serialVersionUID = 1L;
     private DrawingPanel drawingPanel;
 

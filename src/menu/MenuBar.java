@@ -10,19 +10,19 @@ public class MenuBar extends JMenuBar {
 
     private FileMenu fileMenu;
     private EditMenu editMenu;
-    private ActionHandler actionHandler;
+    private MenuBarHandler menuBarHandler;
 
     public MenuBar() {
-        actionHandler = new ActionHandler();
+        menuBarHandler = new MenuBarHandler();
 
-        fileMenu = new FileMenu(Constant.FILE_MENU_TITLE, actionHandler);
+        fileMenu = new FileMenu(Constant.FILE_MENU_TITLE, menuBarHandler);
         this.add(fileMenu);
 
-        editMenu = new EditMenu(Constant.EDIT_MENU_TITLE, actionHandler);
+        editMenu = new EditMenu(Constant.EDIT_MENU_TITLE, menuBarHandler);
         this.add(editMenu);
     }
 
     public void initialize(DrawingPanel drawingPanel) {
-        actionHandler.initialize(drawingPanel);
+        menuBarHandler.initialize(drawingPanel);
     }
 }
