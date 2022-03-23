@@ -1,17 +1,16 @@
 package panel;
 
+import draw.DrawPolygon;
 import draw.DrawShape;
+import global.draw.DrawMode;
 
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputAdapter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.Vector;
 
 public class DrawingPanel extends JPanel {
@@ -20,12 +19,14 @@ public class DrawingPanel extends JPanel {
     private DrawShape currentShape;
     private MouseHandler mouseHandler;
     private Vector<DrawShape> shapes;
+    private DrawMode drawMode;
 
     public DrawingPanel() {
         this.setBackground(Color.WHITE);
         this.setForeground(Color.BLACK);
 
         shapes = new Vector<DrawShape>();
+        drawMode = DrawMode.CURSOR;
 
         mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
@@ -35,6 +36,7 @@ public class DrawingPanel extends JPanel {
 
     public void setCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
+        this.drawMode = DrawMode.CURSOR;
     }
 
     @Override
@@ -60,50 +62,57 @@ public class DrawingPanel extends JPanel {
         currentShape.draw(graphics2D);
     }
 
+    private void keepDraw(Point currentPoint) {
+        ((DrawPolygon) currentShape).keepDraw(currentPoint);
+    }
+
     private void finishDraw() {
         shapes.add(currentShape);
+        drawMode = DrawMode.CURSOR;
         repaint();
     }
 
-    private class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
+    private class MouseHandler extends MouseInputAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                if (drawMode == DrawMode.POLYGON) {
+                    if (e.getClickCount() == 1) {
+                        keepDraw(e.getPoint());
+                    } else if (e.getClickCount() >= 2) {
+                        finishDraw();
+                    }
+                }
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            startDraw(e.getPoint());
+            if (drawMode == DrawMode.CURSOR) {
+                startDraw(e.getPoint());
+                drawMode = currentShape instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL;
+            }
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            draw(e.getPoint());
+            if (drawMode == DrawMode.GENERAL) {
+                draw(e.getPoint());
+            }
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-
+            if (drawMode == DrawMode.POLYGON) {
+                draw(e.getPoint());
+            }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            finishDraw();
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
-
+            if (drawMode == DrawMode.GENERAL) {
+                finishDraw();
+            }
         }
     }
 }
