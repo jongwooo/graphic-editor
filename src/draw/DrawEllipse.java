@@ -4,8 +4,11 @@ import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
 public class DrawEllipse extends DrawShape{
+    private Ellipse2D ellipse2D;
+
     public DrawEllipse() {
         super(new Ellipse2D.Double());
+        ellipse2D = (Ellipse2D) shape;
     }
 
     @Override
@@ -15,7 +18,6 @@ public class DrawEllipse extends DrawShape{
 
     @Override
     public void setCoordinate(Point currentPoint) {
-        Ellipse2D ellipse2D = (Ellipse2D) shape;
         ellipse2D.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 

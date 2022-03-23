@@ -4,8 +4,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class DrawRectangle extends DrawShape {
+    private Rectangle rectangle;
+
     public DrawRectangle() {
         super(new Rectangle());
+        rectangle = (Rectangle) shape;
     }
 
     @Override
@@ -15,7 +18,6 @@ public class DrawRectangle extends DrawShape {
 
     @Override
     public void setCoordinate(Point currentPoint) {
-        Rectangle rectangle = (Rectangle) shape;
         rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 

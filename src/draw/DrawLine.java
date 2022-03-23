@@ -4,8 +4,11 @@ import java.awt.Point;
 import java.awt.geom.Line2D;
 
 public class DrawLine extends DrawShape {
+    private Line2D line2D;
+
     public DrawLine() {
         super(new Line2D.Double());
+        line2D = (Line2D) shape;
     }
 
     @Override
@@ -15,7 +18,6 @@ public class DrawLine extends DrawShape {
 
     @Override
     public void setCoordinate(Point currentPoint) {
-        Line2D line2D = (Line2D) shape;
         line2D.setLine(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 
