@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class DrawRectangle extends DrawShape {
-    private static final long serialVersionUID = 1L;
-
     public DrawRectangle() {
         super(new Rectangle());
     }

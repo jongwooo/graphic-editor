@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.Polygon;
 
 public class DrawPolygon extends DrawShape {
-    private static final long serialVersionUID = 1L;
-
     public DrawPolygon() {
         super(new Polygon());
     }

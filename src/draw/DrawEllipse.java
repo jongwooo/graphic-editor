@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
 public class DrawEllipse extends DrawShape{
-    private static final long serialVersionUID = 1L;
-
     public DrawEllipse() {
         super(new Ellipse2D.Double());
     }
