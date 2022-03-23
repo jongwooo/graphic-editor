@@ -3,12 +3,15 @@ package panel;
 import draw.DrawShape;
 
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Vector;
 
 public class DrawingPanel extends JPanel {
@@ -27,6 +30,7 @@ public class DrawingPanel extends JPanel {
         mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
         this.addMouseMotionListener(mouseHandler);
+        this.addMouseWheelListener(mouseHandler);
     }
 
     public void setCurrentShape(DrawShape currentShape) {
@@ -61,7 +65,7 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
-    private class MouseHandler implements MouseInputListener {
+    private class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
         @Override
         public void mouseClicked(MouseEvent e) {
 
@@ -94,6 +98,11 @@ public class DrawingPanel extends JPanel {
 
         @Override
         public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
 
         }
     }
