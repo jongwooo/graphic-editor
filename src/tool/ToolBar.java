@@ -24,6 +24,7 @@ public class ToolBar extends JToolBar {
 
         Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton shapeToolBtn = new JRadioButton();
+            shapeToolBtn.setToolTipText(shapeToolItem.name());
             shapeToolBtn.setActionCommand(shapeToolItem.name());
             shapeToolBtn.addActionListener(toolBarHandler);
             shapeToolBtn.setIcon(new ImageIcon("src/image/" + shapeToolItem.name() + ".png"));
@@ -32,8 +33,11 @@ public class ToolBar extends JToolBar {
             this.add(shapeToolBtn);
         });
 
+        this.addSeparator();
+
         Arrays.stream(ColorToolItem.values()).forEach(colorToolItem -> {
             JButton colorToolBtn = new JButton();
+            colorToolBtn.setToolTipText(colorToolItem.name());
             colorToolBtn.setActionCommand(colorToolItem.name());
             colorToolBtn.addActionListener(toolBarHandler);
             colorToolBtn.setIcon(new ImageIcon("src/image/" + colorToolItem.name() + ".png"));
