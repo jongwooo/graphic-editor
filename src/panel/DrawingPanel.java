@@ -2,8 +2,10 @@ package panel;
 
 import draw.DrawPolygon;
 import draw.DrawShape;
+import global.Constant;
 import global.draw.DrawMode;
 
+import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.Color;
@@ -18,20 +20,22 @@ public class DrawingPanel extends JPanel {
 
     private DrawShape currentShape;
     private MouseHandler mouseHandler;
-    private Vector<DrawShape> shapes;
     private DrawMode drawMode;
+    private Vector<DrawShape> shapes;
+    private Color outlineColor, fillColor;
 
     public DrawingPanel() {
         this.setBackground(Color.WHITE);
         this.setForeground(Color.BLACK);
 
         shapes = new Vector<DrawShape>();
+        outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
+        fillColor = Constant.DEFAULT_FILL_COLOR;
         drawMode = DrawMode.CURSOR;
 
         mouseHandler = new MouseHandler();
         this.addMouseListener(mouseHandler);
         this.addMouseMotionListener(mouseHandler);
-        this.addMouseWheelListener(mouseHandler);
     }
 
     public void setCurrentShape(DrawShape currentShape) {
@@ -52,6 +56,8 @@ public class DrawingPanel extends JPanel {
     private void startDraw(Point startPoint) {
         currentShape = currentShape.newShape();
         currentShape.startDraw(startPoint);
+        currentShape.setOutlineColor(outlineColor);
+        currentShape.setFillColor(fillColor);
     }
 
     private void draw(Point point) {
@@ -70,6 +76,18 @@ public class DrawingPanel extends JPanel {
         shapes.add(currentShape);
         drawMode = DrawMode.CURSOR;
         repaint();
+    }
+
+    public Color setColor(Color defaultColor) {
+        return JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
+    }
+
+    public void setOutlineColor() {
+        this.outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
+    }
+
+    public void setFillColor() {
+        this.fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
     }
 
     private class MouseHandler extends MouseInputAdapter {
