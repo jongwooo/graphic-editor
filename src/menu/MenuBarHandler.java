@@ -68,6 +68,7 @@ public class MenuBarHandler implements ActionListener {
     public void ungroupItem() {
 
     }
+
     public void invokeMethod(String methodName) {
         try {
             this.getClass().getMethod(methodName).invoke(this);
