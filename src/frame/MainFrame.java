@@ -2,11 +2,11 @@ package frame;
 
 import global.Constant;
 import menu.MenuBar;
-import tool.ToolBar;
 import panel.DrawingPanel;
+import tool.ToolBar;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -35,6 +35,7 @@ public class MainFrame extends JFrame {
         toolBar.initialize(drawingPanel);
 
         setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
