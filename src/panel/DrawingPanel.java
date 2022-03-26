@@ -25,8 +25,7 @@ public class DrawingPanel extends JPanel {
     private Color outlineColor, fillColor;
 
     public DrawingPanel() {
-        this.setBackground(Color.WHITE);
-        this.setForeground(Color.BLACK);
+        setBackground(Color.WHITE);
 
         shapes = new Vector<DrawShape>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -34,13 +33,13 @@ public class DrawingPanel extends JPanel {
         drawMode = DrawMode.CURSOR;
 
         mouseHandler = new MouseHandler();
-        this.addMouseListener(mouseHandler);
-        this.addMouseMotionListener(mouseHandler);
+        addMouseListener(mouseHandler);
+        addMouseMotionListener(mouseHandler);
     }
 
     public void setCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
-        this.drawMode = DrawMode.CURSOR;
+        drawMode = DrawMode.CURSOR;
     }
 
     @Override
@@ -83,11 +82,11 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setOutlineColor() {
-        this.outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
+        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
     }
 
     public void setFillColor() {
-        this.fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
+        fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
     }
 
     private class MouseHandler extends MouseInputAdapter {

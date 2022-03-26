@@ -22,10 +22,10 @@ public enum FileMenuItem implements MenuItem {
     }
 
     public String getMenuName() {
-        return this.menuName;
+        return menuName;
     }
 
     public boolean separated() {
-        return this.isSeparated;
+        return isSeparated;
     }
 }

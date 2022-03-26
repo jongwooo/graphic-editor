@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
     public MainFrame(String frameTitle) {
         super(frameTitle);
 
-        this.setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
         menuBar = new MenuBar();
         this.setJMenuBar(menuBar);

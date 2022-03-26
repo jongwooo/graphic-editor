@@ -14,11 +14,11 @@ public enum ShapeToolItem {
 
     private DrawShape currentShape;
 
-    private ShapeToolItem(DrawShape shape) {
-        this.currentShape = shape;
+    private ShapeToolItem(DrawShape currentShape) {
+        this.currentShape = currentShape;
     }
 
     public DrawShape getShape() {
-        return this.currentShape;
+        return currentShape;
     }
 }
