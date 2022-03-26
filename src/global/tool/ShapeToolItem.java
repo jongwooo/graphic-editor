@@ -15,7 +15,9 @@ public enum ShapeToolItem {
 
     private DrawShape currentShape;
 
-    private ShapeToolItem() {}
+    private ShapeToolItem() {
+        this.currentShape = null;
+    }
 
     private ShapeToolItem(DrawShape currentShape) {
         this.currentShape = currentShape;
