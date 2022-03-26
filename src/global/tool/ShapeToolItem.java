@@ -7,12 +7,15 @@ import draw.DrawRectangle;
 import draw.DrawShape;
 
 public enum ShapeToolItem {
+    cursor(),
     rectangle(new DrawRectangle()),
     ellipse(new DrawEllipse()),
     line(new DrawLine()),
     polygon(new DrawPolygon());
 
     private DrawShape currentShape;
+
+    private ShapeToolItem() {}
 
     private ShapeToolItem(DrawShape currentShape) {
         this.currentShape = currentShape;

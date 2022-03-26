@@ -106,8 +106,10 @@ public class DrawingPanel extends JPanel {
         @Override
         public void mousePressed(MouseEvent e) {
             if (drawMode == DrawMode.CURSOR) {
-                startDraw(e.getPoint());
-                drawMode = currentShape instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL;
+                if (currentShape != null) {
+                    startDraw(e.getPoint());
+                    drawMode = currentShape instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL;
+                }
             }
         }
 

@@ -14,6 +14,10 @@ public class ToolBarHandler implements ActionListener {
         this.drawingPanel = drawingPanel;
     }
 
+    public void cursor() {
+        drawingPanel.setCurrentShape(null);
+    }
+
     public void rectangle() {
         drawingPanel.setCurrentShape(ShapeToolItem.rectangle.getShape());
     }
