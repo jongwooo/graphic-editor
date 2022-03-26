@@ -13,7 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -21,13 +21,13 @@ public class DrawingPanel extends JPanel {
     private DrawShape currentShape;
     private MouseHandler mouseHandler;
     private DrawMode drawMode;
-    private Vector<DrawShape> shapes;
+    private ArrayList<DrawShape> shapes;
     private Color outlineColor, fillColor;
 
     public DrawingPanel() {
         setBackground(Color.WHITE);
 
-        shapes = new Vector<DrawShape>();
+        shapes = new ArrayList<DrawShape>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         drawMode = DrawMode.CURSOR;
