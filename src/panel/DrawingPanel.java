@@ -82,6 +82,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void eraseShape() {
+        stopDraw();
         if (shapes.size() >= 1) {
             shapes.remove(shapes.size() - 1);
             repaint();
@@ -89,6 +90,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void cleanPanel() {
+        stopDraw();
         shapes.clear();
         repaint();
     }
