@@ -34,6 +34,14 @@ public class ToolBarHandler implements ActionListener {
         drawingPanel.setCurrentShape(ShapeToolItem.polygon.getShape());
     }
 
+    public void erase() {
+        drawingPanel.eraseShape();
+    }
+
+    public void clean() {
+        drawingPanel.cleanPanel();
+    }
+
     public void outline() {
         drawingPanel.setOutlineColor();
     }

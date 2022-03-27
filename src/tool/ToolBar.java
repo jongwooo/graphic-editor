@@ -1,7 +1,7 @@
 package tool;
 
-import global.tool.ColorToolItem;
 import global.tool.ShapeToolItem;
+import global.tool.StateToolItem;
 import panel.DrawingPanel;
 
 import javax.swing.ButtonGroup;
@@ -35,16 +35,16 @@ public class ToolBar extends JToolBar {
 
         this.addSeparator();
 
-        Arrays.stream(ColorToolItem.values()).forEach(colorToolItem -> {
-            JButton colorToolBtn = new JButton();
-            colorToolBtn.setToolTipText(colorToolItem.name());
-            colorToolBtn.setActionCommand(colorToolItem.name());
-            colorToolBtn.addActionListener(toolBarHandler);
-            colorToolBtn.setIcon(new ImageIcon("src/image/" + colorToolItem.name() + ".png"));
-            colorToolBtn.setBorderPainted(false);
-            colorToolBtn.setFocusPainted(false);
-            colorToolBtn.setContentAreaFilled(false);
-            this.add(colorToolBtn);
+        Arrays.stream(StateToolItem.values()).forEach(stateToolItem -> {
+            JButton stateToolBtn = new JButton();
+            stateToolBtn.setToolTipText(stateToolItem.name());
+            stateToolBtn.setActionCommand(stateToolItem.name());
+            stateToolBtn.addActionListener(toolBarHandler);
+            stateToolBtn.setIcon(new ImageIcon("src/image/" + stateToolItem.name() + ".png"));
+            stateToolBtn.setBorderPainted(false);
+            stateToolBtn.setFocusPainted(false);
+            stateToolBtn.setContentAreaFilled(false);
+            this.add(stateToolBtn);
         });
     }
 

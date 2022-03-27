@@ -81,6 +81,18 @@ public class DrawingPanel extends JPanel {
         stopDraw();
     }
 
+    public void eraseShape() {
+        if (shapes.size() >= 1) {
+            shapes.remove(shapes.size() - 1);
+            repaint();
+        }
+    }
+
+    public void cleanPanel() {
+        shapes.clear();
+        repaint();
+    }
+
     private Color setColor(Color defaultColor) {
         return JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
     }
