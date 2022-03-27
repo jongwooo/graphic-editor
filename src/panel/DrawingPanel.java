@@ -38,8 +38,8 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setCurrentShape(DrawShape currentShape) {
+        stopDraw();
         this.currentShape = currentShape;
-        drawMode = DrawMode.CURSOR;
     }
 
     @Override
@@ -71,21 +71,27 @@ public class DrawingPanel extends JPanel {
         ((DrawPolygon) currentShape).keepDraw(currentPoint);
     }
 
-    private void finishDraw() {
-        shapes.add(currentShape);
+    public void stopDraw() {
         drawMode = DrawMode.CURSOR;
         repaint();
     }
 
-    public Color setColor(Color defaultColor) {
+    private void finishDraw() {
+        shapes.add(currentShape);
+        stopDraw();
+    }
+
+    private Color setColor(Color defaultColor) {
         return JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
     }
 
     public void setOutlineColor() {
+        stopDraw();
         outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
     }
 
     public void setFillColor() {
+        stopDraw();
         fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
     }
 
