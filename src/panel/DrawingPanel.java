@@ -38,8 +38,8 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setCurrentShape(DrawShape currentShape) {
-        stopDraw();
         this.currentShape = currentShape;
+        repaint();
     }
 
     @Override
@@ -50,6 +50,12 @@ public class DrawingPanel extends JPanel {
         shapes.forEach(shape -> {
             shape.draw(graphics2D);
         });
+    }
+
+    @Override
+    public void repaint() {
+        super.repaint();
+        drawMode = DrawMode.CURSOR;
     }
 
     private void startDraw(Point startPoint) {
@@ -71,26 +77,19 @@ public class DrawingPanel extends JPanel {
         ((DrawPolygon) currentShape).keepDraw(currentPoint);
     }
 
-    public void stopDraw() {
-        drawMode = DrawMode.CURSOR;
+    private void finishDraw() {
+        shapes.add(currentShape);
         repaint();
     }
 
-    private void finishDraw() {
-        shapes.add(currentShape);
-        stopDraw();
-    }
-
     public void eraseShape() {
-        stopDraw();
         if (shapes.size() >= 1) {
             shapes.remove(shapes.size() - 1);
-            repaint();
         }
+        repaint();
     }
 
     public void cleanPanel() {
-        stopDraw();
         shapes.clear();
         repaint();
     }
@@ -100,13 +99,13 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setOutlineColor() {
-        stopDraw();
         outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
+        repaint();
     }
 
     public void setFillColor() {
-        stopDraw();
         fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
+        repaint();
     }
 
     private class MouseHandler extends MouseInputAdapter {
