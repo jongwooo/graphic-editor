@@ -21,10 +21,6 @@ public abstract class DrawShape {
         graphics2D.draw(shape);
     }
 
-    public abstract void startDraw(Point startPoint);
-    public abstract void setCoordinate(Point currentPoint);
-    public abstract DrawShape newShape();
-
     public void setOutlineColor(Color outlineColor) {
         this.outlineColor = outlineColor;
     }
@@ -32,4 +28,8 @@ public abstract class DrawShape {
     public void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
     }
+
+    public abstract void startDraw(Point startPoint);
+    public abstract void setCoordinate(Point currentPoint);
+    public abstract DrawShape newShape();
 }
