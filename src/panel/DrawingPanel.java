@@ -94,17 +94,18 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
-    private Color setColor(Color defaultColor) {
-        return JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
+    private Color setColor(Color defaultColor, Color currentColor) {
+        Color selectedColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
+        return selectedColor != null ? selectedColor : currentColor;
     }
 
     public void setOutlineColor() {
-        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR);
+        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
         repaint();
     }
 
     public void setFillColor() {
-        fillColor = setColor(Constant.DEFAULT_FILL_COLOR);
+        fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
         repaint();
     }
 
