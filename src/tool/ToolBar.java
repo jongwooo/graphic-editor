@@ -29,6 +29,13 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
     }
 
+    public void initialize(DrawingPanel drawingPanel) {
+        toolBarHandler.initialize(drawingPanel);
+
+        setBorderPainted(true);
+        setDefaultBtn();
+    }
+
     private void createShapeToolBtn() {
         Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton shapeToolBtn = new JRadioButton();
@@ -54,13 +61,6 @@ public class ToolBar extends JToolBar {
             stateToolBtn.setContentAreaFilled(false);
             this.add(stateToolBtn);
         });
-    }
-
-    public void initialize(DrawingPanel drawingPanel) {
-        toolBarHandler.initialize(drawingPanel);
-
-        setBorderPainted(true);
-        setDefaultBtn();
     }
 
     private void setDefaultBtn() {
