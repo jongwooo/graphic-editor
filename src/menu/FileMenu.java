@@ -12,7 +12,10 @@ public class FileMenu extends JMenu {
 
     public FileMenu(MenuBarHandler menuBarHandler) {
         super(Constant.FILE_MENU_TITLE);
+        createFileMenu(menuBarHandler);
+    }
 
+    private void createFileMenu(MenuBarHandler menuBarHandler) {
         Arrays.stream(FileMenuItem.values()).forEach(fileMenuItem -> {
             JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
             menuItem.setActionCommand(fileMenuItem.name());
