@@ -23,10 +23,10 @@ public class ToolBar extends JToolBar {
         toolBarHandler = new ToolBarHandler();
         shapeToolBtnGroup = new ButtonGroup();
 
-        createShapeToolBtn();
+        createShapeToolBtn(toolBarHandler);
         this.addSeparator();
 
-        createStateToolBtn();
+        createStateToolBtn(toolBarHandler);
         this.addSeparator();
     }
 
@@ -37,7 +37,7 @@ public class ToolBar extends JToolBar {
         setDefaultBtn();
     }
 
-    private void createShapeToolBtn() {
+    private void createShapeToolBtn(ToolBarHandler toolBarHandler) {
         Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton shapeToolBtn = new JRadioButton();
             shapeToolBtn.setToolTipText(shapeToolItem.name());
@@ -50,7 +50,7 @@ public class ToolBar extends JToolBar {
         });
     }
 
-    private void createStateToolBtn() {
+    private void createStateToolBtn(ToolBarHandler toolBarHandler) {
         Arrays.stream(StateToolItem.values()).forEach(stateToolItem -> {
             JButton stateToolBtn = new JButton();
             stateToolBtn.setToolTipText(stateToolItem.name());
