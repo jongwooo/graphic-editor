@@ -83,7 +83,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void eraseShape() {
-        if (shapes.size() >= 1) {
+        if (shapes.size() >= 1 && drawMode != DrawMode.POLYGON) {
             shapes.remove(shapes.size() - 1);
         }
         repaint();
