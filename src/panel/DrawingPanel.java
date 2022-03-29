@@ -7,12 +7,10 @@ import global.draw.DrawMode;
 
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputAdapter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel {
@@ -33,8 +31,21 @@ public class DrawingPanel extends JPanel {
         fillColor = Constant.DEFAULT_FILL_COLOR;
 
         mouseHandler = new MouseHandler();
+        mouseHandler.initialize(this);
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
+    }
+
+    public DrawMode getDrawMode() {
+        return drawMode;
+    }
+
+    public void setDrawMode(DrawMode drawMode) {
+        this.drawMode = drawMode;
+    }
+
+    public DrawShape getCurrentShape() {
+        return currentShape;
     }
 
     public void setCurrentShape(DrawShape currentShape) {
@@ -58,14 +69,14 @@ public class DrawingPanel extends JPanel {
         drawMode = DrawMode.CURSOR;
     }
 
-    private void startDraw(Point startPoint) {
+    public void startDraw(Point startPoint) {
         currentShape = currentShape.newShape();
         currentShape.startDraw(startPoint);
         currentShape.setOutlineColor(outlineColor);
         currentShape.setFillColor(fillColor);
     }
 
-    private void draw(Point point) {
+    public void draw(Point point) {
         Graphics2D graphics2D = (Graphics2D) getGraphics();
         graphics2D.setXORMode(graphics2D.getBackground());
         currentShape.draw(graphics2D);
@@ -73,11 +84,11 @@ public class DrawingPanel extends JPanel {
         currentShape.draw(graphics2D);
     }
 
-    private void keepDraw(Point currentPoint) {
+    public void keepDraw(Point currentPoint) {
         ((DrawPolygon) currentShape).keepDraw(currentPoint);
     }
 
-    private void finishDraw() {
+    public void finishDraw() {
         shapes.add(currentShape);
         repaint();
     }
@@ -107,51 +118,5 @@ public class DrawingPanel extends JPanel {
     public void setFillColor() {
         fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
         repaint();
-    }
-
-    private class MouseHandler extends MouseInputAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                if (drawMode == DrawMode.POLYGON) {
-                    if (e.getClickCount() == 1) {
-                        keepDraw(e.getPoint());
-                    } else if (e.getClickCount() >= 2) {
-                        finishDraw();
-                    }
-                }
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            if (drawMode == DrawMode.CURSOR) {
-                if (currentShape != null) {
-                    startDraw(e.getPoint());
-                    drawMode = currentShape instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL;
-                }
-            }
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            if (drawMode == DrawMode.GENERAL) {
-                draw(e.getPoint());
-            }
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            if (drawMode == DrawMode.POLYGON) {
-                draw(e.getPoint());
-            }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            if (drawMode == DrawMode.GENERAL) {
-                finishDraw();
-            }
-        }
     }
 }
