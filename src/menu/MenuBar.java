@@ -1,6 +1,5 @@
 package menu;
 
-import global.Constant;
 import panel.DrawingPanel;
 
 import javax.swing.JMenuBar;
@@ -15,10 +14,10 @@ public class MenuBar extends JMenuBar {
     public MenuBar() {
         menuBarHandler = new MenuBarHandler();
 
-        fileMenu = new FileMenu(Constant.FILE_MENU_TITLE, menuBarHandler);
+        fileMenu = new FileMenu(menuBarHandler);
         this.add(fileMenu);
 
-        editMenu = new EditMenu(Constant.EDIT_MENU_TITLE, menuBarHandler);
+        editMenu = new EditMenu(menuBarHandler);
         this.add(editMenu);
     }
 

@@ -1,5 +1,6 @@
 package tool;
 
+import global.Constant;
 import global.tool.ShapeToolItem;
 import global.tool.StateToolItem;
 import panel.DrawingPanel;
@@ -17,8 +18,8 @@ public class ToolBar extends JToolBar {
     private ToolBarHandler toolBarHandler;
     private ButtonGroup shapeToolBtnGroup;
 
-    public ToolBar(String toolBarTitle) {
-        super(toolBarTitle);
+    public ToolBar() {
+        super(Constant.TOOLBAR_TITLE);
         toolBarHandler = new ToolBarHandler();
         shapeToolBtnGroup = new ButtonGroup();
 

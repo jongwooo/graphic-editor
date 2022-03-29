@@ -15,15 +15,15 @@ public class MainFrame extends JFrame {
     private ToolBar toolBar;
     private DrawingPanel drawingPanel;
 
-    public MainFrame(String frameTitle) {
-        super(frameTitle);
+    public MainFrame() {
+        super(Constant.MAINFRAME_TITLE);
 
         setLayout(new BorderLayout());
 
         menuBar = new MenuBar();
         this.setJMenuBar(menuBar);
 
-        toolBar = new ToolBar(Constant.TOOLBAR_TITLE);
+        toolBar = new ToolBar();
         this.add(BorderLayout.NORTH, toolBar);
 
         drawingPanel = new DrawingPanel();
