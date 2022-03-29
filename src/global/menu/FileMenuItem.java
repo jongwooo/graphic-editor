@@ -3,10 +3,10 @@ package global.menu;
 public enum FileMenuItem implements MenuItem {
     newFile("New"),
     openFile("Open File..."),
-    closeEditor("Close Editor", true),
+    closeWindow("Close Window", true),
     saveFile("Save"),
     saveFileAs("Save As..."),
-    printFile("Print...", true),
+    print("Print...", true),
     quitEditor("Quit");
 
     private String menuName;

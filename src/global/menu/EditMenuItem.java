@@ -6,8 +6,8 @@ public enum EditMenuItem implements MenuItem {
     cutItem("Cut"),
     copyItem("Copy"),
     pasteItem("Paste", true),
-    groupItem("Group"),
-    ungroupItem("Ungroup");
+    groupItems("Group"),
+    ungroupItems("Ungroup");
 
     private String menuName;
     private boolean isSeparated;

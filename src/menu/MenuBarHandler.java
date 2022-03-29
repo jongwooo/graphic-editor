@@ -21,7 +21,7 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void closeEditor() {
+    public void closeWindow() {
 
     }
 
@@ -33,7 +33,7 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void printFile() {
+    public void print() {
 
     }
 
@@ -61,11 +61,11 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void groupItem() {
+    public void groupItems() {
 
     }
 
-    public void ungroupItem() {
+    public void ungroupItems() {
 
     }
 
