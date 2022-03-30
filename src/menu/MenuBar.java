@@ -21,7 +21,7 @@ public class MenuBar extends JMenuBar {
         this.add(editMenu);
     }
 
-    public void initialize(DrawingPanel drawingPanel) {
-        menuBarHandler.initialize(drawingPanel);
+    public void associate(DrawingPanel drawingPanel) {
+        menuBarHandler.associate(drawingPanel);
     }
 }

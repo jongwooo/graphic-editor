@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 public class ToolBarHandler implements ActionListener {
     private DrawingPanel drawingPanel;
 
-    public void initialize(DrawingPanel drawingPanel) {
+    public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;
     }
 

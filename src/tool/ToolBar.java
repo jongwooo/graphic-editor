@@ -23,6 +23,8 @@ public class ToolBar extends JToolBar {
         toolBarHandler = new ToolBarHandler();
         shapeToolBtnGroup = new ButtonGroup();
 
+        setBorderPainted(true);
+
         createShapeToolBtn(toolBarHandler);
         this.addSeparator();
 
@@ -30,10 +32,11 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
     }
 
-    public void initialize(DrawingPanel drawingPanel) {
-        toolBarHandler.initialize(drawingPanel);
+    public void associate(DrawingPanel drawingPanel) {
+        toolBarHandler.associate(drawingPanel);
+    }
 
-        setBorderPainted(true);
+    public void initialize() {
         setDefaultBtn();
     }
 

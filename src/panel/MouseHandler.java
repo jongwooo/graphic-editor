@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class MouseHandler extends MouseInputAdapter {
     private DrawingPanel drawingPanel;
 
-    public void initialize(DrawingPanel drawingPanel) {
+    public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;
     }
 

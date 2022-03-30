@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 public class MenuBarHandler implements ActionListener {
     private DrawingPanel drawingPanel;
 
-    public void initialize(DrawingPanel drawingPanel) {
+    public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;
     }
 
