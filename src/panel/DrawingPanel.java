@@ -25,17 +25,18 @@ public class DrawingPanel extends JPanel {
     public DrawingPanel() {
         setBackground(Color.WHITE);
 
-        mouseHandler = new MouseHandler();
         drawMode = DrawMode.CURSOR;
         shapes = new ArrayList<DrawShape>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
+
+        mouseHandler = new MouseHandler();
+        addMouseListener(mouseHandler);
+        addMouseMotionListener(mouseHandler);
     }
 
     public void associate() {
         mouseHandler.associate(this);
-        addMouseListener(mouseHandler);
-        addMouseMotionListener(mouseHandler);
     }
 
     public DrawMode getDrawMode() {
