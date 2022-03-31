@@ -7,7 +7,13 @@ import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
 
 public class MouseHandler extends MouseInputAdapter {
+    private static final MouseHandler MOUSE_HANDLER = new MouseHandler();
+
     private DrawingPanel drawingPanel;
+
+    public static MouseHandler createMouseHandler() {
+        return MOUSE_HANDLER;
+    }
 
     public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;

@@ -14,22 +14,21 @@ import java.util.Arrays;
 
 public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
+    private static final ToolBar TOOL_BAR = new ToolBar();
 
     private ToolBarHandler toolBarHandler;
     private ButtonGroup shapeToolBtnGroup;
 
-    public ToolBar() {
+    private ToolBar() {
         super(Constant.TOOLBAR_TITLE);
-        toolBarHandler = new ToolBarHandler();
-        shapeToolBtnGroup = new ButtonGroup();
-
         setBorderPainted(true);
 
-        createShapeToolBtn(toolBarHandler);
-        this.addSeparator();
+        toolBarHandler = ToolBarHandler.createToolBarHandler();
+        shapeToolBtnGroup = new ButtonGroup();
+    }
 
-        createStateToolBtn(toolBarHandler);
-        this.addSeparator();
+    public static ToolBar createToolBar() {
+        return TOOL_BAR;
     }
 
     public void associate(DrawingPanel drawingPanel) {
@@ -37,6 +36,12 @@ public class ToolBar extends JToolBar {
     }
 
     public void initialize() {
+        createShapeToolBtn(toolBarHandler);
+        this.addSeparator();
+
+        createStateToolBtn(toolBarHandler);
+        this.addSeparator();
+
         setDefaultBtn();
     }
 

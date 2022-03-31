@@ -7,7 +7,13 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 public class MenuBarHandler implements ActionListener {
+    private static final MenuBarHandler MENU_BAR_HANDLER = new MenuBarHandler();
+
     private DrawingPanel drawingPanel;
+
+    public static MenuBarHandler createMenuBarHandler() {
+        return MENU_BAR_HANDLER;
+    }
 
     public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;

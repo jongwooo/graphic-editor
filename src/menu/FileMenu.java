@@ -9,13 +9,23 @@ import java.util.Arrays;
 
 public class FileMenu extends JMenu {
     private static final long serialVersionUID = 1L;
+    private static final FileMenu FILE_MENU = new FileMenu();
 
-    public FileMenu(MenuBarHandler menuBarHandler) {
+    private MenuBarHandler menuBarHandler;
+
+    private FileMenu() {
         super(Constant.FILE_MENU_TITLE);
-        createFileMenu(menuBarHandler);
     }
 
-    private void createFileMenu(MenuBarHandler menuBarHandler) {
+    public static FileMenu createFileMenu() {
+        return FILE_MENU;
+    }
+
+    public void associate(MenuBarHandler menuBarHandler) {
+        this.menuBarHandler = menuBarHandler;
+    }
+
+    public void createFileMenuItems() {
         Arrays.stream(FileMenuItem.values()).forEach(fileMenuItem -> {
             JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
             menuItem.setActionCommand(fileMenuItem.name());

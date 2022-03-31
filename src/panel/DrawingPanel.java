@@ -15,28 +15,35 @@ import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel {
     private static final long serialVersionUID = 1L;
+    private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
-    private DrawShape currentShape;
-    private MouseHandler mouseHandler;
     private DrawMode drawMode;
     private ArrayList<DrawShape> shapes;
+    private DrawShape currentShape;
     private Color outlineColor, fillColor;
+    private MouseHandler mouseHandler;
 
-    public DrawingPanel() {
+    private DrawingPanel() {
         setBackground(Color.WHITE);
 
         drawMode = DrawMode.CURSOR;
         shapes = new ArrayList<DrawShape>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
+        mouseHandler = MouseHandler.createMouseHandler();
+    }
 
-        mouseHandler = new MouseHandler();
-        addMouseListener(mouseHandler);
-        addMouseMotionListener(mouseHandler);
+    public static DrawingPanel createDrawingPanel() {
+        return DRAWING_PANEL;
     }
 
     public void associate() {
         mouseHandler.associate(this);
+    }
+
+    public void initialize() {
+        addMouseListener(mouseHandler);
+        addMouseMotionListener(mouseHandler);
     }
 
     public DrawMode getDrawMode() {

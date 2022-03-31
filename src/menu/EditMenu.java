@@ -9,13 +9,23 @@ import java.util.Arrays;
 
 public class EditMenu extends JMenu {
     private static final long serialVersionUID = 1L;
+    private static final EditMenu EDIT_MENU = new EditMenu();
 
-    public EditMenu(MenuBarHandler menuBarHandler) {
+    private MenuBarHandler menuBarHandler;
+
+    private EditMenu() {
         super(Constant.EDIT_MENU_TITLE);
-        createEditMenu(menuBarHandler);
     }
 
-    private void createEditMenu(MenuBarHandler menuBarHandler) {
+    public static EditMenu createEditMenu() {
+        return EDIT_MENU;
+    }
+
+    public void associate(MenuBarHandler menuBarHandler) {
+        this.menuBarHandler = menuBarHandler;
+    }
+
+    public void createEditMenuItems() {
         Arrays.stream(EditMenuItem.values()).forEach(editMenuItem -> {
             JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
             menuItem.setActionCommand(editMenuItem.name());

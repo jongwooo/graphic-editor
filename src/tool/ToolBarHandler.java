@@ -8,7 +8,13 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 public class ToolBarHandler implements ActionListener {
+    private static final ToolBarHandler TOOL_BAR_HANDLER = new ToolBarHandler();
+
     private DrawingPanel drawingPanel;
+
+    public static ToolBarHandler createToolBarHandler() {
+        return TOOL_BAR_HANDLER;
+    }
 
     public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;
