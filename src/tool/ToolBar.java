@@ -8,9 +8,13 @@ import panel.DrawingPanel;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerNumberModel;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
@@ -18,12 +22,17 @@ public class ToolBar extends JToolBar {
 
     private ToolBarHandler toolBarHandler;
     private ButtonGroup shapeToolBtnGroup;
+    private SpinnerHandler spinnerHandler;
+    private SpinnerNumberModel outlineSizeModel, dashSizeModel;
 
     private ToolBar() {
         super(Constant.TOOLBAR_TITLE);
         setBorderPainted(true);
+        setFloatable(false);
+        createSpinnerModels();
 
         toolBarHandler = ToolBarHandler.createToolBarHandler();
+        spinnerHandler = SpinnerHandler.createSpinnerHandler();
         shapeToolBtnGroup = new ButtonGroup();
     }
 
@@ -33,15 +42,14 @@ public class ToolBar extends JToolBar {
 
     public void associate(DrawingPanel drawingPanel) {
         toolBarHandler.associate(drawingPanel);
+        spinnerHandler.associate(drawingPanel, outlineSizeModel, dashSizeModel);
     }
 
     public void initialize() {
         createShapeToolBtn();
-        this.addSeparator();
-
         createStateToolBtn();
-        this.addSeparator();
-
+        createOutlineSizeSpinner();
+        createDashSizeSpinner();
         setDefaultBtn();
     }
 
@@ -56,6 +64,7 @@ public class ToolBar extends JToolBar {
             shapeToolBtnGroup.add(shapeToolBtn);
             this.add(shapeToolBtn);
         });
+        this.addSeparator();
     }
 
     private void createStateToolBtn() {
@@ -70,10 +79,36 @@ public class ToolBar extends JToolBar {
             stateToolBtn.setContentAreaFilled(false);
             this.add(stateToolBtn);
         });
+        this.addSeparator();
     }
 
     private void setDefaultBtn() {
         JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
+    }
+
+    private void createSpinnerModels() {
+        outlineSizeModel = new SpinnerNumberModel(1, 1, 10, 1);
+        dashSizeModel = new SpinnerNumberModel(0, 0, 10, 1);
+    }
+
+    private void createOutlineSizeSpinner() {
+        JSpinner outlineSizeSpinner = new JSpinner(outlineSizeModel);
+        outlineSizeSpinner.addChangeListener(spinnerHandler);
+        outlineSizeSpinner.setMaximumSize(outlineSizeSpinner.getPreferredSize());
+        outlineSizeSpinner.setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase(Locale.ROOT));
+        this.add(new JLabel(Constant.OUTLINE_SPINNER_TITLE));
+        this.add(outlineSizeSpinner);
+        this.addSeparator();
+    }
+
+    private void createDashSizeSpinner() {
+        JSpinner dashSizeSpinner = new JSpinner(dashSizeModel);
+        dashSizeSpinner.addChangeListener(spinnerHandler);
+        dashSizeSpinner.setMaximumSize(dashSizeSpinner.getPreferredSize());
+        dashSizeSpinner.setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase(Locale.ROOT));
+        this.add(new JLabel(Constant.DASH_SPINNER_TITLE));
+        this.add(dashSizeSpinner);
+        this.addSeparator();
     }
 }

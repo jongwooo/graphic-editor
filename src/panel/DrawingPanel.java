@@ -21,6 +21,7 @@ public class DrawingPanel extends JPanel {
     private ArrayList<DrawShape> shapes;
     private DrawShape currentShape;
     private Color outlineColor, fillColor;
+    private int outlineSize, dashSize;
     private MouseHandler mouseHandler;
 
     private DrawingPanel() {
@@ -30,6 +31,8 @@ public class DrawingPanel extends JPanel {
         shapes = new ArrayList<DrawShape>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
+        outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
+        dashSize = Constant.DEFAULT_DASH_SIZE;
         mouseHandler = MouseHandler.createMouseHandler();
     }
 
@@ -81,9 +84,11 @@ public class DrawingPanel extends JPanel {
 
     public void startDraw(Point startPoint) {
         currentShape = currentShape.newShape();
-        currentShape.startDraw(startPoint);
         currentShape.setOutlineColor(outlineColor);
         currentShape.setFillColor(fillColor);
+        currentShape.setOutlineSize(outlineSize);
+        currentShape.setDashSize(dashSize);
+        currentShape.startDraw(startPoint);
     }
 
     public void draw(Point point) {
@@ -127,6 +132,16 @@ public class DrawingPanel extends JPanel {
 
     public void setFillColor() {
         fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
+        repaint();
+    }
+
+    public void setOutlineSize(int outlineSize) {
+        this.outlineSize = outlineSize;
+        repaint();
+    }
+
+    public void setDashSize(int dashSize) {
+        this.dashSize = dashSize;
         repaint();
     }
 }

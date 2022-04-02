@@ -13,6 +13,12 @@ public class Constant {
     public static final String FILE_MENU_TITLE = "File";
     public static final String EDIT_MENU_TITLE = "Edit";
 
+    public static final String OUTLINE_SPINNER_TITLE = "Outline";
+    public static final String DASH_SPINNER_TITLE = "Dash";
+
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = Color.WHITE;
+
+    public static final int DEFAULT_OUTLINE_SIZE = 1;
+    public static final int DEFAULT_DASH_SIZE = 0;
 }
