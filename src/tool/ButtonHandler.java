@@ -56,7 +56,7 @@ public class ButtonHandler implements ActionListener {
         drawingPanel.setFillColor();
     }
 
-    public void invokeMethod(String methodName) {
+    private void invokeMethod(String methodName) {
         try {
             this.getClass().getMethod(methodName).invoke(this);
         } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {

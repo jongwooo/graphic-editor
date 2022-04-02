@@ -75,7 +75,7 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void invokeMethod(String methodName) {
+    private void invokeMethod(String methodName) {
         try {
             this.getClass().getMethod(methodName).invoke(this);
         } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {
