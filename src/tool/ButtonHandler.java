@@ -7,13 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
-public class ToolBarHandler implements ActionListener {
-    private static final ToolBarHandler TOOL_BAR_HANDLER = new ToolBarHandler();
+public class ButtonHandler implements ActionListener {
+    private static final ButtonHandler BUTTON_HANDLER = new ButtonHandler();
 
     private DrawingPanel drawingPanel;
 
-    public static ToolBarHandler createToolBarHandler() {
-        return TOOL_BAR_HANDLER;
+    public static ButtonHandler createButtonHandler() {
+        return BUTTON_HANDLER;
     }
 
     public void associate(DrawingPanel drawingPanel) {

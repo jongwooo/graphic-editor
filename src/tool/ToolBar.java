@@ -20,7 +20,7 @@ public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
     private static final ToolBar TOOL_BAR = new ToolBar();
 
-    private ToolBarHandler toolBarHandler;
+    private ButtonHandler buttonHandler;
     private ButtonGroup shapeToolBtnGroup;
     private SpinnerHandler spinnerHandler;
     private SpinnerNumberModel outlineSizeModel, dashSizeModel;
@@ -31,7 +31,7 @@ public class ToolBar extends JToolBar {
         setFloatable(false);
         createSpinnerModels();
 
-        toolBarHandler = ToolBarHandler.createToolBarHandler();
+        buttonHandler = ButtonHandler.createButtonHandler();
         spinnerHandler = SpinnerHandler.createSpinnerHandler();
         shapeToolBtnGroup = new ButtonGroup();
     }
@@ -41,24 +41,24 @@ public class ToolBar extends JToolBar {
     }
 
     public void associate(DrawingPanel drawingPanel) {
-        toolBarHandler.associate(drawingPanel);
+        buttonHandler.associate(drawingPanel);
         spinnerHandler.associate(drawingPanel, outlineSizeModel, dashSizeModel);
     }
 
     public void initialize() {
-        createShapeToolBtn();
-        createStateToolBtn();
+        createShapeToolButtons();
+        createStateToolButtons();
         createOutlineSizeSpinner();
         createDashSizeSpinner();
-        setDefaultBtn();
+        setDefaultButton();
     }
 
-    private void createShapeToolBtn() {
+    private void createShapeToolButtons() {
         Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
             JRadioButton shapeToolBtn = new JRadioButton();
             shapeToolBtn.setToolTipText(shapeToolItem.name());
             shapeToolBtn.setActionCommand(shapeToolItem.name());
-            shapeToolBtn.addActionListener(toolBarHandler);
+            shapeToolBtn.addActionListener(buttonHandler);
             shapeToolBtn.setIcon(new ImageIcon("src/image/" + shapeToolItem.name() + ".png"));
             shapeToolBtn.setSelectedIcon(new ImageIcon("src/image/selected_" + shapeToolItem.name() + ".png"));
             shapeToolBtnGroup.add(shapeToolBtn);
@@ -67,12 +67,12 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
     }
 
-    private void createStateToolBtn() {
+    private void createStateToolButtons() {
         Arrays.stream(StateToolItem.values()).forEach(stateToolItem -> {
             JButton stateToolBtn = new JButton();
             stateToolBtn.setToolTipText(stateToolItem.name());
             stateToolBtn.setActionCommand(stateToolItem.name());
-            stateToolBtn.addActionListener(toolBarHandler);
+            stateToolBtn.addActionListener(buttonHandler);
             stateToolBtn.setIcon(new ImageIcon("src/image/" + stateToolItem.name() + ".png"));
             stateToolBtn.setBorderPainted(false);
             stateToolBtn.setFocusPainted(false);
@@ -82,7 +82,7 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
     }
 
-    private void setDefaultBtn() {
+    private void setDefaultButton() {
         JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
     }
