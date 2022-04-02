@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import java.util.Arrays;
 import java.util.Locale;
@@ -42,7 +43,7 @@ public class ToolBar extends JToolBar {
 
     public void associate(DrawingPanel drawingPanel) {
         buttonHandler.associate(drawingPanel);
-        spinnerHandler.associate(drawingPanel, outlineSizeModel, dashSizeModel);
+        spinnerHandler.associate(this, drawingPanel);
     }
 
     public void initialize() {
@@ -51,6 +52,14 @@ public class ToolBar extends JToolBar {
         createOutlineSizeSpinner();
         createDashSizeSpinner();
         setDefaultButton();
+    }
+
+    public SpinnerModel getOutlineSizeModel() {
+        return outlineSizeModel;
+    }
+
+    public SpinnerModel getDashSizeModel() {
+        return dashSizeModel;
     }
 
     private void createShapeToolButtons() {
