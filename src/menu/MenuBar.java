@@ -30,9 +30,8 @@ public class MenuBar extends JMenuBar {
 
     public void initialize() {
         fileMenu.createFileMenuItems();
-        this.add(fileMenu);
-
         editMenu.createEditMenuItems();
+        this.add(fileMenu);
         this.add(editMenu);
     }
 }
