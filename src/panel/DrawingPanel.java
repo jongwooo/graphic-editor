@@ -126,22 +126,22 @@ public class DrawingPanel extends JPanel {
     }
 
     public void setOutlineColor() {
-        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
         repaint();
+        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
     }
 
     public void setFillColor() {
-        fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
         repaint();
+        fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
     }
 
     public void setOutlineSize(int outlineSize) {
-        this.outlineSize = outlineSize;
         repaint();
+        this.outlineSize = outlineSize;
     }
 
     public void setDashSize(int dashSize) {
-        this.dashSize = dashSize;
         repaint();
+        this.dashSize = dashSize;
     }
 }
