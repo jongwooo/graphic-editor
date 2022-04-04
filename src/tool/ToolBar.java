@@ -103,9 +103,9 @@ public class ToolBar extends JToolBar {
 
     private void createOutlineSizeSpinner() {
         JSpinner outlineSizeSpinner = new JSpinner(outlineSizeModel);
+        outlineSizeSpinner.setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase(Locale.ROOT) + " size");
         outlineSizeSpinner.addChangeListener(spinnerHandler);
         outlineSizeSpinner.setMaximumSize(outlineSizeSpinner.getPreferredSize());
-        outlineSizeSpinner.setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase(Locale.ROOT));
         this.add(new JLabel(Constant.OUTLINE_SPINNER_TITLE));
         this.add(outlineSizeSpinner);
         this.addSeparator();
@@ -113,9 +113,9 @@ public class ToolBar extends JToolBar {
 
     private void createDashSizeSpinner() {
         JSpinner dashSizeSpinner = new JSpinner(dashSizeModel);
+        dashSizeSpinner.setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase(Locale.ROOT) + " size");
         dashSizeSpinner.addChangeListener(spinnerHandler);
         dashSizeSpinner.setMaximumSize(dashSizeSpinner.getPreferredSize());
-        dashSizeSpinner.setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase(Locale.ROOT));
         this.add(new JLabel(Constant.DASH_SPINNER_TITLE));
         this.add(dashSizeSpinner);
         this.addSeparator();
