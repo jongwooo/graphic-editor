@@ -2,7 +2,7 @@ package global.tool;
 
 public enum StateToolItem {
     erase,
-    clean,
+    clear,
     outline,
     fill;
 }

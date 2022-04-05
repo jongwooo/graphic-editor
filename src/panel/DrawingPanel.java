@@ -115,7 +115,7 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
-    public void cleanPanel() {
+    public void clearShapes() {
         shapes.clear();
         repaint();
     }

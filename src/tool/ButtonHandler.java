@@ -44,8 +44,8 @@ public class ButtonHandler implements ActionListener {
         drawingPanel.eraseShape();
     }
 
-    public void clean() {
-        drawingPanel.cleanPanel();
+    public void clear() {
+        drawingPanel.clearShapes();
     }
 
     public void outline() {
