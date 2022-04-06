@@ -1,5 +1,6 @@
 package tool;
 
+import draw.DrawShape;
 import global.tool.ShapeToolItem;
 import panel.DrawingPanel;
 
@@ -21,23 +22,23 @@ public class ButtonHandler implements ActionListener {
     }
 
     public void cursor() {
-        drawingPanel.setCurrentShape(ShapeToolItem.cursor.getShape());
+        setCurrentShape(ShapeToolItem.cursor.getShape());
     }
 
     public void rectangle() {
-        drawingPanel.setCurrentShape(ShapeToolItem.rectangle.getShape());
+        setCurrentShape(ShapeToolItem.rectangle.getShape());
     }
 
     public void ellipse() {
-        drawingPanel.setCurrentShape(ShapeToolItem.ellipse.getShape());
+        setCurrentShape(ShapeToolItem.ellipse.getShape());
     }
 
     public void line() {
-        drawingPanel.setCurrentShape(ShapeToolItem.line.getShape());
+        setCurrentShape(ShapeToolItem.line.getShape());
     }
 
     public void polygon() {
-        drawingPanel.setCurrentShape(ShapeToolItem.polygon.getShape());
+        setCurrentShape(ShapeToolItem.polygon.getShape());
     }
 
     public void erase() {
@@ -54,6 +55,11 @@ public class ButtonHandler implements ActionListener {
 
     public void fill() {
         drawingPanel.setFillColor();
+    }
+
+    private void setCurrentShape(DrawShape currentShape) {
+        drawingPanel.setCurrentShape(currentShape);
+        drawingPanel.repaint();
     }
 
     private void invokeMethod(String methodName) {

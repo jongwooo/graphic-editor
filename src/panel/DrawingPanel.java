@@ -63,7 +63,6 @@ public class DrawingPanel extends JPanel {
 
     public void setCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
-        repaint();
     }
 
     @Override
@@ -79,11 +78,11 @@ public class DrawingPanel extends JPanel {
     @Override
     public void repaint() {
         super.repaint();
-        drawMode = DrawMode.CURSOR;
+        setDrawMode(DrawMode.CURSOR);
     }
 
     public void startDraw(Point startPoint) {
-        currentShape = currentShape.newShape();
+        setCurrentShape(currentShape.newShape());
         currentShape.setOutlineColor(outlineColor);
         currentShape.setFillColor(fillColor);
         currentShape.setOutlineSize(outlineSize);
