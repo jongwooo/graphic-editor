@@ -8,7 +8,6 @@ import global.draw.DrawMode;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -27,7 +26,6 @@ public class DrawingPanel extends JPanel {
 
     private DrawingPanel() {
         setBackground(Color.WHITE);
-        setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 
         drawMode = DrawMode.CURSOR;
         shapes = new ArrayList<DrawShape>();
@@ -47,6 +45,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void initialize() {
+        setCursorStyle();
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
     }
@@ -65,6 +64,10 @@ public class DrawingPanel extends JPanel {
 
     public void setCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
+    }
+
+    public void setCursorStyle() {
+        setCursor(getCurrentShape() != null ? Constant.CROSSHAIR_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
     }
 
     @Override

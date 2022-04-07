@@ -1,6 +1,7 @@
 package global;
 
 import java.awt.Color;
+import java.awt.Cursor;
 
 public class Constant {
     public static final int MAINFRAME_WIDTH = 800;
@@ -21,4 +22,7 @@ public class Constant {
 
     public static final int DEFAULT_OUTLINE_SIZE = 1;
     public static final int DEFAULT_DASH_SIZE = 0;
+
+    public static final Cursor DEFAULT_STYLE_CURSOR = Cursor.getDefaultCursor();
+    public static final Cursor CROSSHAIR_STYLE_CURSOR = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
 }
