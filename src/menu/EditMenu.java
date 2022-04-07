@@ -25,7 +25,11 @@ public class EditMenu extends JMenu {
         this.menuBarHandler = menuBarHandler;
     }
 
-    public void createEditMenuItems() {
+    public void initialize() {
+        createEditMenuItems();
+    }
+
+    private void createEditMenuItems() {
         Arrays.stream(EditMenuItem.values()).forEach(editMenuItem -> {
             JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
             menuItem.setActionCommand(editMenuItem.name());

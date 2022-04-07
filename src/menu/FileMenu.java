@@ -25,7 +25,11 @@ public class FileMenu extends JMenu {
         this.menuBarHandler = menuBarHandler;
     }
 
-    public void createFileMenuItems() {
+    public void initialize() {
+        createFileMenuItems();
+    }
+
+    private void createFileMenuItems() {
         Arrays.stream(FileMenuItem.values()).forEach(fileMenuItem -> {
             JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
             menuItem.setActionCommand(fileMenuItem.name());

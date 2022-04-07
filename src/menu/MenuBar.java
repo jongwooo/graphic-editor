@@ -29,8 +29,8 @@ public class MenuBar extends JMenuBar {
     }
 
     public void initialize() {
-        fileMenu.createFileMenuItems();
-        editMenu.createEditMenuItems();
+        fileMenu.initialize();
+        editMenu.initialize();
         this.add(fileMenu);
         this.add(editMenu);
     }
