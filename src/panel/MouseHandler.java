@@ -21,44 +21,40 @@ public class MouseHandler extends MouseInputAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            if (drawingPanel.getDrawMode() == DrawMode.POLYGON) {
-                if (e.getClickCount() == 1) {
-                    drawingPanel.keepDraw(e.getPoint());
-                } else if (e.getClickCount() >= 2) {
-                    drawingPanel.finishDraw();
-                }
+        if (drawingPanel.compareCurrentDrawMode(DrawMode.POLYGON) && e.getButton() == MouseEvent.BUTTON1) {
+            if (e.getClickCount() == 1) {
+                drawingPanel.keepDraw(e.getPoint());
+            } else if (e.getClickCount() >= 2) {
+                drawingPanel.finishDraw();
             }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (drawingPanel.getDrawMode() == DrawMode.CURSOR) {
-            if (drawingPanel.getCurrentShape() != null) {
-                drawingPanel.setDrawMode(drawingPanel.getCurrentShape() instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL);
-                drawingPanel.startDraw(e.getPoint());
-            }
+        if (drawingPanel.compareCurrentDrawMode(DrawMode.CURSOR) && drawingPanel.getCurrentShape() != null) {
+            drawingPanel.setDrawMode(drawingPanel.getCurrentShape() instanceof DrawPolygon ? DrawMode.POLYGON : DrawMode.GENERAL);
+            drawingPanel.startDraw(e.getPoint());
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (drawingPanel.getDrawMode() == DrawMode.GENERAL) {
+        if (drawingPanel.compareCurrentDrawMode(DrawMode.GENERAL)) {
             drawingPanel.draw(e.getPoint());
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (drawingPanel.getDrawMode() == DrawMode.POLYGON) {
+        if (drawingPanel.compareCurrentDrawMode(DrawMode.POLYGON)) {
             drawingPanel.draw(e.getPoint());
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (drawingPanel.getDrawMode() == DrawMode.GENERAL) {
+        if (drawingPanel.compareCurrentDrawMode(DrawMode.GENERAL)) {
             drawingPanel.finishDraw();
         }
     }

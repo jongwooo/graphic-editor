@@ -49,12 +49,12 @@ public class DrawingPanel extends JPanel {
         addMouseMotionListener(mouseHandler);
     }
 
-    public DrawMode getDrawMode() {
-        return drawMode;
-    }
-
     public void setDrawMode(DrawMode drawMode) {
         this.drawMode = drawMode;
+    }
+
+    public boolean compareCurrentDrawMode(DrawMode drawMode) {
+        return this.drawMode == drawMode;
     }
 
     public DrawShape getCurrentShape() {
