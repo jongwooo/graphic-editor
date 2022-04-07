@@ -45,7 +45,6 @@ public class DrawingPanel extends JPanel {
     }
 
     public void initialize() {
-        setCursorStyle();
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
     }
