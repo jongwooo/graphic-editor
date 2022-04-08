@@ -26,7 +26,7 @@ public class SpinnerHandler implements ChangeListener {
     public void stateChanged(ChangeEvent e) {
         JSpinner currentSpinner = (JSpinner) e.getSource();
         SpinnerModel currentSpinnerModel = currentSpinner.getModel();
-        int currentSize =  (int) currentSpinner.getValue();
+        int currentSize = (int) currentSpinner.getValue();
 
         if (currentSpinnerModel == toolBar.getOutlineSizeModel()) {
             drawingPanel.setOutlineSize(currentSize);
