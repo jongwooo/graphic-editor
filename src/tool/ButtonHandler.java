@@ -22,23 +22,23 @@ public class ButtonHandler implements ActionListener {
     }
 
     public void cursor() {
-        updateCurrentShape(ShapeToolItem.cursor.newInstance());
+        updateCurrentShape(ShapeToolItem.cursor.newShape());
     }
 
     public void rectangle() {
-        updateCurrentShape(ShapeToolItem.rectangle.newInstance());
+        updateCurrentShape(ShapeToolItem.rectangle.newShape());
     }
 
     public void ellipse() {
-        updateCurrentShape(ShapeToolItem.ellipse.newInstance());
+        updateCurrentShape(ShapeToolItem.ellipse.newShape());
     }
 
     public void line() {
-        updateCurrentShape(ShapeToolItem.line.newInstance());
+        updateCurrentShape(ShapeToolItem.line.newShape());
     }
 
     public void polygon() {
-        updateCurrentShape(ShapeToolItem.polygon.newInstance());
+        updateCurrentShape(ShapeToolItem.polygon.newShape());
     }
 
     public void erase() {
