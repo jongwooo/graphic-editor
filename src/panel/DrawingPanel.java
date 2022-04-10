@@ -49,24 +49,28 @@ public class DrawingPanel extends JPanel {
         addMouseMotionListener(mouseHandler);
     }
 
-    public void setDrawMode(DrawMode drawMode) {
-        this.drawMode = drawMode;
-    }
-
-    public boolean compareCurrentDrawMode(DrawMode drawMode) {
+    public boolean isCurrentDrawMode(DrawMode drawMode) {
         return this.drawMode == drawMode;
     }
 
-    public DrawShape getCurrentShape() {
-        return currentShape;
+    public void updateCurrentDrawMode(DrawMode drawMode) {
+        this.drawMode = drawMode;
     }
 
-    public void setCurrentShape(DrawShape currentShape) {
+    public boolean isDrawPolygon() {
+        return currentShape instanceof DrawPolygon;
+    }
+
+    public boolean isCurrentShape(DrawShape shape) {
+        return currentShape == shape;
+    }
+
+    public void updateCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
     }
 
-    public void setCursorStyle() {
-        setCursor(getCurrentShape() != null ? Constant.CROSSHAIR_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
+    public void updateCursorStyle() {
+        setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR : Constant.CROSSHAIR_STYLE_CURSOR);
     }
 
     @Override
@@ -82,15 +86,12 @@ public class DrawingPanel extends JPanel {
     @Override
     public void repaint() {
         super.repaint();
-        setDrawMode(DrawMode.CURSOR);
+        updateCurrentDrawMode(DrawMode.CURSOR);
     }
 
     public void startDraw(Point startPoint) {
-        setCurrentShape(currentShape.newShape());
-        currentShape.setOutlineColor(outlineColor);
-        currentShape.setFillColor(fillColor);
-        currentShape.setOutlineSize(outlineSize);
-        currentShape.setDashSize(dashSize);
+        updateCurrentShape(currentShape.newShape());
+        currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
         currentShape.startDraw(startPoint);
     }
 
@@ -112,7 +113,7 @@ public class DrawingPanel extends JPanel {
     }
 
     public void eraseShape() {
-        if (shapes.size() >= 1 && drawMode != DrawMode.POLYGON) {
+        if (shapes.size() >= 1 && !isCurrentDrawMode(DrawMode.POLYGON)) {
             shapes.remove(shapes.size() - 1);
         }
         repaint();
@@ -123,27 +124,27 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
-    private Color setColor(Color defaultColor, Color currentColor) {
-        Color selectedColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
-        return selectedColor != null ? selectedColor : currentColor;
+    private Color chooseColor(Color defaultColor, Color currentColor) {
+        Color chosenColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
+        return chosenColor != null ? chosenColor : currentColor;
     }
 
-    public void setOutlineColor() {
+    public void chooseOutlineColor() {
         repaint();
-        outlineColor = setColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
+        outlineColor = chooseColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
     }
 
-    public void setFillColor() {
+    public void chooseFillColor() {
         repaint();
-        fillColor = setColor(Constant.DEFAULT_FILL_COLOR, fillColor);
+        fillColor = chooseColor(Constant.DEFAULT_FILL_COLOR, fillColor);
     }
 
-    public void setOutlineSize(int outlineSize) {
+    public void updateOutlineSize(int outlineSize) {
         repaint();
         this.outlineSize = outlineSize;
     }
 
-    public void setDashSize(int dashSize) {
+    public void updateDashSize(int dashSize) {
         repaint();
         this.dashSize = dashSize;
     }

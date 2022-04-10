@@ -28,10 +28,10 @@ public class SpinnerHandler implements ChangeListener {
         SpinnerModel currentSpinnerModel = currentSpinner.getModel();
         int currentSize = (int) currentSpinner.getValue();
 
-        if (currentSpinnerModel == toolBar.getOutlineSizeModel()) {
-            drawingPanel.setOutlineSize(currentSize);
-        } else if (currentSpinnerModel == toolBar.getDashSizeModel()) {
-            drawingPanel.setDashSize(currentSize);
+        if (toolBar.isOutlineSizeModel(currentSpinnerModel)) {
+            drawingPanel.updateOutlineSize(currentSize);
+        } else if (toolBar.isDashSizeModel(currentSpinnerModel)) {
+            drawingPanel.updateDashSize(currentSize);
         }
     }
 }

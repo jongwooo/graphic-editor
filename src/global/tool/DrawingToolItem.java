@@ -1,6 +1,6 @@
 package global.tool;
 
-public enum StateToolItem {
+public enum DrawingToolItem {
     erase,
     clear,
     outline,

@@ -22,23 +22,23 @@ public class ButtonHandler implements ActionListener {
     }
 
     public void cursor() {
-        setCurrentShape(ShapeToolItem.cursor.getShape());
+        updateCurrentShape(ShapeToolItem.cursor.newInstance());
     }
 
     public void rectangle() {
-        setCurrentShape(ShapeToolItem.rectangle.getShape());
+        updateCurrentShape(ShapeToolItem.rectangle.newInstance());
     }
 
     public void ellipse() {
-        setCurrentShape(ShapeToolItem.ellipse.getShape());
+        updateCurrentShape(ShapeToolItem.ellipse.newInstance());
     }
 
     public void line() {
-        setCurrentShape(ShapeToolItem.line.getShape());
+        updateCurrentShape(ShapeToolItem.line.newInstance());
     }
 
     public void polygon() {
-        setCurrentShape(ShapeToolItem.polygon.getShape());
+        updateCurrentShape(ShapeToolItem.polygon.newInstance());
     }
 
     public void erase() {
@@ -50,16 +50,16 @@ public class ButtonHandler implements ActionListener {
     }
 
     public void outline() {
-        drawingPanel.setOutlineColor();
+        drawingPanel.chooseOutlineColor();
     }
 
     public void fill() {
-        drawingPanel.setFillColor();
+        drawingPanel.chooseFillColor();
     }
 
-    private void setCurrentShape(DrawShape currentShape) {
-        drawingPanel.setCurrentShape(currentShape);
-        drawingPanel.setCursorStyle();
+    private void updateCurrentShape(DrawShape currentShape) {
+        drawingPanel.updateCurrentShape(currentShape);
+        drawingPanel.updateCursorStyle();
         drawingPanel.repaint();
     }
 

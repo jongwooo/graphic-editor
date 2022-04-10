@@ -2,7 +2,7 @@ package tool;
 
 import global.Constant;
 import global.tool.ShapeToolItem;
-import global.tool.StateToolItem;
+import global.tool.DrawingToolItem;
 import panel.DrawingPanel;
 
 import javax.swing.ButtonGroup;
@@ -30,11 +30,12 @@ public class ToolBar extends JToolBar {
         super(Constant.TOOLBAR_TITLE);
         setBorderPainted(true);
         setFloatable(false);
-        createSpinnerModels();
 
         buttonHandler = ButtonHandler.createButtonHandler();
         spinnerHandler = SpinnerHandler.createSpinnerHandler();
         shapeToolBtnGroup = new ButtonGroup();
+        outlineSizeModel = new SpinnerNumberModel(1, 1, 10, 1);
+        dashSizeModel = new SpinnerNumberModel(0, 0, 10, 1);
     }
 
     public static ToolBar createToolBar() {
@@ -48,18 +49,14 @@ public class ToolBar extends JToolBar {
 
     public void initialize() {
         createShapeToolButtons();
-        createStateToolButtons();
-        createOutlineSizeSpinner();
-        createDashSizeSpinner();
+        createDrawingToolButtons();
+        createSizeSpinner(outlineSizeModel, Constant.OUTLINE_SPINNER_TITLE);
+        createSizeSpinner(dashSizeModel, Constant.DASH_SPINNER_TITLE);
         setDefaultButton();
     }
 
-    public SpinnerModel getOutlineSizeModel() {
-        return outlineSizeModel;
-    }
-
-    public SpinnerModel getDashSizeModel() {
-        return dashSizeModel;
+    private ImageIcon createImageIcon(String imageName, boolean selected) {
+        return new ImageIcon("src/image/".concat(selected ? "selected_" : "").concat(imageName).concat(".png"));
     }
 
     private void createShapeToolButtons() {
@@ -68,25 +65,25 @@ public class ToolBar extends JToolBar {
             shapeToolBtn.setToolTipText(shapeToolItem.name());
             shapeToolBtn.setActionCommand(shapeToolItem.name());
             shapeToolBtn.addActionListener(buttonHandler);
-            shapeToolBtn.setIcon(new ImageIcon("src/image/" + shapeToolItem.name() + ".png"));
-            shapeToolBtn.setSelectedIcon(new ImageIcon("src/image/selected_" + shapeToolItem.name() + ".png"));
+            shapeToolBtn.setIcon(createImageIcon(shapeToolItem.name(), false));
+            shapeToolBtn.setSelectedIcon(createImageIcon(shapeToolItem.name(), true));
             shapeToolBtnGroup.add(shapeToolBtn);
             this.add(shapeToolBtn);
         });
         this.addSeparator();
     }
 
-    private void createStateToolButtons() {
-        Arrays.stream(StateToolItem.values()).forEach(stateToolItem -> {
-            JButton stateToolBtn = new JButton();
-            stateToolBtn.setToolTipText(stateToolItem.name());
-            stateToolBtn.setActionCommand(stateToolItem.name());
-            stateToolBtn.addActionListener(buttonHandler);
-            stateToolBtn.setIcon(new ImageIcon("src/image/" + stateToolItem.name() + ".png"));
-            stateToolBtn.setBorderPainted(false);
-            stateToolBtn.setFocusPainted(false);
-            stateToolBtn.setContentAreaFilled(false);
-            this.add(stateToolBtn);
+    private void createDrawingToolButtons() {
+        Arrays.stream(DrawingToolItem.values()).forEach(drawingToolItem -> {
+            JButton drawingToolBtn = new JButton();
+            drawingToolBtn.setToolTipText(drawingToolItem.name());
+            drawingToolBtn.setActionCommand(drawingToolItem.name());
+            drawingToolBtn.addActionListener(buttonHandler);
+            drawingToolBtn.setIcon(createImageIcon(drawingToolItem.name(), false));
+            drawingToolBtn.setBorderPainted(false);
+            drawingToolBtn.setFocusPainted(false);
+            drawingToolBtn.setContentAreaFilled(false);
+            this.add(drawingToolBtn);
         });
         this.addSeparator();
     }
@@ -96,28 +93,21 @@ public class ToolBar extends JToolBar {
         defaultBtn.doClick();
     }
 
-    private void createSpinnerModels() {
-        outlineSizeModel = new SpinnerNumberModel(1, 1, 10, 1);
-        dashSizeModel = new SpinnerNumberModel(0, 0, 10, 1);
+    public boolean isOutlineSizeModel(SpinnerModel spinnerModel) {
+        return outlineSizeModel == spinnerModel;
     }
 
-    private void createOutlineSizeSpinner() {
-        JSpinner outlineSizeSpinner = new JSpinner(outlineSizeModel);
-        outlineSizeSpinner.setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase(Locale.ROOT) + " size");
-        outlineSizeSpinner.addChangeListener(spinnerHandler);
-        outlineSizeSpinner.setMaximumSize(outlineSizeSpinner.getPreferredSize());
-        this.add(new JLabel(Constant.OUTLINE_SPINNER_TITLE));
-        this.add(outlineSizeSpinner);
-        this.addSeparator();
+    public boolean isDashSizeModel(SpinnerModel spinnerModel) {
+        return dashSizeModel == spinnerModel;
     }
 
-    private void createDashSizeSpinner() {
-        JSpinner dashSizeSpinner = new JSpinner(dashSizeModel);
-        dashSizeSpinner.setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase(Locale.ROOT) + " size");
-        dashSizeSpinner.addChangeListener(spinnerHandler);
-        dashSizeSpinner.setMaximumSize(dashSizeSpinner.getPreferredSize());
-        this.add(new JLabel(Constant.DASH_SPINNER_TITLE));
-        this.add(dashSizeSpinner);
+    private void createSizeSpinner(SpinnerModel spinnerModel, String spinnerName) {
+        JSpinner sizeSpinner = new JSpinner(spinnerModel);
+        sizeSpinner.setToolTipText(spinnerName.toLowerCase(Locale.ROOT).concat(" size"));
+        sizeSpinner.setMaximumSize(sizeSpinner.getPreferredSize());
+        sizeSpinner.addChangeListener(spinnerHandler);
+        this.add(new JLabel(spinnerName));
+        this.add(sizeSpinner);
         this.addSeparator();
     }
 }

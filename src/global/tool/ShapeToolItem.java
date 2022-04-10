@@ -19,7 +19,7 @@ public enum ShapeToolItem {
         this.currentShape = currentShape;
     }
 
-    public DrawShape getShape() {
+    public DrawShape newInstance() {
         return currentShape;
     }
 }
