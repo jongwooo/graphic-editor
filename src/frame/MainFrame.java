@@ -18,7 +18,6 @@ public class MainFrame extends JFrame {
 
     private MainFrame() {
         super(Constant.MAINFRAME_TITLE);
-
         setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
