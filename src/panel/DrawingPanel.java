@@ -53,7 +53,7 @@ public class DrawingPanel extends JPanel {
         return this.drawMode == drawMode;
     }
 
-    public void updateCurrentDrawMode(DrawMode drawMode) {
+    public void setCurrentDrawMode(DrawMode drawMode) {
         this.drawMode = drawMode;
     }
 
@@ -65,7 +65,7 @@ public class DrawingPanel extends JPanel {
         return currentShape == shape;
     }
 
-    public void updateCurrentShape(DrawShape currentShape) {
+    public void setCurrentShape(DrawShape currentShape) {
         this.currentShape = currentShape;
     }
 
@@ -86,11 +86,11 @@ public class DrawingPanel extends JPanel {
     @Override
     public void repaint() {
         super.repaint();
-        updateCurrentDrawMode(DrawMode.CURSOR);
+        setCurrentDrawMode(DrawMode.CURSOR);
     }
 
     public void startDraw(Point startPoint) {
-        updateCurrentShape(currentShape.newShape());
+        setCurrentShape(currentShape.newShape());
         currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
         currentShape.startDraw(startPoint);
     }

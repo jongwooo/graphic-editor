@@ -32,7 +32,7 @@ public class MouseHandler extends MouseInputAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && !drawingPanel.isCurrentShape(null)) {
-            drawingPanel.updateCurrentDrawMode(drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
+            drawingPanel.setCurrentDrawMode(drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
             drawingPanel.startDraw(e.getPoint());
         }
     }

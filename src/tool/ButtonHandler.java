@@ -58,7 +58,7 @@ public class ButtonHandler implements ActionListener {
     }
 
     private void updateCurrentShape(DrawShape currentShape) {
-        drawingPanel.updateCurrentShape(currentShape);
+        drawingPanel.setCurrentShape(currentShape);
         drawingPanel.updateCursorStyle();
         drawingPanel.repaint();
     }
