@@ -95,11 +95,11 @@ public class DrawingPanel extends JPanel {
         currentShape.startDraw(startPoint);
     }
 
-    public void draw(Point point) {
+    public void draw(Point currentPoint) {
         Graphics2D graphics2D = (Graphics2D) getGraphics();
         graphics2D.setXORMode(graphics2D.getBackground());
         currentShape.draw(graphics2D);
-        currentShape.setCoordinate(point);
+        currentShape.setPoint(currentPoint);
         currentShape.draw(graphics2D);
     }
 

@@ -17,7 +17,7 @@ public class DrawLine extends DrawShape {
     }
 
     @Override
-    public void setCoordinate(Point currentPoint) {
+    public void setPoint(Point currentPoint) {
         line2D.setLine(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 

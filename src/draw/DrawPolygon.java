@@ -17,7 +17,7 @@ public class DrawPolygon extends DrawShape {
     }
 
     @Override
-    public void setCoordinate(Point currentPoint) {
+    public void setPoint(Point currentPoint) {
         polygon.xpoints[polygon.npoints - 1] = currentPoint.x;
         polygon.ypoints[polygon.npoints - 1] = currentPoint.y;
     }

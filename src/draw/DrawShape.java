@@ -33,6 +33,6 @@ public abstract class DrawShape {
     }
 
     public abstract void startDraw(Point startPoint);
-    public abstract void setCoordinate(Point currentPoint);
+    public abstract void setPoint(Point currentPoint);
     public abstract DrawShape newShape();
 }

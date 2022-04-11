@@ -17,7 +17,7 @@ public class DrawRectangle extends DrawShape {
     }
 
     @Override
-    public void setCoordinate(Point currentPoint) {
+    public void setPoint(Point currentPoint) {
         rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 
