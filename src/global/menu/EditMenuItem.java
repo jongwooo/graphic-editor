@@ -10,22 +10,22 @@ public enum EditMenuItem implements MenuItem {
     ungroupItems("Ungroup");
 
     private String menuName;
-    private boolean isSeparated;
+    private boolean separated;
 
     private EditMenuItem(String menuName) {
         this.menuName = menuName;
     }
 
-    private EditMenuItem(String menuName, boolean isSeparated) {
+    private EditMenuItem(String menuName, boolean separated) {
         this(menuName);
-        this.isSeparated = isSeparated;
+        this.separated = separated;
     }
 
     public String getMenuName() {
         return menuName;
     }
 
-    public boolean separated() {
-        return isSeparated;
+    public boolean hasSeparator() {
+        return separated;
     }
 }

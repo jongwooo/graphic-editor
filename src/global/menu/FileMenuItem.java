@@ -10,22 +10,22 @@ public enum FileMenuItem implements MenuItem {
     quitEditor("Quit");
 
     private String menuName;
-    private boolean isSeparated;
+    private boolean separated;
 
     private FileMenuItem(String menuName) {
         this.menuName = menuName;
     }
 
-    private FileMenuItem(String menuName, boolean isSeparated) {
+    private FileMenuItem(String menuName, boolean separated) {
         this(menuName);
-        this.isSeparated = isSeparated;
+        this.separated = separated;
     }
 
     public String getMenuName() {
         return menuName;
     }
 
-    public boolean separated() {
-        return isSeparated;
+    public boolean hasSeparator() {
+        return separated;
     }
 }

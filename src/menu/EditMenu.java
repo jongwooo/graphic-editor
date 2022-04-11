@@ -35,7 +35,7 @@ public class EditMenu extends JMenu {
             menuItem.setActionCommand(editMenuItem.name());
             menuItem.addActionListener(menuBarHandler);
             this.add(menuItem);
-            if (editMenuItem.separated()) this.addSeparator();
+            if (editMenuItem.hasSeparator()) this.addSeparator();
         });
     }
 }

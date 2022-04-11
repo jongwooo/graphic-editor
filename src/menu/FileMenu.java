@@ -35,7 +35,7 @@ public class FileMenu extends JMenu {
             menuItem.setActionCommand(fileMenuItem.name());
             menuItem.addActionListener(menuBarHandler);
             this.add(menuItem);
-            if (fileMenuItem.separated()) this.addSeparator();
+            if (fileMenuItem.hasSeparator()) this.addSeparator();
         });
     }
 }
