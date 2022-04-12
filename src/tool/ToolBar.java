@@ -1,8 +1,8 @@
 package tool;
 
 import global.Constant;
-import global.tool.ShapeToolItem;
 import global.tool.DrawingToolItem;
+import global.tool.ShapeToolItem;
 import panel.DrawingPanel;
 
 import javax.swing.ButtonGroup;
@@ -15,7 +15,6 @@ import javax.swing.JToolBar;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import java.util.Arrays;
-import java.util.Locale;
 
 public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
@@ -103,7 +102,7 @@ public class ToolBar extends JToolBar {
 
     private void createSizeSpinner(SpinnerModel spinnerModel, String spinnerName) {
         JSpinner sizeSpinner = new JSpinner(spinnerModel);
-        sizeSpinner.setToolTipText(spinnerName.toLowerCase(Locale.ROOT).concat(" size"));
+        sizeSpinner.setToolTipText(spinnerName.toLowerCase().concat(" size"));
         sizeSpinner.setMaximumSize(sizeSpinner.getPreferredSize());
         sizeSpinner.addChangeListener(spinnerHandler);
         this.add(new JLabel(spinnerName));
