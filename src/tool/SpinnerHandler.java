@@ -1,5 +1,6 @@
 package tool;
 
+import global.tool.SpinnerModels;
 import panel.DrawingPanel;
 
 import javax.swing.JSpinner;
@@ -10,15 +11,13 @@ import javax.swing.event.ChangeListener;
 public class SpinnerHandler implements ChangeListener {
     private static final SpinnerHandler SPINNER_HANDLER = new SpinnerHandler();
 
-    private ToolBar toolBar;
     private DrawingPanel drawingPanel;
 
     public static SpinnerHandler createSpinnerHandler() {
         return SPINNER_HANDLER;
     }
 
-    public void associate(ToolBar toolBar, DrawingPanel drawingPanel) {
-        this.toolBar = toolBar;
+    public void associate(DrawingPanel drawingPanel) {
         this.drawingPanel = drawingPanel;
     }
 
@@ -28,9 +27,9 @@ public class SpinnerHandler implements ChangeListener {
         SpinnerModel currentSpinnerModel = currentSpinner.getModel();
         int currentSize = (int) currentSpinner.getValue();
 
-        if (toolBar.isOutlineSizeModel(currentSpinnerModel)) {
+        if (SpinnerModels.outlineSizeModel.isCurrentModel(currentSpinnerModel)) {
             drawingPanel.updateOutlineSize(currentSize);
-        } else if (toolBar.isDashSizeModel(currentSpinnerModel)) {
+        } else if (SpinnerModels.dashSizeModel.isCurrentModel(currentSpinnerModel)) {
             drawingPanel.updateDashSize(currentSize);
         }
     }

@@ -3,6 +3,7 @@ package tool;
 import global.Constant;
 import global.tool.DrawingToolItem;
 import global.tool.ShapeToolItem;
+import global.tool.SpinnerModels;
 import panel.DrawingPanel;
 
 import javax.swing.ButtonGroup;
@@ -33,8 +34,8 @@ public class ToolBar extends JToolBar {
         buttonHandler = ButtonHandler.createButtonHandler();
         spinnerHandler = SpinnerHandler.createSpinnerHandler();
         shapeToolBtnGroup = new ButtonGroup();
-        outlineSizeModel = new SpinnerNumberModel(1, 1, 10, 1);
-        dashSizeModel = new SpinnerNumberModel(0, 0, 10, 1);
+        outlineSizeModel = SpinnerModels.outlineSizeModel.getModel();
+        dashSizeModel = SpinnerModels.dashSizeModel.getModel();
     }
 
     public static ToolBar createToolBar() {
@@ -43,7 +44,7 @@ public class ToolBar extends JToolBar {
 
     public void associate(DrawingPanel drawingPanel) {
         buttonHandler.associate(drawingPanel);
-        spinnerHandler.associate(this, drawingPanel);
+        spinnerHandler.associate(drawingPanel);
     }
 
     public void initialize() {
@@ -90,14 +91,6 @@ public class ToolBar extends JToolBar {
     private void setDefaultButton() {
         JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
-    }
-
-    public boolean isOutlineSizeModel(SpinnerModel spinnerModel) {
-        return outlineSizeModel == spinnerModel;
-    }
-
-    public boolean isDashSizeModel(SpinnerModel spinnerModel) {
-        return dashSizeModel == spinnerModel;
     }
 
     private void createSizeSpinner(SpinnerModel spinnerModel, String spinnerName) {
