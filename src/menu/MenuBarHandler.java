@@ -55,23 +55,23 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void cutItem() {
+    public void cut() {
 
     }
 
-    public void copyItem() {
+    public void copy() {
 
     }
 
-    public void pasteItem() {
+    public void paste() {
 
     }
 
-    public void groupItems() {
+    public void group() {
 
     }
 
-    public void ungroupItems() {
+    public void ungroup() {
 
     }
 
