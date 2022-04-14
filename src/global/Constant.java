@@ -1,5 +1,6 @@
 package global;
 
+import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
 import java.awt.Cursor;
 
@@ -19,6 +20,9 @@ public class Constant {
 
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = Color.WHITE;
+
+    public static final SpinnerNumberModel OUTLINE_SIZE_MODEL = new SpinnerNumberModel(1, 1, 10, 1);
+    public static final SpinnerNumberModel DASH_SIZE_MODEL = new SpinnerNumberModel(0, 0, 10, 1);
 
     public static final int DEFAULT_OUTLINE_SIZE = 1;
     public static final int DEFAULT_DASH_SIZE = 0;

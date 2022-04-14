@@ -1,11 +1,13 @@
 package global.tool;
 
+import global.Constant;
+
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 public enum SpinnerModels {
-    outlineSizeModel(new SpinnerNumberModel(1, 1, 10, 1)),
-    dashSizeModel(new SpinnerNumberModel(0, 0, 10, 1));
+    outlineSizeModel(Constant.OUTLINE_SIZE_MODEL),
+    dashSizeModel(Constant.DASH_SIZE_MODEL);
 
     private SpinnerNumberModel currentSpinnerModel;
 
