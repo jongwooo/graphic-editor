@@ -2,8 +2,7 @@ package global.menu;
 
 public enum FileMenuItem implements MenuItem {
     newFile("New"),
-    openFile("Open File..."),
-    closeWindow("Close Window", true),
+    openFile("Open File...", true),
     saveFile("Save"),
     saveFileAs("Save As..."),
     print("Print...", true),

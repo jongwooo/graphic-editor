@@ -27,10 +27,6 @@ public class MenuBarHandler implements ActionListener {
 
     }
 
-    public void closeWindow() {
-
-    }
-
     public void saveFile() {
 
     }
