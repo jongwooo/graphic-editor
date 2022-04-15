@@ -18,17 +18,17 @@ public class DrawingPanel extends JPanel {
     private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
     private DrawMode drawMode;
-    private ArrayList<DrawShape> shapes;
+    private final ArrayList<DrawShape> shapes;
     private DrawShape currentShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
-    private MouseHandler mouseHandler;
+    private final MouseHandler mouseHandler;
 
     private DrawingPanel() {
         setBackground(Color.WHITE);
 
         drawMode = DrawMode.CURSOR;
-        shapes = new ArrayList<DrawShape>();
+        shapes = new ArrayList<>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;

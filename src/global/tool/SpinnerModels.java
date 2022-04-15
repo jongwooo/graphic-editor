@@ -9,7 +9,7 @@ public enum SpinnerModels {
     outlineSizeModel(Constant.OUTLINE_SIZE_MODEL),
     dashSizeModel(Constant.DASH_SIZE_MODEL);
 
-    private SpinnerNumberModel currentSpinnerModel;
+    private final SpinnerNumberModel currentSpinnerModel;
 
     SpinnerModels(SpinnerNumberModel currentSpinnerModel) {
         this.currentSpinnerModel = currentSpinnerModel;

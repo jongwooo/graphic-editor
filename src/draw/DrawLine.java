@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Line2D;
 
 public class DrawLine extends DrawShape {
-    private Line2D line2D;
+    private final Line2D line2D;
 
     public DrawLine() {
         super(new Line2D.Double());

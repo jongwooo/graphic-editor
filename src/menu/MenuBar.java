@@ -8,9 +8,9 @@ public class MenuBar extends JMenuBar {
     private static final long serialVersionUID = 1L;
     private static final MenuBar MENU_BAR = new MenuBar();
 
-    private FileMenu fileMenu;
-    private EditMenu editMenu;
-    private MenuBarHandler menuBarHandler;
+    private final FileMenu fileMenu;
+    private final EditMenu editMenu;
+    private final MenuBarHandler menuBarHandler;
 
     private MenuBar() {
         menuBarHandler = MenuBarHandler.createMenuBarHandler();

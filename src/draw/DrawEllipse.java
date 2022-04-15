@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
 public class DrawEllipse extends DrawShape{
-    private Ellipse2D ellipse2D;
+    private final Ellipse2D ellipse2D;
 
     public DrawEllipse() {
         super(new Ellipse2D.Double());

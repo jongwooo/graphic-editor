@@ -9,7 +9,7 @@ public enum EditMenuItem implements MenuItem {
     group("Group"),
     ungroup("Ungroup");
 
-    private String menuName;
+    private final String menuName;
     private boolean separated;
 
     EditMenuItem(String menuName) {

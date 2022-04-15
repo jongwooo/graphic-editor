@@ -21,10 +21,10 @@ public class ToolBar extends JToolBar {
     private static final long serialVersionUID = 1L;
     private static final ToolBar TOOL_BAR = new ToolBar();
 
-    private ButtonHandler buttonHandler;
-    private ButtonGroup shapeToolBtnGroup;
-    private SpinnerHandler spinnerHandler;
-    private SpinnerNumberModel outlineSizeModel, dashSizeModel;
+    private final ButtonHandler buttonHandler;
+    private final ButtonGroup shapeToolBtnGroup;
+    private final SpinnerHandler spinnerHandler;
+    private final SpinnerNumberModel outlineSizeModel, dashSizeModel;
 
     private ToolBar() {
         super(Constant.TOOLBAR_TITLE);

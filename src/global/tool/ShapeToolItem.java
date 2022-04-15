@@ -13,7 +13,7 @@ public enum ShapeToolItem {
     line(new DrawLine()),
     polygon(new DrawPolygon());
 
-    private DrawShape currentShape;
+    private final DrawShape currentShape;
 
     ShapeToolItem(DrawShape currentShape) {
         this.currentShape = currentShape;

@@ -9,7 +9,7 @@ public enum FileMenuItem implements MenuItem {
     print("Print...", true),
     quitEditor("Quit");
 
-    private String menuName;
+    private final String menuName;
     private boolean separated;
 
     FileMenuItem(String menuName) {
