@@ -12,11 +12,11 @@ public enum EditMenuItem implements MenuItem {
     private String menuName;
     private boolean separated;
 
-    private EditMenuItem(String menuName) {
+    EditMenuItem(String menuName) {
         this.menuName = menuName;
     }
 
-    private EditMenuItem(String menuName, boolean separated) {
+    EditMenuItem(String menuName, boolean separated) {
         this(menuName);
         this.separated = separated;
     }

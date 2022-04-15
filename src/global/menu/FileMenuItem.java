@@ -12,11 +12,11 @@ public enum FileMenuItem implements MenuItem {
     private String menuName;
     private boolean separated;
 
-    private FileMenuItem(String menuName) {
+    FileMenuItem(String menuName) {
         this.menuName = menuName;
     }
 
-    private FileMenuItem(String menuName, boolean separated) {
+    FileMenuItem(String menuName, boolean separated) {
         this(menuName);
         this.separated = separated;
     }

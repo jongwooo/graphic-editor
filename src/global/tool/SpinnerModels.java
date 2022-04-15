@@ -11,7 +11,7 @@ public enum SpinnerModels {
 
     private SpinnerNumberModel currentSpinnerModel;
 
-    private SpinnerModels(SpinnerNumberModel currentSpinnerModel) {
+    SpinnerModels(SpinnerNumberModel currentSpinnerModel) {
         this.currentSpinnerModel = currentSpinnerModel;
     }
 
