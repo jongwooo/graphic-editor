@@ -6,14 +6,19 @@ import global.Constant;
 import global.draw.DrawMode;
 
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel implements Printable {
     private static final long serialVersionUID = 1L;
     private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
@@ -84,6 +89,29 @@ public class DrawingPanel extends JPanel {
     public void repaint() {
         super.repaint();
         setCurrentDrawMode(DrawMode.CURSOR);
+    }
+
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
+        if (pageIndex > 0) {
+            return NO_SUCH_PAGE;
+        }
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+        shapes.forEach(shape -> shape.draw(graphics2D));
+        return PAGE_EXISTS;
+    }
+
+    public void print() {
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setPrintable(this);
+        boolean isPrintable = printerJob.printDialog();
+
+        try {
+            if (isPrintable) printerJob.print();
+        } catch (PrinterException exception) {
+            JOptionPane.showMessageDialog(this,"Unable to Print");
+        }
     }
 
     public void startDraw(Point startPoint) {

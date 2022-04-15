@@ -40,7 +40,7 @@ public class MenuBarHandler implements ActionListener {
     }
 
     public void print() {
-
+        drawingPanel.print();
     }
 
     public void quitEditor() {
