@@ -77,10 +77,7 @@ public class DrawingPanel extends JPanel {
     public void paint(Graphics graphics) {
         super.paint(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
-
-        shapes.forEach(shape -> {
-            shape.draw(graphics2D);
-        });
+        shapes.forEach(shape -> shape.draw(graphics2D));
     }
 
     @Override
