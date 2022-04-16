@@ -110,7 +110,7 @@ public class DrawingPanel extends JPanel implements Printable {
         try {
             if (isPrintable) printerJob.print();
         } catch (PrinterException exception) {
-            JOptionPane.showMessageDialog(this,"Unable to Print");
+            JOptionPane.showMessageDialog(this, Constant.PRINT_DIALOG_ERROR_MESSAGE, Constant.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 

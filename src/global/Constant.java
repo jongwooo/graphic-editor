@@ -18,6 +18,9 @@ public class Constant {
     public static final String OUTLINE_SPINNER_TITLE = "Outline";
     public static final String DASH_SPINNER_TITLE = "Dash";
 
+    public static final String PRINT_DIALOG_TITLE = "Print";
+    public static final String PRINT_DIALOG_ERROR_MESSAGE = "Unable to Print";
+
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = Color.WHITE;
 
