@@ -7,11 +7,8 @@ import draw.DrawRectangle;
 import draw.DrawShape;
 
 public enum ShapeToolItem {
-    cursor(null),
-    rectangle(new DrawRectangle()),
-    ellipse(new DrawEllipse()),
-    line(new DrawLine()),
-    polygon(new DrawPolygon());
+    cursor(null), rectangle(new DrawRectangle()), ellipse(new DrawEllipse()), line(
+            new DrawLine()), polygon(new DrawPolygon());
 
     private final DrawShape currentShape;
 

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 public class MenuBarHandler implements ActionListener {
+
     private static final MenuBarHandler MENU_BAR_HANDLER = new MenuBarHandler();
 
     private DrawingPanel drawingPanel;
@@ -74,7 +75,8 @@ public class MenuBarHandler implements ActionListener {
     private void invokeMethod(String methodName) {
         try {
             this.getClass().getMethod(methodName).invoke(this);
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {
+        } catch (InvocationTargetException | IllegalAccessException |
+                 NoSuchMethodException exception) {
             exception.printStackTrace();
         }
     }

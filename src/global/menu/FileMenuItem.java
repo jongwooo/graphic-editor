@@ -1,12 +1,8 @@
 package global.menu;
 
 public enum FileMenuItem implements MenuItem {
-    newFile("New"),
-    openFile("Open File...", true),
-    saveFile("Save"),
-    saveFileAs("Save As..."),
-    print("Print...", true),
-    quitEditor("Quit");
+    newFile("New"), openFile("Open File...", true), saveFile("Save"), saveFileAs(
+            "Save As..."), print("Print...", true), quitEditor("Quit");
 
     private final String menuName;
     private boolean separated;

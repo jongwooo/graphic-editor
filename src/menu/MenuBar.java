@@ -5,6 +5,7 @@ import panel.DrawingPanel;
 import javax.swing.JMenuBar;
 
 public class MenuBar extends JMenuBar {
+
     private static final long serialVersionUID = 1L;
     private static final MenuBar MENU_BAR = new MenuBar();
 

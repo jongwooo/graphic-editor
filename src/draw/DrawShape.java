@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Shape;
 
 public abstract class DrawShape {
+
     protected Shape shape;
     protected Point startPoint;
     private Color outlineColor, fillColor;
@@ -24,15 +25,22 @@ public abstract class DrawShape {
         graphics2D.draw(shape);
     }
 
-    public void updateShapeAttributes(Color outlineColor, Color fillColor, int outlineSize, int dashSize) {
+    public void updateShapeAttributes(Color outlineColor, Color fillColor, int outlineSize,
+            int dashSize) {
         this.outlineColor = outlineColor;
         this.fillColor = fillColor;
-        basicStroke = (dashSize == 0) ?
-                new BasicStroke(outlineSize) :
-                new BasicStroke(outlineSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, new float[]{dashSize}, 0);
+        basicStroke = (dashSize == 0) ? new BasicStroke(outlineSize)
+                : new BasicStroke(outlineSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10,
+                        new float[]{dashSize}, 0);
+    }
+
+    public boolean isContainCurrentPoint(Point currentPoint) {
+        return shape.getBounds2D().contains(currentPoint);
     }
 
     public abstract void startDraw(Point startPoint);
+
     public abstract void setPoint(Point currentPoint);
+
     public abstract DrawShape newShape();
 }

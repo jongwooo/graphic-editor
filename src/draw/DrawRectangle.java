@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class DrawRectangle extends DrawShape {
+
     private final Rectangle rectangle;
 
     public DrawRectangle() {

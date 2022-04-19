@@ -1,7 +1,5 @@
 package global.draw;
 
 public enum DrawMode {
-    CURSOR,
-    NORMAL,
-    POLYGON
+    CURSOR, NORMAL, POLYGON
 }

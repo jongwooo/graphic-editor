@@ -3,7 +3,8 @@ package draw;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 
-public class DrawEllipse extends DrawShape{
+public class DrawEllipse extends DrawShape {
+
     private final Ellipse2D ellipse2D;
 
     public DrawEllipse() {

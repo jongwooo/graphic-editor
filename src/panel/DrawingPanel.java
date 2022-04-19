@@ -4,10 +4,6 @@ import draw.DrawPolygon;
 import draw.DrawShape;
 import global.Constant;
 import global.draw.DrawMode;
-
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,8 +13,12 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel implements Printable {
+
     private static final long serialVersionUID = 1L;
     private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
@@ -75,7 +75,16 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void updateCursorStyle() {
-        setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR : Constant.CROSSHAIR_STYLE_CURSOR);
+        setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR
+                : Constant.CROSSHAIR_STYLE_CURSOR);
+    }
+
+    public void updateCursorStyle(boolean cursorOnShape) {
+        setCursor(cursorOnShape ? Constant.HAND_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
+    }
+
+    public boolean isCursorOnShape(Point currentPoint) {
+        return shapes.stream().anyMatch(shape -> shape.isContainCurrentPoint(currentPoint));
     }
 
     @Override
@@ -108,9 +117,12 @@ public class DrawingPanel extends JPanel implements Printable {
         boolean isPrintable = printerJob.printDialog();
 
         try {
-            if (isPrintable) printerJob.print();
+            if (isPrintable) {
+                printerJob.print();
+            }
         } catch (PrinterException exception) {
-            JOptionPane.showMessageDialog(this, Constant.PRINT_DIALOG_ERROR_MESSAGE, Constant.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, Constant.PRINT_DIALOG_ERROR_MESSAGE,
+                    Constant.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -150,7 +162,8 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     private Color chooseColor(Color defaultColor, Color currentColor) {
-        Color chosenColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE, defaultColor);
+        Color chosenColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE,
+                defaultColor);
         return chosenColor != null ? chosenColor : currentColor;
     }
 

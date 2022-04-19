@@ -1,11 +1,11 @@
 package panel;
 
 import global.draw.DrawMode;
-
-import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.event.MouseInputAdapter;
 
 public class MouseHandler extends MouseInputAdapter {
+
     private static final MouseHandler MOUSE_HANDLER = new MouseHandler();
 
     private DrawingPanel drawingPanel;
@@ -20,7 +20,8 @@ public class MouseHandler extends MouseInputAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (drawingPanel.isCurrentDrawMode(DrawMode.POLYGON) && e.getButton() == MouseEvent.BUTTON1) {
+        if (drawingPanel.isCurrentDrawMode(DrawMode.POLYGON)
+                && e.getButton() == MouseEvent.BUTTON1) {
             if (e.getClickCount() == 1) {
                 drawingPanel.keepDraw(e.getPoint());
             } else if (e.getClickCount() >= 2) {
@@ -32,7 +33,8 @@ public class MouseHandler extends MouseInputAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && !drawingPanel.isCurrentShape(null)) {
-            drawingPanel.setCurrentDrawMode(drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
+            drawingPanel.setCurrentDrawMode(
+                    drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
             drawingPanel.startDraw(e.getPoint());
         }
     }
@@ -46,7 +48,9 @@ public class MouseHandler extends MouseInputAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (drawingPanel.isCurrentDrawMode(DrawMode.POLYGON)) {
+        if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && drawingPanel.isCurrentShape(null)) {
+            drawingPanel.updateCursorStyle(drawingPanel.isCursorOnShape(e.getPoint()));
+        } else if (drawingPanel.isCurrentDrawMode(DrawMode.POLYGON)) {
             drawingPanel.draw(e.getPoint());
         }
     }

@@ -9,6 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class SpinnerHandler implements ChangeListener {
+
     private static final SpinnerHandler SPINNER_HANDLER = new SpinnerHandler();
 
     private DrawingPanel drawingPanel;

@@ -18,6 +18,7 @@ import javax.swing.SpinnerNumberModel;
 import java.util.Arrays;
 
 public class ToolBar extends JToolBar {
+
     private static final long serialVersionUID = 1L;
     private static final ToolBar TOOL_BAR = new ToolBar();
 
@@ -56,7 +57,8 @@ public class ToolBar extends JToolBar {
     }
 
     private ImageIcon createImageIcon(String imageName, boolean selected) {
-        return new ImageIcon("src/image/".concat(selected ? "selected_" : "").concat(imageName).concat(".png"));
+        return new ImageIcon(
+                "src/image/".concat(selected ? "selected_" : "").concat(imageName).concat(".png"));
     }
 
     private void createShapeToolButtons() {
@@ -89,7 +91,8 @@ public class ToolBar extends JToolBar {
     }
 
     private void setDefaultButton() {
-        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
+        JRadioButton defaultBtn = (JRadioButton) this.getComponent(
+                ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
     }
 

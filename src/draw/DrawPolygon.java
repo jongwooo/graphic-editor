@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 
 public class DrawPolygon extends DrawShape {
+
     private final Polygon polygon;
 
     public DrawPolygon() {

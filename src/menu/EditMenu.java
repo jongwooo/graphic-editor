@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import java.util.Arrays;
 
 public class EditMenu extends JMenu {
+
     private static final long serialVersionUID = 1L;
     private static final EditMenu EDIT_MENU = new EditMenu();
 
@@ -35,7 +36,9 @@ public class EditMenu extends JMenu {
             menuItem.setActionCommand(editMenuItem.name());
             menuItem.addActionListener(menuBarHandler);
             this.add(menuItem);
-            if (editMenuItem.hasSeparator()) this.addSeparator();
+            if (editMenuItem.hasSeparator()) {
+                this.addSeparator();
+            }
         });
     }
 }

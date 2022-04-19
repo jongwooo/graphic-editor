@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 public class ButtonHandler implements ActionListener {
+
     private static final ButtonHandler BUTTON_HANDLER = new ButtonHandler();
 
     private DrawingPanel drawingPanel;
@@ -66,7 +67,8 @@ public class ButtonHandler implements ActionListener {
     private void invokeMethod(String methodName) {
         try {
             this.getClass().getMethod(methodName).invoke(this);
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {
+        } catch (InvocationTargetException | IllegalAccessException |
+                 NoSuchMethodException exception) {
             exception.printStackTrace();
         }
     }

@@ -6,8 +6,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 public enum SpinnerModels {
-    outlineSizeModel(Constant.OUTLINE_SIZE_MODEL),
-    dashSizeModel(Constant.DASH_SIZE_MODEL);
+    outlineSizeModel(Constant.OUTLINE_SIZE_MODEL), dashSizeModel(Constant.DASH_SIZE_MODEL);
 
     private final SpinnerNumberModel currentSpinnerModel;
 

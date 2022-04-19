@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.geom.Line2D;
 
 public class DrawLine extends DrawShape {
+
     private final Line2D line2D;
 
     public DrawLine() {

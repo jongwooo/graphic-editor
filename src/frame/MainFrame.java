@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 public class MainFrame extends JFrame {
+
     private static final long serialVersionUID = 1L;
     private static final MainFrame MAIN_FRAME = new MainFrame();
 

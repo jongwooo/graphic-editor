@@ -1,13 +1,8 @@
 package global.menu;
 
 public enum EditMenuItem implements MenuItem {
-    undo("Undo"),
-    redo("Redo", true),
-    cut("Cut"),
-    copy("Copy"),
-    paste("Paste", true),
-    group("Group"),
-    ungroup("Ungroup");
+    undo("Undo"), redo("Redo", true), cut("Cut"), copy("Copy"), paste("Paste", true), group(
+            "Group"), ungroup("Ungroup");
 
     private final String menuName;
     private boolean separated;
