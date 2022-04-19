@@ -12,9 +12,11 @@ public abstract class DrawShape {
     protected Point startPoint;
     private Color outlineColor, fillColor;
     private BasicStroke basicStroke;
+    private final StrokeFactory strokeFactory;
 
     public DrawShape(Shape shape) {
         this.shape = shape;
+        strokeFactory = StrokeFactory.getStrokeFactory();
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -29,9 +31,8 @@ public abstract class DrawShape {
             int dashSize) {
         this.outlineColor = outlineColor;
         this.fillColor = fillColor;
-        basicStroke = (dashSize == 0) ? new BasicStroke(outlineSize)
-                : new BasicStroke(outlineSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10,
-                        new float[]{dashSize}, 0);
+        basicStroke = (dashSize == 0) ? strokeFactory.getStroke(String.valueOf(outlineSize))
+                : strokeFactory.getStroke(outlineSize + ":" + dashSize);
     }
 
     public boolean isContainCurrentPoint(Point currentPoint) {
