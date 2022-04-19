@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
     public void associate() {
         menuBar.associate(drawingPanel);
         toolBar.associate(drawingPanel);
-        drawingPanel.associate();
+        drawingPanel.associate(toolBar);
     }
 
     public void initialize() {

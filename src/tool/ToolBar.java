@@ -88,8 +88,8 @@ public class ToolBar extends JToolBar {
         this.addSeparator();
     }
 
-    private void setDefaultButton() {
-        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.rectangle.ordinal());
+    public void setDefaultButton() {
+        JRadioButton defaultBtn = (JRadioButton) this.getComponent(ShapeToolItem.cursor.ordinal());
         defaultBtn.doClick();
     }
 

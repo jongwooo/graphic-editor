@@ -4,10 +4,6 @@ import draw.DrawPolygon;
 import draw.DrawShape;
 import global.Constant;
 import global.draw.DrawMode;
-
-import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,6 +13,10 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import tool.ToolBar;
 
 public class DrawingPanel extends JPanel implements Printable {
     private static final long serialVersionUID = 1L;
@@ -45,8 +45,8 @@ public class DrawingPanel extends JPanel implements Printable {
         return DRAWING_PANEL;
     }
 
-    public void associate() {
-        mouseHandler.associate(this);
+    public void associate(ToolBar toolBar) {
+        mouseHandler.associate(toolBar, this);
     }
 
     public void initialize() {
@@ -76,6 +76,14 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void updateCursorStyle() {
         setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR : Constant.CROSSHAIR_STYLE_CURSOR);
+    }
+
+    public void updateCursorStyle(boolean cursorOnShape) {
+        setCursor(cursorOnShape ? Constant.HAND_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
+    }
+
+    public boolean isCursorOnShape(Point currentPoint) {
+        return shapes.stream().anyMatch(shape -> shape.isContainCurrentPoint(currentPoint));
     }
 
     @Override

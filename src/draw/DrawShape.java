@@ -32,6 +32,10 @@ public abstract class DrawShape {
                 new BasicStroke(outlineSize, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, new float[]{dashSize}, 0);
     }
 
+    public boolean isContainCurrentPoint(Point currentPoint) {
+        return shape.getBounds2D().contains(currentPoint);
+    }
+
     public abstract void startDraw(Point startPoint);
     public abstract void setPoint(Point currentPoint);
     public abstract DrawShape newShape();

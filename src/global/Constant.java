@@ -30,6 +30,7 @@ public class Constant {
     public static final int DEFAULT_OUTLINE_SIZE = 1;
     public static final int DEFAULT_DASH_SIZE = 0;
 
-    public static final Cursor DEFAULT_STYLE_CURSOR = Cursor.getDefaultCursor();
-    public static final Cursor CROSSHAIR_STYLE_CURSOR = Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
+    public static final Cursor DEFAULT_STYLE_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
+    public static final Cursor HAND_STYLE_CURSOR = new Cursor(Cursor.HAND_CURSOR);
+    public static final Cursor CROSSHAIR_STYLE_CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
 }
