@@ -2,7 +2,7 @@ package global.menu;
 
 public interface MenuItem {
 
-    public String getMenuName();
+    String getMenuName();
 
-    public boolean hasSeparator();
+    boolean hasSeparator();
 }
