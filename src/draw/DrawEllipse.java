@@ -5,6 +5,8 @@ import java.awt.geom.Ellipse2D;
 
 public class DrawEllipse extends DrawShape {
 
+    private static final long serialVersionUID = 1L;
+
     private final Ellipse2D ellipse2D;
 
     public DrawEllipse() {

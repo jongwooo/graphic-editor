@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 
 public class DrawRectangle extends DrawShape {
 
+    private static final long serialVersionUID = 1L;
+
     private final Rectangle rectangle;
 
     public DrawRectangle() {

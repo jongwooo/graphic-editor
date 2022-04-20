@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.io.Serializable;
 
-public abstract class DrawShape {
+public abstract class DrawShape implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     protected Shape shape;
     protected Point startPoint;

@@ -5,6 +5,8 @@ import java.awt.geom.Line2D;
 
 public class DrawLine extends DrawShape {
 
+    private static final long serialVersionUID = 1L;
+
     private final Line2D line2D;
 
     public DrawLine() {

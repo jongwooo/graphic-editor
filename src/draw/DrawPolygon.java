@@ -5,6 +5,8 @@ import java.awt.Polygon;
 
 public class DrawPolygon extends DrawShape {
 
+    private static final long serialVersionUID = 1L;
+
     private final Polygon polygon;
 
     public DrawPolygon() {
