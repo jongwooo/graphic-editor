@@ -1,6 +1,5 @@
 package draw;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,7 +13,7 @@ public abstract class DrawShape implements Serializable {
     protected Shape shape;
     protected Point startPoint;
     private Color outlineColor, fillColor;
-    private BasicStroke basicStroke;
+    private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
 
     public DrawShape(Shape shape) {
@@ -26,7 +25,7 @@ public abstract class DrawShape implements Serializable {
         graphics2D.setColor(fillColor);
         graphics2D.fill(shape);
         graphics2D.setColor(outlineColor);
-        graphics2D.setStroke(basicStroke);
+        graphics2D.setStroke(customStroke);
         graphics2D.draw(shape);
     }
 
@@ -34,7 +33,7 @@ public abstract class DrawShape implements Serializable {
             int dashSize) {
         this.outlineColor = outlineColor;
         this.fillColor = fillColor;
-        basicStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
+        customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
                 : strokeFactory.getStroke(outlineSize, dashSize);
     }
 
