@@ -31,8 +31,8 @@ public abstract class DrawShape {
             int dashSize) {
         this.outlineColor = outlineColor;
         this.fillColor = fillColor;
-        basicStroke = (dashSize == 0) ? strokeFactory.getStroke(String.valueOf(outlineSize))
-                : strokeFactory.getStroke(outlineSize + ":" + dashSize);
+        basicStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
+                : strokeFactory.getStroke(outlineSize, dashSize);
     }
 
     public boolean isContainCurrentPoint(Point currentPoint) {

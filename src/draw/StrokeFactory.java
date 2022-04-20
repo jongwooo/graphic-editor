@@ -13,20 +13,26 @@ public class StrokeFactory {
         return STROKE_FACTORY;
     }
 
-    public BasicStroke getStroke(String strokeKey) {
+    public BasicStroke getStroke(int outlineSize) {
+        String strokeKey = String.valueOf(outlineSize);
+
         if (cache.containsKey(strokeKey)) {
             return cache.get(strokeKey);
         } else {
-            BasicStroke newStroke;
+            BasicStroke newStroke = new BasicStroke(outlineSize);
+            cache.put(strokeKey, newStroke);
+            return newStroke;
+        }
+    }
 
-            if (strokeKey.contains(":")) {
-                String[] split = strokeKey.split(":");
-                newStroke = new BasicStroke(Integer.parseInt(split[0]), BasicStroke.CAP_ROUND,
-                        BasicStroke.JOIN_ROUND, 10, new float[]{Integer.parseInt(split[1])}, 0);
-            } else {
-                newStroke = new BasicStroke(Integer.parseInt(strokeKey));
-            }
+    public BasicStroke getStroke(int outlineSize, int dashSize) {
+        String strokeKey = outlineSize + ":" + dashSize;
 
+        if (cache.containsKey(strokeKey)) {
+            return cache.get(strokeKey);
+        } else {
+            BasicStroke newStroke = new BasicStroke(outlineSize, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND, 10, new float[]{dashSize}, 0);
             cache.put(strokeKey, newStroke);
             return newStroke;
         }
