@@ -23,7 +23,7 @@ public class Constant {
     public static final String PRINT_DIALOG_ERROR_MESSAGE = "Unable to Print";
 
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
-    public static final Color DEFAULT_FILL_COLOR = Color.WHITE;
+    public static final Color DEFAULT_FILL_COLOR = new Color(0, 0, 0, 0);
 
     public static final SpinnerNumberModel OUTLINE_SIZE_MODEL = new SpinnerNumberModel(1, 1, 10, 1);
     public static final SpinnerNumberModel DASH_SIZE_MODEL = new SpinnerNumberModel(0, 0, 10, 1);

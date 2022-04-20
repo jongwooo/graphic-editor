@@ -1,5 +1,6 @@
 package draw;
 
+import global.Constant;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -22,8 +23,10 @@ public abstract class DrawShape implements Serializable {
     }
 
     public void draw(Graphics2D graphics2D) {
-        graphics2D.setColor(fillColor);
-        graphics2D.fill(shape);
+        if (!isDefaultFillColor()) {
+            graphics2D.setColor(fillColor);
+            graphics2D.fill(shape);
+        }
         graphics2D.setColor(outlineColor);
         graphics2D.setStroke(customStroke);
         graphics2D.draw(shape);
@@ -35,6 +38,10 @@ public abstract class DrawShape implements Serializable {
         this.fillColor = fillColor;
         customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
                 : strokeFactory.getStroke(outlineSize, dashSize);
+    }
+
+    private boolean isDefaultFillColor() {
+        return fillColor == Constant.DEFAULT_FILL_COLOR;
     }
 
     public boolean isContainCurrentPoint(Point currentPoint) {
