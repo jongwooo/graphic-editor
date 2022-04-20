@@ -1,5 +1,7 @@
 package draw;
 
+import draw.stroke.CustomStroke;
+import draw.stroke.StrokeFactory;
 import global.Constant;
 import java.awt.Color;
 import java.awt.Graphics2D;

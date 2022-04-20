@@ -1,4 +1,4 @@
-package draw;
+package draw.stroke;
 
 import java.io.Serializable;
 import java.util.HashMap;

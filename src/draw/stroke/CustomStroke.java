@@ -1,4 +1,4 @@
-package draw;
+package draw.stroke;
 
 import java.awt.BasicStroke;
 import java.io.Serializable;
