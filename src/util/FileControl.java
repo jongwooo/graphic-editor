@@ -96,6 +96,8 @@ public class FileControl {
     }
 
     public void saveFileAs() {
+        fileChooser.setSelectedFile(
+                new File(fileChooser.getCurrentDirectory() + Constant.DEFAULT_FILE_NAME));
         int dialogOption = fileChooser.showSaveDialog(drawingPanel);
 
         if (dialogOption == JFileChooser.APPROVE_OPTION) {

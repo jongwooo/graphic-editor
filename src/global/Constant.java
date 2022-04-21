@@ -21,6 +21,7 @@ public class Constant {
 
     public static final String FILE_EXTENSION = "graphic";
     public static final String FILE_EXTENSION_DESCRIPTION = "Graphic (." + FILE_EXTENSION + ")";
+    public static final String DEFAULT_FILE_NAME = "//Untitled." + FILE_EXTENSION;
 
     public static final String FILE_DIALOG_TITLE = "File";
     public static final String FILE_DIALOG_ERROR_MESSAGE = "File type and extension don't match";
