@@ -11,7 +11,8 @@ public class CustomStroke extends BasicStroke implements Serializable {
 
     private static class Serial implements Serializable {
 
-        static final long serialVersionUID = 5538700973722429161L + 1;
+        private static final long serialVersionUID = 1L;
+
         private transient CustomStroke replacement;
 
         Serial(CustomStroke replacement) {
