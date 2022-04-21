@@ -1,5 +1,6 @@
 package draw.stroke;
 
+import java.awt.BasicStroke;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -33,7 +34,9 @@ public class StrokeFactory implements Serializable {
         if (cache.containsKey(strokeKey)) {
             return cache.get(strokeKey);
         } else {
-            CustomStroke newStroke = new CustomStroke(outlineSize, dashSize);
+            CustomStroke newStroke = new CustomStroke(outlineSize, BasicStroke.CAP_ROUND,
+                    BasicStroke.JOIN_ROUND, 10, new float[]{dashSize},
+                    0);
             cache.put(strokeKey, newStroke);
             return newStroke;
         }
