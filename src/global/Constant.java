@@ -26,6 +26,9 @@ public class Constant {
     public static final String FILE_DIALOG_TITLE = "File";
     public static final String FILE_DIALOG_ERROR_MESSAGE = "File type and extension don't match";
 
+    public static final String NEW_FILE_CONFIRM_DIALOG_TITLE = "New file";
+    public static final String NEW_FILE_CONFIRM_DIALOG_MESSAGE = "Are you sure you want to create a new file now?";
+
     public static final String OPEN_DIALOG_TITLE = "Open";
     public static final String OPEN_DIALOG_ERROR_MESSAGE = "Unable to Open";
 

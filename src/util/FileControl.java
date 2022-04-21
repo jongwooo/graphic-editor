@@ -66,11 +66,20 @@ public class FileControl {
 
     public void newFile() {
         if (checkSave()) {
+            int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
+                    Constant.NEW_FILE_CONFIRM_DIALOG_MESSAGE,
+                    Constant.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+
             setFilePath(null);
             mainFrame.setDefaultTitle();
             drawingPanel.clearShapes();
             drawingPanel.setUpdate(false);
             drawingPanel.repaint();
+
+            if (dialogOption == JOptionPane.YES_OPTION) {
+                saveFileAs();
+            }
         }
     }
 
