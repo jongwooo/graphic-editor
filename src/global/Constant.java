@@ -19,8 +19,26 @@ public class Constant {
     public static final String OUTLINE_SPINNER_TITLE = "Outline";
     public static final String DASH_SPINNER_TITLE = "Dash";
 
+    public static final String FILE_EXTENSION = "graphic";
+    public static final String FILE_EXTENSION_DESCRIPTION = "Graphic (." + FILE_EXTENSION + ")";
+
+    public static final String FILE_DIALOG_TITLE = "File";
+    public static final String FILE_DIALOG_ERROR_MESSAGE = "File type and extension don't match";
+
+    public static final String OPEN_DIALOG_TITLE = "Open";
+    public static final String OPEN_DIALOG_ERROR_MESSAGE = "Unable to Open";
+
+    public static final String SAVE_DIALOG_TITLE = "Save";
+    public static final String SAVE_DIALOG_ERROR_MESSAGE = "Unable to Save";
+
+    public static final String SAVE_CONFIRM_DIALOG_TITLE = "Save changes?";
+    public static final String SAVE_CONFIRM_DIALOG_MESSAGE = "Do you want to save changes?";
+
     public static final String PRINT_DIALOG_TITLE = "Print";
     public static final String PRINT_DIALOG_ERROR_MESSAGE = "Unable to Print";
+
+    public static final String QUIT_CONFIRM_DIALOG_TITLE = "Quit";
+    public static final String QUIT_CONFIRM_DIALOG_MESSAGE = "Quit Graphic Editor?";
 
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = new Color(0, 0, 0, 0);

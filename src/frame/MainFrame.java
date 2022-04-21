@@ -1,12 +1,12 @@
 package frame;
 
 import global.Constant;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
 import menu.MenuBar;
 import panel.DrawingPanel;
 import tool.ToolBar;
-
-import javax.swing.JFrame;
-import java.awt.BorderLayout;
+import util.FileControl;
 
 public class MainFrame extends JFrame {
 
@@ -16,6 +16,7 @@ public class MainFrame extends JFrame {
     private final MenuBar menuBar;
     private final ToolBar toolBar;
     private final DrawingPanel drawingPanel;
+    private final FileControl fileControl;
 
     private MainFrame() {
         super(Constant.MAINFRAME_TITLE);
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame {
         menuBar = MenuBar.createMenuBar();
         toolBar = ToolBar.createToolBar();
         drawingPanel = DrawingPanel.createDrawingPanel();
+        fileControl = FileControl.createFileControl();
     }
 
     public static MainFrame createMainFrame() {
@@ -34,9 +36,10 @@ public class MainFrame extends JFrame {
     }
 
     public void associate() {
-        menuBar.associate(drawingPanel);
+        menuBar.associate(drawingPanel, fileControl);
         toolBar.associate(drawingPanel);
         drawingPanel.associate();
+        fileControl.associate(this, drawingPanel);
     }
 
     public void initialize() {
@@ -48,5 +51,9 @@ public class MainFrame extends JFrame {
 
         drawingPanel.initialize();
         this.add(BorderLayout.CENTER, drawingPanel);
+    }
+
+    public void setDefaultTitle() {
+        setTitle(Constant.MAINFRAME_TITLE);
     }
 }

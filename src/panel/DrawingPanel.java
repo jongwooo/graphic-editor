@@ -10,11 +10,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import javax.swing.JColorChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel implements Printable {
@@ -22,8 +19,9 @@ public class DrawingPanel extends JPanel implements Printable {
     private static final long serialVersionUID = 1L;
     private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
+    private boolean update;
     private DrawMode drawMode;
-    private final ArrayList<DrawShape> shapes;
+    private ArrayList<DrawShape> shapes;
     private DrawShape currentShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
@@ -32,6 +30,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private DrawingPanel() {
         setBackground(Color.WHITE);
 
+        update = false;
         drawMode = DrawMode.CURSOR;
         shapes = new ArrayList<>();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -52,6 +51,23 @@ public class DrawingPanel extends JPanel implements Printable {
     public void initialize() {
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
+    }
+
+    public Object getShapes() {
+        return shapes;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void setShapes(Object shapeObject) {
+        this.shapes = (ArrayList<DrawShape>) shapeObject;
+    }
+
+    public boolean checkUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 
     public boolean isCurrentDrawMode(DrawMode drawMode) {
@@ -111,22 +127,8 @@ public class DrawingPanel extends JPanel implements Printable {
         return PAGE_EXISTS;
     }
 
-    public void print() {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-        printerJob.setPrintable(this);
-        boolean isPrintable = printerJob.printDialog();
-
-        try {
-            if (isPrintable) {
-                printerJob.print();
-            }
-        } catch (PrinterException exception) {
-            JOptionPane.showMessageDialog(this, Constant.PRINT_DIALOG_ERROR_MESSAGE,
-                    Constant.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     public void startDraw(Point startPoint) {
+        setUpdate(true);
         setCurrentShape(currentShape.newShape());
         currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
         currentShape.startDraw(startPoint);

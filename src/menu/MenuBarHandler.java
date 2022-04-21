@@ -5,43 +5,46 @@ import panel.DrawingPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+import util.FileControl;
 
 public class MenuBarHandler implements ActionListener {
 
     private static final MenuBarHandler MENU_BAR_HANDLER = new MenuBarHandler();
 
     private DrawingPanel drawingPanel;
+    private FileControl fileControl;
 
     public static MenuBarHandler createMenuBarHandler() {
         return MENU_BAR_HANDLER;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
+    public void associate(DrawingPanel drawingPanel, FileControl fileControl) {
         this.drawingPanel = drawingPanel;
+        this.fileControl = fileControl;
     }
 
     public void newFile() {
-
+        fileControl.newFile();
     }
 
     public void openFile() {
-
+        fileControl.openFile();
     }
 
     public void saveFile() {
-
+        fileControl.saveFile();
     }
 
     public void saveFileAs() {
-
+        fileControl.saveFileAs();
     }
 
     public void print() {
-        drawingPanel.print();
+        fileControl.print();
     }
 
     public void quitEditor() {
-        System.exit(0);
+        fileControl.quitEditor();
     }
 
     public void undo() {
