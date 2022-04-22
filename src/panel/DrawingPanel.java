@@ -155,11 +155,13 @@ public class DrawingPanel extends JPanel implements Printable {
         if (shapes.size() >= 1 && !isCurrentDrawMode(DrawMode.POLYGON)) {
             shapes.remove(shapes.size() - 1);
         }
+        setUpdate(true);
         repaint();
     }
 
     public void clearShapes() {
         shapes.clear();
+        setUpdate(true);
         repaint();
     }
 
