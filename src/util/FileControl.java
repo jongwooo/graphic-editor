@@ -64,6 +64,15 @@ public class FileControl {
         return true;
     }
 
+    private boolean checkExtension(File currentFile) {
+        return currentFile.getName().contains("." + Constant.FILE_EXTENSION);
+    }
+
+    private void createFileExtensionErrorDialog() {
+        JOptionPane.showMessageDialog(fileChooser, Constant.FILE_DIALOG_ERROR_MESSAGE,
+                Constant.FILE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+    }
+
     public void newFile() {
         if (checkSave()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
@@ -89,9 +98,13 @@ public class FileControl {
 
             if (dialogOption == JFileChooser.APPROVE_OPTION) {
                 File currentFile = fileChooser.getSelectedFile();
-                readShapeObject(currentFile);
-                drawingPanel.setUpdate(false);
-                drawingPanel.repaint();
+                if (checkExtension(currentFile)) {
+                    readShapeObject(currentFile);
+                    drawingPanel.setUpdate(false);
+                    drawingPanel.repaint();
+                } else {
+                    createFileExtensionErrorDialog();
+                }
             }
         }
     }
@@ -111,11 +124,10 @@ public class FileControl {
 
         if (dialogOption == JFileChooser.APPROVE_OPTION) {
             File currentFile = fileChooser.getSelectedFile();
-            if (currentFile.getName().contains("." + Constant.FILE_EXTENSION)) {
+            if (checkExtension(currentFile)) {
                 writeShapeObject(currentFile);
             } else {
-                JOptionPane.showMessageDialog(fileChooser, Constant.FILE_DIALOG_ERROR_MESSAGE,
-                        Constant.FILE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+                createFileExtensionErrorDialog();
                 saveFileAs();
             }
         }
