@@ -21,6 +21,9 @@ public abstract class DrawShape implements Serializable {
 
     public DrawShape(Shape shape) {
         this.shape = shape;
+        outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
+        fillColor = Constant.DEFAULT_FILL_COLOR;
+        customStroke = Constant.DEFAULT_STROKE;
         strokeFactory = StrokeFactory.getStrokeFactory();
     }
 
