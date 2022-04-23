@@ -44,6 +44,7 @@ public class Constant {
     public static final String QUIT_CONFIRM_DIALOG_TITLE = "Quit";
     public static final String QUIT_CONFIRM_DIALOG_MESSAGE = "Quit Graphic Editor?";
 
+    public static final Color BACKGROUND_COLOR = Color.WHITE;
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = new Color(0, 0, 0, 0);
 

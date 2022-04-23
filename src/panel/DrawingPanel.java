@@ -28,7 +28,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private final MouseHandler mouseHandler;
 
     private DrawingPanel() {
-        setBackground(Color.WHITE);
+        setBackground(Constant.BACKGROUND_COLOR);
 
         update = false;
         drawMode = DrawMode.CURSOR;
