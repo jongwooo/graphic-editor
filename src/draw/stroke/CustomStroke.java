@@ -47,6 +47,10 @@ public class CustomStroke extends BasicStroke implements Serializable {
                         target.getMiterLimit(), target.getDashArray(), target.getDashPhase());
     }
 
+    public CustomStroke() {
+        super();
+    }
+
     public CustomStroke(float lineWidth) {
         super(lineWidth);
     }
