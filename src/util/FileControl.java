@@ -24,6 +24,7 @@ public class FileControl {
     private MainFrame mainFrame;
     private DrawingPanel drawingPanel;
     private final JFileChooser fileChooser;
+    private final FileFactory fileFactory;
     private String filePath;
 
     private FileControl() {
@@ -32,6 +33,7 @@ public class FileControl {
                 Constant.FILE_EXTENSION));
         fileChooser.setMultiSelectionEnabled(false);
         filePath = null;
+        fileFactory = FileFactory.createFileFactory();
     }
 
     public static FileControl createFileControl() {
@@ -97,7 +99,8 @@ public class FileControl {
             int dialogOption = fileChooser.showOpenDialog(drawingPanel);
 
             if (dialogOption == JFileChooser.APPROVE_OPTION) {
-                File currentFile = fileChooser.getSelectedFile();
+                File currentFile = fileFactory.getFile(
+                        fileChooser.getSelectedFile().getAbsolutePath());
                 if (checkExtension(currentFile)) {
                     readShapeObject(currentFile);
                     drawingPanel.setUpdate(false);
@@ -113,17 +116,17 @@ public class FileControl {
         if (isNewFile()) {
             saveFileAs();
         } else {
-            writeShapeObject(new File(filePath));
+            writeShapeObject(fileFactory.getFile(filePath));
         }
     }
 
     public void saveFileAs() {
-        fileChooser.setSelectedFile(
-                new File(fileChooser.getCurrentDirectory() + Constant.DEFAULT_FILE_NAME));
+        fileChooser.setSelectedFile(fileFactory.getFile(
+                fileChooser.getCurrentDirectory() + Constant.DEFAULT_FILE_NAME));
         int dialogOption = fileChooser.showSaveDialog(drawingPanel);
 
         if (dialogOption == JFileChooser.APPROVE_OPTION) {
-            File currentFile = fileChooser.getSelectedFile();
+            File currentFile = fileFactory.getFile(fileChooser.getSelectedFile().getAbsolutePath());
             if (checkExtension(currentFile)) {
                 writeShapeObject(currentFile);
             } else {
