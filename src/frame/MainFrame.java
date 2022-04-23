@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import menu.MenuBar;
 import panel.DrawingPanel;
 import tool.ToolBar;
-import util.FileControl;
+import util.file.FileControl;
 
 public class MainFrame extends JFrame {
 

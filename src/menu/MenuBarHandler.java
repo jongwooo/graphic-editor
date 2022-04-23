@@ -5,7 +5,7 @@ import panel.DrawingPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
-import util.FileControl;
+import util.file.FileControl;
 
 public class MenuBarHandler implements ActionListener {
 

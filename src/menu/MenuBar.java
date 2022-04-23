@@ -3,7 +3,7 @@ package menu;
 import panel.DrawingPanel;
 
 import javax.swing.JMenuBar;
-import util.FileControl;
+import util.file.FileControl;
 
 public class MenuBar extends JMenuBar {
 
