@@ -10,7 +10,11 @@ public class StrokeFactory implements Serializable {
 
     private static final StrokeFactory STROKE_FACTORY = new StrokeFactory();
 
-    private final HashMap<String, CustomStroke> cache = new HashMap<>();
+    private final HashMap<String, CustomStroke> cache;
+
+    private StrokeFactory() {
+        cache = new HashMap<>();
+    }
 
     public static StrokeFactory getStrokeFactory() {
         return STROKE_FACTORY;
