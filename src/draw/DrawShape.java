@@ -24,7 +24,7 @@ public abstract class DrawShape implements Serializable {
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         customStroke = Constant.DEFAULT_STROKE;
-        strokeFactory = StrokeFactory.getStrokeFactory();
+        strokeFactory = StrokeFactory.createStrokeFactory();
     }
 
     public void draw(Graphics2D graphics2D) {
