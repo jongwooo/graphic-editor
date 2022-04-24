@@ -35,6 +35,7 @@ public class EditMenu extends JMenu {
             JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
             menuItem.setActionCommand(editMenuItem.name());
             menuItem.addActionListener(menuBarHandler);
+            menuItem.setAccelerator(editMenuItem.getKeyStroke());
             this.add(menuItem);
             if (editMenuItem.hasSeparator()) {
                 this.addSeparator();
