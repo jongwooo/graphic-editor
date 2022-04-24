@@ -42,6 +42,10 @@ public class ButtonHandler implements ActionListener {
         updateCurrentShape(ShapeToolItem.polygon.newShape());
     }
 
+    public void pencil() {
+        updateCurrentShape(ShapeToolItem.pencil.newShape());
+    }
+
     public void erase() {
         drawingPanel.eraseShape();
     }
