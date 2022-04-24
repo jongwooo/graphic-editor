@@ -23,16 +23,16 @@ public class FileControl {
 
     private MainFrame mainFrame;
     private DrawingPanel drawingPanel;
+    private String filePath;
     private final JFileChooser fileChooser;
     private final FileFactory fileFactory;
-    private String filePath;
 
     private FileControl() {
+        filePath = null;
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter(Constant.FILE_EXTENSION_DESCRIPTION,
                 Constant.FILE_EXTENSION));
         fileChooser.setMultiSelectionEnabled(false);
-        filePath = null;
         fileFactory = FileFactory.createFileFactory();
     }
 
