@@ -166,7 +166,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     private Color chooseColor(Color defaultColor, Color currentColor) {
-        Color chosenColor = JColorChooser.showDialog(null, Constant.COLOR_CHOOSER_TITLE,
+        Color chosenColor = JColorChooser.showDialog(this, Constant.COLOR_CHOOSER_TITLE,
                 defaultColor);
         return chosenColor != null ? chosenColor : currentColor;
     }
