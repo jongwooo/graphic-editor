@@ -128,7 +128,6 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void startDraw(Point startPoint) {
-        setUpdate(true);
         setCurrentShape(currentShape.newShape());
         currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
         currentShape.startDraw(startPoint);
@@ -148,6 +147,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void finishDraw() {
         shapes.add(currentShape);
+        setUpdate(true);
         repaint();
     }
 
