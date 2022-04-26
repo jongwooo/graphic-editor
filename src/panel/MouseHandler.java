@@ -38,7 +38,7 @@ public class MouseHandler extends MouseInputAdapter {
         if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
             panelPopup.show(drawingPanel, e.getX(), e.getY());
             drawingPanel.repaint();
-        } else if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && !drawingPanel.isCurrentShape(
+        } else if (drawingPanel.isCurrentDrawMode(DrawMode.IDLE) && !drawingPanel.isCurrentShape(
                 null)) {
             drawingPanel.setCurrentDrawMode(
                     drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
@@ -55,7 +55,7 @@ public class MouseHandler extends MouseInputAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && drawingPanel.isCurrentShape(null)) {
+        if (drawingPanel.isCurrentDrawMode(DrawMode.IDLE) && drawingPanel.isCurrentShape(null)) {
             drawingPanel.updateCursorStyle(drawingPanel.isCursorOnShape(e.getPoint()));
         } else if (drawingPanel.isCurrentDrawMode(DrawMode.POLYGON)) {
             drawingPanel.draw(e.getPoint());
