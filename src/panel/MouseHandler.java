@@ -3,19 +3,22 @@ package panel;
 import global.draw.DrawMode;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
+import popup.PanelPopup;
 
 public class MouseHandler extends MouseInputAdapter {
 
     private static final MouseHandler MOUSE_HANDLER = new MouseHandler();
 
     private DrawingPanel drawingPanel;
+    private PanelPopup panelPopup;
 
     public static MouseHandler createMouseHandler() {
         return MOUSE_HANDLER;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
+    public void associate(DrawingPanel drawingPanel, PanelPopup panelPopup) {
         this.drawingPanel = drawingPanel;
+        this.panelPopup = panelPopup;
     }
 
     @Override
@@ -32,7 +35,11 @@ public class MouseHandler extends MouseInputAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && !drawingPanel.isCurrentShape(null)) {
+        if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
+            panelPopup.show(drawingPanel, e.getX(), e.getY());
+            drawingPanel.repaint();
+        } else if (drawingPanel.isCurrentDrawMode(DrawMode.CURSOR) && !drawingPanel.isCurrentShape(
+                null)) {
             drawingPanel.setCurrentDrawMode(
                     drawingPanel.isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
             drawingPanel.startDraw(e.getPoint());
