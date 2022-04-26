@@ -53,7 +53,7 @@ public class FileControl {
         this.filePath = filePath;
     }
 
-    private boolean checkOtherOption(int dialogOption) {
+    private boolean checkOtherOptions(int dialogOption) {
         return dialogOption != JOptionPane.CLOSED_OPTION
                 && dialogOption != JOptionPane.CANCEL_OPTION;
     }
@@ -66,7 +66,7 @@ public class FileControl {
             if (dialogOption == JOptionPane.YES_OPTION) {
                 saveFile();
             }
-            return checkOtherOption(dialogOption);
+            return checkOtherOptions(dialogOption);
         }
         return true;
     }
@@ -75,7 +75,7 @@ public class FileControl {
         return currentFile.getName().contains("." + Constant.FILE_EXTENSION);
     }
 
-    private void createFileExtensionErrorDialog() {
+    private void showFileExtensionErrorDialog() {
         JOptionPane.showMessageDialog(fileChooser, Constant.FILE_DIALOG_ERROR_MESSAGE,
                 Constant.FILE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
     }
@@ -87,7 +87,7 @@ public class FileControl {
                     Constant.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
 
-            if (checkOtherOption(dialogOption)) {
+            if (checkOtherOptions(dialogOption)) {
                 setFilePath(null);
                 mainFrame.setDefaultTitle();
                 drawingPanel.clearShapes();
@@ -113,7 +113,7 @@ public class FileControl {
                     drawingPanel.setUpdate(false);
                     drawingPanel.repaint();
                 } else {
-                    createFileExtensionErrorDialog();
+                    showFileExtensionErrorDialog();
                     openFile();
                 }
             }
@@ -138,7 +138,7 @@ public class FileControl {
             if (checkExtension(currentFile)) {
                 writeShapeObject(currentFile);
             } else {
-                createFileExtensionErrorDialog();
+                showFileExtensionErrorDialog();
                 saveFileAs();
             }
         }
