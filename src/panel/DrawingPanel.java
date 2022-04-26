@@ -37,7 +37,7 @@ public class DrawingPanel extends JPanel implements Printable {
         setBackground(Constant.BACKGROUND_COLOR);
 
         update = false;
-        drawMode = DrawMode.CURSOR;
+        drawMode = DrawMode.IDLE;
         shapes = new ArrayList<>();
         undoManager = new UndoManager();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -123,7 +123,7 @@ public class DrawingPanel extends JPanel implements Printable {
     @Override
     public void repaint() {
         super.repaint();
-        setCurrentDrawMode(DrawMode.CURSOR);
+        setCurrentDrawMode(DrawMode.IDLE);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void undo() {
-        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.CURSOR)) {
+        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.IDLE)) {
             undoManager.undo();
             setUpdate(true);
             repaint();
@@ -164,7 +164,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void redo() {
-        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.CURSOR)) {
+        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.IDLE)) {
             undoManager.redo();
             setUpdate(true);
             repaint();
