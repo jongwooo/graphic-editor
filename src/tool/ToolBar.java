@@ -58,7 +58,8 @@ public class ToolBar extends JToolBar {
 
     private ImageIcon createImageIcon(String imageName, boolean selected) {
         return new ImageIcon(
-                "src/image/".concat(selected ? "selected_" : "").concat(imageName).concat(".png"));
+                Constant.IMAGE_ICON_PATH.concat(selected ? "selected_" : "").concat(imageName)
+                        .concat(Constant.IMAGE_ICON_EXTENSION));
     }
 
     private void createShapeToolButtons() {
