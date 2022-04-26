@@ -114,7 +114,6 @@ public class FileControl {
                     drawingPanel.repaint();
                 } else {
                     showFileExtensionErrorDialog();
-                    openFile();
                 }
             }
         }
