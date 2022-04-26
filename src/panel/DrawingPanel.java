@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
+import popup.PanelPopup;
 
 public class DrawingPanel extends JPanel implements Printable {
 
@@ -25,11 +26,12 @@ public class DrawingPanel extends JPanel implements Printable {
     private boolean update;
     private DrawMode drawMode;
     private ArrayList<DrawShape> shapes;
-    private UndoManager undoManager;
     private DrawShape currentShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
+    private final UndoManager undoManager;
     private final MouseHandler mouseHandler;
+    private final PanelPopup panelPopup;
 
     private DrawingPanel() {
         setBackground(Constant.BACKGROUND_COLOR);
@@ -43,6 +45,7 @@ public class DrawingPanel extends JPanel implements Printable {
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
         dashSize = Constant.DEFAULT_DASH_SIZE;
         mouseHandler = MouseHandler.createMouseHandler();
+        panelPopup = PanelPopup.createPanelPopup();
     }
 
     public static DrawingPanel createDrawingPanel() {
@@ -50,12 +53,14 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void associate() {
-        mouseHandler.associate(this);
+        mouseHandler.associate(this, panelPopup);
+        panelPopup.associate(this);
     }
 
     public void initialize() {
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
+        panelPopup.initialize();
     }
 
     public Object getShapes() {
