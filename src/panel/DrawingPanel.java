@@ -13,6 +13,9 @@ import java.awt.print.Printable;
 import java.util.ArrayList;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.UndoManager;
 
 public class DrawingPanel extends JPanel implements Printable {
 
@@ -22,6 +25,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private boolean update;
     private DrawMode drawMode;
     private ArrayList<DrawShape> shapes;
+    private UndoManager undoManager;
     private DrawShape currentShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
@@ -33,6 +37,7 @@ public class DrawingPanel extends JPanel implements Printable {
         update = false;
         drawMode = DrawMode.CURSOR;
         shapes = new ArrayList<>();
+        undoManager = new UndoManager();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -145,8 +150,26 @@ public class DrawingPanel extends JPanel implements Printable {
         ((DrawPolygon) currentShape).keepDraw(currentPoint);
     }
 
+    public void undo() {
+        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.CURSOR)) {
+            undoManager.undo();
+            setUpdate(true);
+            repaint();
+        }
+    }
+
+    public void redo() {
+        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.CURSOR)) {
+            undoManager.redo();
+            setUpdate(true);
+            repaint();
+        }
+    }
+
     public void finishDraw() {
         shapes.add(currentShape);
+        undoManager.undoableEditHappened(
+                new UndoableEditEvent(this, new UndoablePanel(currentShape)));
         setUpdate(true);
         repaint();
     }
@@ -181,5 +204,24 @@ public class DrawingPanel extends JPanel implements Printable {
     public void updateDashSize(int dashSize) {
         repaint();
         this.dashSize = dashSize;
+    }
+
+    class UndoablePanel extends AbstractUndoableEdit {
+
+        private final DrawShape shape;
+
+        public UndoablePanel(DrawShape shape) {
+            this.shape = shape;
+        }
+
+        public void undo() {
+            super.undo();
+            shapes.remove(shape);
+        }
+
+        public void redo() {
+            super.redo();
+            shapes.add(shape);
+        }
     }
 }

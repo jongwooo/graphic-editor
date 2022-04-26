@@ -48,11 +48,11 @@ public class MenuBarHandler implements ActionListener {
     }
 
     public void undo() {
-
+        drawingPanel.undo();
     }
 
     public void redo() {
-
+        drawingPanel.redo();
     }
 
     public void cut() {
