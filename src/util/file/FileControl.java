@@ -53,15 +53,20 @@ public class FileControl {
         this.filePath = filePath;
     }
 
+    private boolean checkOtherOption(int dialogOption) {
+        return dialogOption != JOptionPane.CLOSED_OPTION
+                && dialogOption != JOptionPane.CANCEL_OPTION;
+    }
+
     private boolean checkSave() {
         if (drawingPanel.checkUpdate()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
                     Constant.SAVE_CONFIRM_DIALOG_MESSAGE, Constant.SAVE_CONFIRM_DIALOG_TITLE,
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (dialogOption == JOptionPane.YES_OPTION) {
                 saveFile();
             }
-            return dialogOption != JOptionPane.CLOSED_OPTION;
+            return checkOtherOption(dialogOption);
         }
         return true;
     }
@@ -79,17 +84,19 @@ public class FileControl {
         if (checkSave()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
                     Constant.NEW_FILE_CONFIRM_DIALOG_MESSAGE,
-                    Constant.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_OPTION,
+                    Constant.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
 
-            setFilePath(null);
-            mainFrame.setDefaultTitle();
-            drawingPanel.clearShapes();
-            drawingPanel.setUpdate(false);
-            drawingPanel.repaint();
+            if (checkOtherOption(dialogOption)) {
+                setFilePath(null);
+                mainFrame.setDefaultTitle();
+                drawingPanel.clearShapes();
+                drawingPanel.setUpdate(false);
+                drawingPanel.repaint();
 
-            if (dialogOption == JOptionPane.YES_OPTION) {
-                saveFileAs();
+                if (dialogOption == JOptionPane.YES_OPTION) {
+                    saveFileAs();
+                }
             }
         }
     }
@@ -107,6 +114,7 @@ public class FileControl {
                     drawingPanel.repaint();
                 } else {
                     createFileExtensionErrorDialog();
+                    openFile();
                 }
             }
         }
@@ -155,7 +163,7 @@ public class FileControl {
         if (checkSave()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
                     Constant.QUIT_CONFIRM_DIALOG_MESSAGE, Constant.QUIT_CONFIRM_DIALOG_TITLE,
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (dialogOption == JOptionPane.YES_OPTION) {
                 System.exit(0);
