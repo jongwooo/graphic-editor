@@ -46,8 +46,8 @@ public class ButtonHandler implements ActionListener {
         updateCurrentShape(ShapeToolItem.pencil.newShape());
     }
 
-    public void erase() {
-        drawingPanel.eraseShape();
+    public void eraser() {
+        updateCurrentShape(ShapeToolItem.eraser.newShape());
     }
 
     public void clear() {
