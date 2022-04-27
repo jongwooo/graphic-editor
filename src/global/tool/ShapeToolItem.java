@@ -6,12 +6,10 @@ import draw.DrawPencil;
 import draw.DrawPolygon;
 import draw.DrawRectangle;
 import draw.DrawShape;
-import draw.Eraser;
 
 public enum ShapeToolItem {
     cursor(null), rectangle(new DrawRectangle()), ellipse(new DrawEllipse()), line(
-            new DrawLine()), polygon(new DrawPolygon()), pencil(new DrawPencil()), eraser(
-            new Eraser());
+            new DrawLine()), polygon(new DrawPolygon()), pencil(new DrawPencil());
 
     private final DrawShape currentShape;
 

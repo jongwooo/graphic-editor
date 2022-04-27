@@ -17,14 +17,12 @@ public abstract class DrawShape implements Serializable {
 
     protected Shape shape;
     protected Point startPoint;
-    private boolean eraser;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
 
     public DrawShape(Shape shape) {
         this.shape = shape;
-        eraser = false;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         customStroke = Constant.DEFAULT_STROKE;
@@ -36,8 +34,8 @@ public abstract class DrawShape implements Serializable {
             graphics2D.setColor(fillColor);
             graphics2D.fill(shape);
         }
-        graphics2D.setColor(isEraser() ? Constant.BACKGROUND_COLOR : outlineColor);
-        graphics2D.setStroke(isEraser() ? strokeFactory.getStroke(10) : customStroke);
+        graphics2D.setColor(outlineColor);
+        graphics2D.setStroke(customStroke);
         graphics2D.draw(shape);
     }
 
@@ -47,14 +45,6 @@ public abstract class DrawShape implements Serializable {
         this.fillColor = fillColor;
         customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
                 : strokeFactory.getStroke(outlineSize, dashSize);
-    }
-
-    private boolean isEraser() {
-        return eraser;
-    }
-
-    public void setEraser(boolean eraser) {
-        this.eraser = eraser;
     }
 
     private boolean isUnfilledShape() {
