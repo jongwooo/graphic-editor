@@ -213,6 +213,8 @@ public class DrawingPanel extends JPanel implements Printable {
 
     class UndoablePanel extends AbstractUndoableEdit {
 
+        private static final long serialVersionUID = 1L;
+
         private final DrawShape shape;
 
         public UndoablePanel(DrawShape shape) {
