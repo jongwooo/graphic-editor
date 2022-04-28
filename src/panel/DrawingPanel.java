@@ -155,22 +155,6 @@ public class DrawingPanel extends JPanel implements Printable {
         ((DrawPolygon) currentShape).keepDraw(currentPoint);
     }
 
-    public void undo() {
-        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.IDLE)) {
-            undoManager.undo();
-            setUpdate(true);
-            repaint();
-        }
-    }
-
-    public void redo() {
-        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.IDLE)) {
-            undoManager.redo();
-            setUpdate(true);
-            repaint();
-        }
-    }
-
     public void finishDraw() {
         shapes.add(currentShape);
         undoManager.undoableEditHappened(
@@ -209,6 +193,22 @@ public class DrawingPanel extends JPanel implements Printable {
     public void updateDashSize(int dashSize) {
         repaint();
         this.dashSize = dashSize;
+    }
+
+    public void undo() {
+        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.IDLE)) {
+            undoManager.undo();
+            setUpdate(true);
+            repaint();
+        }
+    }
+
+    public void redo() {
+        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.IDLE)) {
+            undoManager.redo();
+            setUpdate(true);
+            repaint();
+        }
     }
 
     class UndoablePanel extends AbstractUndoableEdit {
