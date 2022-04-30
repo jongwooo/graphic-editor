@@ -2,6 +2,7 @@ package util.file;
 
 import frame.MainFrame;
 import global.Constant;
+import global.dialog.FileDialog;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.BufferedInputStream;
@@ -61,7 +62,7 @@ public class FileControl {
     private boolean checkSave() {
         if (drawingPanel.checkUpdate()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
-                    Constant.SAVE_CONFIRM_DIALOG_MESSAGE, Constant.SAVE_CONFIRM_DIALOG_TITLE,
+                    FileDialog.SAVE_CONFIRM_DIALOG_MESSAGE, FileDialog.SAVE_CONFIRM_DIALOG_TITLE,
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (dialogOption == JOptionPane.YES_OPTION) {
                 saveFile();
@@ -76,15 +77,15 @@ public class FileControl {
     }
 
     private void showFileExtensionErrorDialog() {
-        JOptionPane.showMessageDialog(fileChooser, Constant.FILE_DIALOG_ERROR_MESSAGE,
-                Constant.FILE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(fileChooser, FileDialog.FILE_DIALOG_ERROR_MESSAGE,
+                FileDialog.FILE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
     }
 
     public void newFile() {
         if (checkSave()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
-                    Constant.NEW_FILE_CONFIRM_DIALOG_MESSAGE,
-                    Constant.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_CANCEL_OPTION,
+                    FileDialog.NEW_FILE_CONFIRM_DIALOG_MESSAGE,
+                    FileDialog.NEW_FILE_CONFIRM_DIALOG_TITLE, JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
 
             if (checkOtherOptions(dialogOption)) {
@@ -153,15 +154,15 @@ public class FileControl {
                 printerJob.print();
             }
         } catch (PrinterException exception) {
-            JOptionPane.showMessageDialog(drawingPanel, Constant.PRINT_DIALOG_ERROR_MESSAGE,
-                    Constant.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(drawingPanel, FileDialog.PRINT_DIALOG_ERROR_MESSAGE,
+                    FileDialog.PRINT_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void quitEditor() {
         if (checkSave()) {
             int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
-                    Constant.QUIT_CONFIRM_DIALOG_MESSAGE, Constant.QUIT_CONFIRM_DIALOG_TITLE,
+                    FileDialog.QUIT_CONFIRM_DIALOG_MESSAGE, FileDialog.QUIT_CONFIRM_DIALOG_TITLE,
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (dialogOption == JOptionPane.YES_OPTION) {
@@ -179,8 +180,8 @@ public class FileControl {
             setFilePath(currentFile.getAbsolutePath());
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException exception) {
-            JOptionPane.showMessageDialog(drawingPanel, Constant.OPEN_DIALOG_ERROR_MESSAGE,
-                    Constant.OPEN_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(drawingPanel, FileDialog.OPEN_DIALOG_ERROR_MESSAGE,
+                    FileDialog.OPEN_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -194,8 +195,8 @@ public class FileControl {
             setFilePath(currentFile.getAbsolutePath());
             objectOutputStream.close();
         } catch (IOException exception) {
-            JOptionPane.showMessageDialog(drawingPanel, Constant.SAVE_DIALOG_ERROR_MESSAGE,
-                    Constant.SAVE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(drawingPanel, FileDialog.SAVE_DIALOG_ERROR_MESSAGE,
+                    FileDialog.SAVE_DIALOG_TITLE, JOptionPane.ERROR_MESSAGE);
         }
     }
 }
