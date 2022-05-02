@@ -5,12 +5,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.KeyStroke;
 
 public enum EditMenuItem implements MenuItem {
-    undo("Undo", KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK), redo("Redo", KeyEvent.VK_Z,
-            InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK, true), cut("Cut", KeyEvent.VK_X,
-            InputEvent.CTRL_DOWN_MASK), copy("Copy", KeyEvent.VK_C,
-            InputEvent.CTRL_DOWN_MASK), paste("Paste", KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK,
-            true), group("Group", KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK), ungroup("Ungroup",
-            KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
+    undo("Undo", KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK),
+    redo("Redo", KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK, true),
+    cut("Cut", KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK),
+    copy("Copy", KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK),
+    paste("Paste", KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK, true),
+    group("Group", KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK),
+    ungroup("Ungroup", KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK + InputEvent.SHIFT_DOWN_MASK);
 
     private final String menuName;
     private final int keyCode, modifiers;
