@@ -59,9 +59,9 @@ public abstract class DrawShape implements Serializable {
         return shape.getBounds2D().contains(currentPoint);
     }
 
-    public abstract void startDraw(Point startPoint);
+    public abstract void setStartPoint(Point startPoint);
 
-    public abstract void setPoint(Point currentPoint);
+    public abstract void setCurrentPoint(Point currentPoint);
 
     public abstract DrawShape newShape();
 }

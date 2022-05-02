@@ -15,12 +15,12 @@ public class DrawPencil extends DrawShape {
     }
 
     @Override
-    public void startDraw(Point startPoint) {
+    public void setStartPoint(Point startPoint) {
         path2D.moveTo(startPoint.x, startPoint.y);
     }
 
     @Override
-    public void setPoint(Point currentPoint) {
+    public void setCurrentPoint(Point currentPoint) {
         path2D.lineTo(currentPoint.x, currentPoint.y);
     }
 

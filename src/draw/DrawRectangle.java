@@ -15,12 +15,12 @@ public class DrawRectangle extends DrawShape {
     }
 
     @Override
-    public void startDraw(Point startPoint) {
+    public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }
 
     @Override
-    public void setPoint(Point currentPoint) {
+    public void setCurrentPoint(Point currentPoint) {
         rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
     }
 

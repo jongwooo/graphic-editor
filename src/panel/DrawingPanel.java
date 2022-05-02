@@ -140,14 +140,14 @@ public class DrawingPanel extends JPanel implements Printable {
     public void startDraw(Point startPoint) {
         setCurrentShape(currentShape.newShape());
         currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
-        currentShape.startDraw(startPoint);
+        currentShape.setStartPoint(startPoint);
     }
 
     public void draw(Point currentPoint) {
         Graphics2D graphics2D = (Graphics2D) getGraphics();
         graphics2D.setXORMode(graphics2D.getBackground());
         currentShape.draw(graphics2D);
-        currentShape.setPoint(currentPoint);
+        currentShape.setCurrentPoint(currentPoint);
         currentShape.draw(graphics2D);
     }
 
