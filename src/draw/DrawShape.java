@@ -23,7 +23,7 @@ public abstract class DrawShape implements Serializable {
     protected Shape shape;
     protected Point startPoint;
     protected DrawAnchor anchor;
-    private ArrayList<Ellipse2D> anchors;
+    private final ArrayList<Ellipse2D> anchors;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
