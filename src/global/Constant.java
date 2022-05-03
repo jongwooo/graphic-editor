@@ -27,6 +27,10 @@ public class Constant {
     public static final String FILE_EXTENSION_DESCRIPTION = "Graphic (." + FILE_EXTENSION + ")";
     public static final String DEFAULT_FILE_NAME = "//Untitled." + FILE_EXTENSION;
 
+    public static final int ANCHOR_WIDTH = 10;
+    public static final int ANCHOR_HEIGHT = 10;
+    public static final int ROTATE_BAR_HEIGHT = 40;
+
     public static final Color BACKGROUND_COLOR = Color.WHITE;
     public static final Color DEFAULT_OUTLINE_COLOR = Color.BLACK;
     public static final Color DEFAULT_FILL_COLOR = new Color(0, 0, 0, 0);
@@ -41,4 +45,13 @@ public class Constant {
     public static final Cursor DEFAULT_STYLE_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
     public static final Cursor HAND_STYLE_CURSOR = new Cursor(Cursor.HAND_CURSOR);
     public static final Cursor CROSSHAIR_STYLE_CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
+    public static final Cursor NW_CURSOR = new Cursor(Cursor.NW_RESIZE_CURSOR);
+    public static final Cursor WW_CURSOR = new Cursor(Cursor.W_RESIZE_CURSOR);
+    public static final Cursor SW_CURSOR = new Cursor(Cursor.SW_RESIZE_CURSOR);
+    public static final Cursor SS_CURSOR = new Cursor(Cursor.S_RESIZE_CURSOR);
+    public static final Cursor SE_CURSOR = new Cursor(Cursor.SE_RESIZE_CURSOR);
+    public static final Cursor EE_CURSOR = new Cursor(Cursor.E_RESIZE_CURSOR);
+    public static final Cursor NE_CURSOR = new Cursor(Cursor.NE_RESIZE_CURSOR);
+    public static final Cursor NN_CURSOR = new Cursor(Cursor.N_RESIZE_CURSOR);
+    public static final Cursor ROTATE_CURSOR = new Cursor(Cursor.WAIT_CURSOR);
 }

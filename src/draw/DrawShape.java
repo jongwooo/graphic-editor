@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 
 public abstract class DrawShape implements Serializable {
@@ -17,12 +18,16 @@ public abstract class DrawShape implements Serializable {
 
     protected Shape shape;
     protected Point startPoint;
+    protected DrawAnchor anchor;
+    protected boolean selected;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
 
     public DrawShape(Shape shape) {
         this.shape = shape;
+        anchor = null;
+        selected = false;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         customStroke = Constant.DEFAULT_STROKE;
@@ -37,6 +42,10 @@ public abstract class DrawShape implements Serializable {
         graphics2D.setColor(outlineColor);
         graphics2D.setStroke(customStroke);
         graphics2D.draw(shape);
+
+        if (selected) {
+            anchor.draw(graphics2D);
+        }
     }
 
     public void updateShapeAttributes(Color outlineColor, Color fillColor, int outlineSize,
@@ -56,7 +65,12 @@ public abstract class DrawShape implements Serializable {
     }
 
     public boolean isContainCurrentPoint(Point currentPoint) {
-        return shape.getBounds2D().contains(currentPoint);
+        return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        anchor = selected ? new DrawAnchor().createAnchor(shape.getBounds()) : null;
     }
 
     public abstract void setStartPoint(Point startPoint);

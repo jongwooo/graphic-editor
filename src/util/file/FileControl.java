@@ -189,6 +189,7 @@ public class FileControl {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(
                     new BufferedOutputStream(new FileOutputStream(currentFile)));
+            drawingPanel.clearSelectedShape();
             objectOutputStream.writeObject(drawingPanel.getShapes());
             drawingPanel.setUpdate(false);
             mainFrame.setTitle(currentFile.getName());

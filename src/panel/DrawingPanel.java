@@ -8,13 +8,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
@@ -30,11 +29,11 @@ public class DrawingPanel extends JPanel implements Printable {
     private boolean update;
     private DrawMode drawMode;
     private ArrayList<DrawShape> shapes;
-    private DrawShape currentShape;
+    private final UndoManager undoManager;
+    private Transformer transformer;
+    private DrawShape currentShape, selectedShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
-    private Transformer transformer;
-    private final UndoManager undoManager;
     private final MouseHandler mouseHandler;
     private final PanelPopup panelPopup;
 
@@ -44,13 +43,15 @@ public class DrawingPanel extends JPanel implements Printable {
         update = false;
         drawMode = DrawMode.IDLE;
         shapes = new ArrayList<>();
-        transformer = null;
         undoManager = new UndoManager();
-        mouseHandler = new MouseHandler();
+        transformer = null;
+        currentShape = null;
+        selectedShape = null;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
         dashSize = Constant.DEFAULT_DASH_SIZE;
+        mouseHandler = MouseHandler.createMouseHandler();
         panelPopup = PanelPopup.createPanelPopup();
     }
 
@@ -59,6 +60,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void associate() {
+        mouseHandler.associate(this);
         panelPopup.associate(this);
     }
 
@@ -66,6 +68,11 @@ public class DrawingPanel extends JPanel implements Printable {
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
         panelPopup.initialize();
+    }
+
+    public void showPanelPopup(Point currentPoint) {
+        panelPopup.show(this, currentPoint.x, currentPoint.y);
+        repaint();
     }
 
     public Object getShapes() {
@@ -133,25 +140,55 @@ public class DrawingPanel extends JPanel implements Printable {
     public void repaint() {
         super.repaint();
         setCurrentDrawMode(DrawMode.IDLE);
+        setTransformer(null);
     }
 
-    public void finishDraw() {
-        undoManager.undoableEditHappened(
-                new UndoableEditEvent(this, new UndoablePanel(currentShape)));
-        setTransformer(null);
-        setUpdate(true);
+    public DrawShape getSelectedShape(Point currentPoint) {
+        ArrayList<DrawShape> temp = new ArrayList<>(shapes);
+        Collections.reverse(temp);
+        return temp.stream().filter(shape -> shape.isContainCurrentPoint(currentPoint)).findFirst()
+                .orElse(null);
+    }
+
+    public void setSelectedShape(Point currentPoint) {
+        selectedShape = getSelectedShape(currentPoint);
+        clearSelectedShape();
+        if (selectedShape != null) {
+            selectedShape.setSelected(true);
+        }
         repaint();
     }
 
-    @Override
-    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
-        if (pageIndex > 0) {
-            return NO_SUCH_PAGE;
-        }
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-        shapes.forEach(shape -> shape.draw(graphics2D));
-        return PAGE_EXISTS;
+    public void clearSelectedShape() {
+        shapes.forEach(shape -> shape.setSelected(false));
+        repaint();
+    }
+
+    public void startDraw(Point startPoint) {
+        clearSelectedShape();
+        setCurrentDrawMode(isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
+        setCurrentShape(currentShape.newShape());
+        setTransformer(new Drawer(currentShape));
+        currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
+        transformer.startTransform(startPoint);
+    }
+
+    public void draw(Point currentPoint) {
+        Graphics2D graphics2D = (Graphics2D) getGraphics();
+        transformer.transform(graphics2D, currentPoint);
+    }
+
+    public void keepDraw(Point currentPoint) {
+        ((Drawer) transformer).keepTransform(currentPoint);
+    }
+
+    public void finishDraw() {
+        transformer.finishTransform(shapes);
+        undoManager.undoableEditHappened(
+                new UndoableEditEvent(this, new UndoablePanel(currentShape)));
+        currentShape.setSelected(true);
+        setUpdate(true);
+        repaint();
     }
 
     public void clearShapes() {
@@ -186,9 +223,15 @@ public class DrawingPanel extends JPanel implements Printable {
         this.dashSize = dashSize;
     }
 
-    public void showPanelPopup(Point currentPoint) {
-        panelPopup.show(this, currentPoint.x, currentPoint.y);
-        repaint();
+    @Override
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
+        if (pageIndex > 0) {
+            return NO_SUCH_PAGE;
+        }
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        graphics2D.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+        shapes.forEach(shape -> shape.draw(graphics2D));
+        return PAGE_EXISTS;
     }
 
     public void undo() {
@@ -225,58 +268,6 @@ public class DrawingPanel extends JPanel implements Printable {
         public void redo() {
             super.redo();
             shapes.add(shape);
-        }
-    }
-
-    private class MouseHandler extends MouseInputAdapter {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.POLYGON) && e.getButton() == MouseEvent.BUTTON1) {
-                if (e.getClickCount() == 1) {
-                    ((Drawer) transformer).keepTransform(e.getPoint());
-                } else if (e.getClickCount() >= 2) {
-                    transformer.finishTransform(shapes);
-                    finishDraw();
-                }
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
-                showPanelPopup(e.getPoint());
-            } else if (isCurrentDrawMode(DrawMode.IDLE) && !isCurrentShape(null)) {
-                setCurrentDrawMode(isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
-                setCurrentShape(currentShape.newShape());
-                setTransformer(new Drawer(currentShape));
-                currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
-                transformer.startTransform(e.getPoint());
-            }
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.NORMAL)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
-            }
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.IDLE) && isCurrentShape(null)) {
-                updateCursorStyle(isCursorOnShape(e.getPoint()));
-            } else if (isCurrentDrawMode(DrawMode.POLYGON)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
-            }
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.NORMAL)) {
-                transformer.finishTransform(shapes);
-                finishDraw();
-            }
         }
     }
 }
