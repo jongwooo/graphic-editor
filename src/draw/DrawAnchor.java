@@ -3,14 +3,13 @@ package draw;
 import draw.stroke.StrokeFactory;
 import global.Constant;
 import global.draw.Anchor;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DrawAnchor extends Component {
+public class DrawAnchor {
 
     private final ArrayList<Ellipse2D> anchors;
     private final StrokeFactory strokeFactory;
