@@ -3,6 +3,7 @@ package panel;
 import draw.DrawPolygon;
 import draw.DrawShape;
 import global.Constant;
+import global.draw.Anchor;
 import global.draw.DrawMode;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -31,6 +32,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private ArrayList<DrawShape> shapes;
     private final UndoManager undoManager;
     private Transformer transformer;
+    private Anchor currentAnchor;
     private DrawShape currentShape, selectedShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
@@ -45,6 +47,7 @@ public class DrawingPanel extends JPanel implements Printable {
         shapes = new ArrayList<>();
         undoManager = new UndoManager();
         transformer = null;
+        currentAnchor = null;
         currentShape = null;
         selectedShape = null;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -116,35 +119,8 @@ public class DrawingPanel extends JPanel implements Printable {
         this.currentShape = currentShape;
     }
 
-    public void updateCursorStyle() {
-        setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR
-                : Constant.CROSSHAIR_STYLE_CURSOR);
-    }
-
-    public void updateCursorStyle(boolean cursorOnShape) {
-        setCursor(cursorOnShape ? Constant.HAND_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
-    }
-
-    public boolean isCursorOnShape(Point currentPoint) {
-        return shapes.stream().anyMatch(shape -> shape.isContainCurrentPoint(currentPoint));
-    }
-
-    @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
-        Graphics2D graphics2D = (Graphics2D) graphics;
-        shapes.forEach(shape -> shape.draw(graphics2D));
-    }
-
-    @Override
-    public void repaint() {
-        super.repaint();
-        setCurrentDrawMode(DrawMode.IDLE);
-        setTransformer(null);
-    }
-
-    public boolean isSelectedShape(DrawShape currentShape) {
-        return selectedShape == currentShape;
+    public boolean isSelectedShape(DrawShape selectedShape) {
+        return this.selectedShape == selectedShape;
     }
 
     public DrawShape getSelectedShape(Point currentPoint) {
@@ -161,7 +137,7 @@ public class DrawingPanel extends JPanel implements Printable {
     public void setSelectedShape(Point currentPoint) {
         selectedShape = getSelectedShape(currentPoint);
         clearSelectedShape();
-        if (selectedShape != null) {
+        if (!isSelectedShape(null)) {
             selectedShape.setSelected(true);
         }
         repaint();
@@ -170,6 +146,40 @@ public class DrawingPanel extends JPanel implements Printable {
     public void clearSelectedShape() {
         shapes.forEach(shape -> shape.setSelected(false));
         repaint();
+    }
+
+    public void updateCursorStyle() {
+        setCursor(isCurrentShape(null) ? Constant.DEFAULT_STYLE_CURSOR
+                : Constant.CROSSHAIR_STYLE_CURSOR);
+    }
+
+    public void updateCursorStyle(boolean cursorOnShape) {
+        setCursor(currentAnchor != null ? currentAnchor.getCursorStyle()
+                : cursorOnShape ? Constant.HAND_STYLE_CURSOR : Constant.DEFAULT_STYLE_CURSOR);
+    }
+
+    public boolean isCursorOnShape(Point currentPoint) {
+        if (!isSelectedShape(null)) {
+            currentAnchor = selectedShape.getCurrentAnchor(currentPoint);
+            if (currentAnchor != null) {
+                return true;
+            }
+        }
+        return shapes.stream().anyMatch(shape -> shape.isContainCurrentPoint(currentPoint));
+    }
+
+    @Override
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        shapes.forEach(shape -> shape.draw(graphics2D));
+    }
+
+    @Override
+    public void repaint() {
+        super.repaint();
+        setCurrentDrawMode(DrawMode.IDLE);
+        setTransformer(null);
     }
 
     public void startDraw(Point startPoint) {

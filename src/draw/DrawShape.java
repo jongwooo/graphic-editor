@@ -3,31 +3,36 @@ package draw;
 import draw.stroke.CustomStroke;
 import draw.stroke.StrokeFactory;
 import global.Constant;
+import global.draw.Anchor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class DrawShape implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    protected boolean selected;
     protected Shape shape;
     protected Point startPoint;
     protected DrawAnchor anchor;
-    protected boolean selected;
+    private ArrayList<Ellipse2D> anchors;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
 
     public DrawShape(Shape shape) {
         this.shape = shape;
-        anchor = null;
         selected = false;
+        anchor = new DrawAnchor();
+        anchors = anchor.getAnchors();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         customStroke = Constant.DEFAULT_STROKE;
@@ -70,12 +75,22 @@ public abstract class DrawShape implements Serializable {
     }
 
     public boolean isContainCurrentPoint(Point currentPoint) {
+        if (getCurrentAnchor(currentPoint) != null) {
+            return true;
+        }
         return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
     }
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-        anchor = selected ? new DrawAnchor().createAnchor(shape.getBounds()) : null;
+        if (selected) {
+            anchor.createAnchor(shape.getBounds());
+        }
+    }
+
+    public Anchor getCurrentAnchor(Point currentPoint) {
+        return anchors.stream().filter(anchor -> anchor.contains(currentPoint)).findFirst()
+                .map(anchor -> Anchor.values()[anchors.indexOf(anchor)]).orElse(null);
     }
 
     public abstract void setStartPoint(Point startPoint);

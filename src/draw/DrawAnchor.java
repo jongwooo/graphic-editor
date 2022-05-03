@@ -20,11 +20,14 @@ public class DrawAnchor extends Component {
         strokeFactory = StrokeFactory.createStrokeFactory();
     }
 
-    public DrawAnchor createAnchor(Rectangle bound) {
+    public ArrayList<Ellipse2D> getAnchors() {
+        return anchors;
+    }
+
+    public void createAnchor(Rectangle bound) {
         Arrays.stream(Anchor.values()).forEach(anchor -> {
             anchors.add(anchor.getAnchor(bound));
         });
-        return this;
     }
 
     public void draw(Graphics2D graphics2D) {

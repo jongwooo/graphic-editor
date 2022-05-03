@@ -3,6 +3,8 @@ package global;
 import draw.stroke.CustomStroke;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.SpinnerNumberModel;
 
 public class Constant {
@@ -53,5 +55,7 @@ public class Constant {
     public static final Cursor EE_CURSOR = new Cursor(Cursor.E_RESIZE_CURSOR);
     public static final Cursor NE_CURSOR = new Cursor(Cursor.NE_RESIZE_CURSOR);
     public static final Cursor NN_CURSOR = new Cursor(Cursor.N_RESIZE_CURSOR);
-    public static final Cursor ROTATE_CURSOR = new Cursor(Cursor.WAIT_CURSOR);
+    public static final Cursor ROTATE_CURSOR = Toolkit.getDefaultToolkit()
+            .createCustomCursor(Toolkit.getDefaultToolkit().getImage("src/image/cursor/rotate.png"),
+                    new Point(8, 8), "Rotate");
 }
