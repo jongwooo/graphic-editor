@@ -33,6 +33,10 @@ public class StrokeFactory implements Serializable {
     }
 
     public CustomStroke getStroke(int outlineSize, int dashSize) {
+        if (dashSize == 0) {
+            return getStroke(outlineSize);
+        }
+
         String strokeKey = outlineSize + ":" + dashSize;
 
         if (cache.containsKey(strokeKey)) {
