@@ -22,7 +22,7 @@ public class Constant {
     public static final String OUTLINE_SPINNER_TITLE = "Outline";
     public static final String DASH_SPINNER_TITLE = "Dash";
 
-    public static final String IMAGE_ICON_PATH = "src/image/";
+    public static final String IMAGE_ICON_PATH = "src/image/button/";
     public static final String IMAGE_ICON_EXTENSION = ".png";
 
     public static final String FILE_EXTENSION = "graphic";
