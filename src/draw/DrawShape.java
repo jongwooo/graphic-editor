@@ -48,10 +48,15 @@ public abstract class DrawShape implements Serializable {
         }
     }
 
-    public void updateShapeAttributes(Color outlineColor, Color fillColor, int outlineSize,
-            int dashSize) {
+    public void setOutlineColor(Color outlineColor) {
         this.outlineColor = outlineColor;
+    }
+
+    public void setFillColor(Color fillColor) {
         this.fillColor = fillColor;
+    }
+
+    public void setStroke(int outlineSize, int dashSize) {
         customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
                 : strokeFactory.getStroke(outlineSize, dashSize);
     }

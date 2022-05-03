@@ -1,19 +1,23 @@
 package draw;
 
+import draw.stroke.StrokeFactory;
 import global.Constant;
 import global.draw.Anchor;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DrawAnchor {
+public class DrawAnchor extends Component {
 
     private final ArrayList<Ellipse2D> anchors;
+    private final StrokeFactory strokeFactory;
 
     public DrawAnchor() {
         anchors = new ArrayList<>();
+        strokeFactory = StrokeFactory.createStrokeFactory();
     }
 
     public DrawAnchor createAnchor(Rectangle bound) {
@@ -28,6 +32,7 @@ public class DrawAnchor {
             graphics2D.setColor(graphics2D.getBackground());
             graphics2D.fill(anchor);
             graphics2D.setColor(Constant.DEFAULT_OUTLINE_COLOR);
+            graphics2D.setStroke(strokeFactory.getStroke(1));
             graphics2D.draw(anchor);
         });
     }

@@ -143,11 +143,19 @@ public class DrawingPanel extends JPanel implements Printable {
         setTransformer(null);
     }
 
+    public boolean isSelectedShape(DrawShape currentShape) {
+        return selectedShape == currentShape;
+    }
+
     public DrawShape getSelectedShape(Point currentPoint) {
         ArrayList<DrawShape> temp = new ArrayList<>(shapes);
         Collections.reverse(temp);
         return temp.stream().filter(shape -> shape.isContainCurrentPoint(currentPoint)).findFirst()
                 .orElse(null);
+    }
+
+    public void setSelectedShape(DrawShape currentShape) {
+        this.selectedShape = currentShape;
     }
 
     public void setSelectedShape(Point currentPoint) {
@@ -169,7 +177,9 @@ public class DrawingPanel extends JPanel implements Printable {
         setCurrentDrawMode(isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
         setCurrentShape(currentShape.newShape());
         setTransformer(new Drawer(currentShape));
-        currentShape.updateShapeAttributes(outlineColor, fillColor, outlineSize, dashSize);
+        currentShape.setOutlineColor(outlineColor);
+        currentShape.setFillColor(fillColor);
+        currentShape.setStroke(outlineSize, dashSize);
         transformer.startTransform(startPoint);
     }
 
@@ -187,6 +197,7 @@ public class DrawingPanel extends JPanel implements Printable {
         undoManager.undoableEditHappened(
                 new UndoableEditEvent(this, new UndoablePanel(currentShape)));
         currentShape.setSelected(true);
+        setSelectedShape(currentShape);
         setUpdate(true);
         repaint();
     }
@@ -205,22 +216,40 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void chooseOutlineColor() {
         repaint();
-        outlineColor = chooseColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
+        Color chosenColor = chooseColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
+        if (isSelectedShape(null)) {
+            outlineColor = chosenColor;
+        } else {
+            selectedShape.setOutlineColor(chosenColor);
+            repaint();
+        }
     }
 
     public void chooseFillColor() {
         repaint();
-        fillColor = chooseColor(Constant.DEFAULT_FILL_COLOR, fillColor);
+        Color chosenColor = chooseColor(Constant.DEFAULT_FILL_COLOR, fillColor);
+        if (isSelectedShape(null)) {
+            fillColor = chosenColor;
+        } else {
+            selectedShape.setFillColor(chosenColor);
+            repaint();
+        }
     }
 
     public void updateOutlineSize(int outlineSize) {
         repaint();
         this.outlineSize = outlineSize;
+        if (!isSelectedShape(null)) {
+            selectedShape.setStroke(outlineSize, dashSize);
+        }
     }
 
     public void updateDashSize(int dashSize) {
         repaint();
         this.dashSize = dashSize;
+        if (!isSelectedShape(null)) {
+            selectedShape.setStroke(outlineSize, dashSize);
+        }
     }
 
     @Override
