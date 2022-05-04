@@ -136,14 +136,14 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void setSelectedShape(Point currentPoint) {
         selectedShape = getSelectedShape(currentPoint);
-        clearSelectedShape();
+        clearSelectedShapes();
         if (!isSelectedShape(null)) {
             selectedShape.setSelected(true);
         }
         repaint();
     }
 
-    public void clearSelectedShape() {
+    public void clearSelectedShapes() {
         shapes.forEach(shape -> shape.setSelected(false));
         repaint();
     }
@@ -183,7 +183,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void startDraw(Point startPoint) {
-        clearSelectedShape();
+        clearSelectedShapes();
         setCurrentDrawMode(isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
         setCurrentShape(currentShape.newShape());
         setTransformer(new Drawer(currentShape));
