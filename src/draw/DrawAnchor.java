@@ -6,10 +6,13 @@ import global.draw.Anchor;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DrawAnchor {
+public class DrawAnchor implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final ArrayList<Ellipse2D> anchors;
     private final StrokeFactory strokeFactory;
