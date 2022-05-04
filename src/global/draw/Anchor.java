@@ -21,11 +21,11 @@ public enum Anchor {
             bound -> new Point(bound.x + bound.width / 2, bound.y - Constant.ROTATE_BAR_HEIGHT));
 
     private final Cursor cursorStyle;
-    private final Function<Rectangle, Point> expression;
+    private final Function<Rectangle, Point> getAnchorPoint;
 
-    Anchor(Cursor cursorStyle, Function<Rectangle, Point> expression) {
+    Anchor(Cursor cursorStyle, Function<Rectangle, Point> getAnchorPoint) {
         this.cursorStyle = cursorStyle;
-        this.expression = expression;
+        this.getAnchorPoint = getAnchorPoint;
     }
 
     public Cursor getCursorStyle() {
@@ -34,7 +34,7 @@ public enum Anchor {
 
     public Ellipse2D getAnchor(Rectangle bound) {
         Ellipse2D anchor = new Double();
-        Point anchorPoint = this.expression.apply(bound);
+        Point anchorPoint = getAnchorPoint.apply(bound);
         int originX = anchorPoint.x - Constant.ANCHOR_WIDTH / 2;
         int originY = anchorPoint.y - Constant.ANCHOR_HEIGHT / 2;
         anchor.setFrame(originX, originY, Constant.ANCHOR_WIDTH, Constant.ANCHOR_HEIGHT);
