@@ -4,7 +4,7 @@ import draw.DrawPolygon;
 import draw.DrawShape;
 import global.Constant;
 import global.draw.Anchor;
-import global.draw.DrawMode;
+import global.transformer.Mode;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,7 +30,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
 
     private boolean update;
-    private DrawMode drawMode;
+    private Mode mode;
     private ArrayList<DrawShape> shapes;
     private final UndoManager undoManager;
     private final MouseHandler mouseHandler;
@@ -45,7 +45,7 @@ public class DrawingPanel extends JPanel implements Printable {
         setBackground(Constant.BACKGROUND_COLOR);
 
         update = false;
-        drawMode = DrawMode.IDLE;
+        mode = Mode.IDLE;
         shapes = new ArrayList<>();
         undoManager = new UndoManager();
         mouseHandler = new MouseHandler();
@@ -100,12 +100,12 @@ public class DrawingPanel extends JPanel implements Printable {
         this.transformer = transformer;
     }
 
-    private boolean isCurrentDrawMode(DrawMode drawMode) {
-        return this.drawMode == drawMode;
+    private boolean isCurrentMode(Mode mode) {
+        return this.mode == mode;
     }
 
-    private void setCurrentDrawMode(DrawMode drawMode) {
-        this.drawMode = drawMode;
+    private void setCurrentMode(Mode mode) {
+        this.mode = mode;
     }
 
     private boolean isDrawPolygon() {
@@ -175,13 +175,13 @@ public class DrawingPanel extends JPanel implements Printable {
     @Override
     public void repaint() {
         super.repaint();
-        setCurrentDrawMode(DrawMode.IDLE);
+        setCurrentMode(Mode.IDLE);
         setTransformer(null);
     }
 
     private void createShape() {
         clearSelectedShapes();
-        setCurrentDrawMode(isDrawPolygon() ? DrawMode.POLYGON : DrawMode.NORMAL);
+        setCurrentMode(Mode.TRANSFORM);
         setCurrentShape(currentShape.newShape());
         setTransformer(new Drawer(currentShape));
         currentShape.setOutlineColor(outlineColor);
@@ -259,7 +259,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void undo() {
-        if (undoManager.canUndo() && isCurrentDrawMode(DrawMode.IDLE)) {
+        if (undoManager.canUndo() && isCurrentMode(Mode.IDLE)) {
             undoManager.undo();
             setUpdate(true);
             repaint();
@@ -267,7 +267,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void redo() {
-        if (undoManager.canRedo() && isCurrentDrawMode(DrawMode.IDLE)) {
+        if (undoManager.canRedo() && isCurrentMode(Mode.IDLE)) {
             undoManager.redo();
             setUpdate(true);
             repaint();
@@ -299,12 +299,14 @@ public class DrawingPanel extends JPanel implements Printable {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.POLYGON) && e.getButton() == MouseEvent.BUTTON1) {
-                if (e.getClickCount() == 1) {
-                    ((Drawer) transformer).keepTransform(e.getPoint());
-                } else if (e.getClickCount() >= 2) {
-                    transformer.finishTransform(shapes);
-                    finishDraw();
+            if (isCurrentMode(Mode.TRANSFORM)) {
+                if (isDrawPolygon() && e.getButton() == MouseEvent.BUTTON1) {
+                    if (e.getClickCount() == 1) {
+                        ((Drawer) transformer).keepTransform(e.getPoint());
+                    } else if (e.getClickCount() >= 2) {
+                        transformer.finishTransform(shapes);
+                        finishDraw();
+                    }
                 }
             }
         }
@@ -313,37 +315,45 @@ public class DrawingPanel extends JPanel implements Printable {
         public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
                 showPanelPopup(e.getPoint());
-            } else if (isCurrentDrawMode(DrawMode.IDLE)) {
-                if (!isCurrentShape(null)) {
+            } else if (isCurrentMode(Mode.IDLE)) {
+                if (isCurrentShape(null)) {
+                    setSelectedShape(getSelectedShape(e.getPoint()));
+                } else {
                     createShape();
                     transformer.startTransform(e.getPoint());
-                } else {
-                    setSelectedShape(getSelectedShape(e.getPoint()));
                 }
             }
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.NORMAL)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+            if (isCurrentMode(Mode.TRANSFORM)) {
+                if (!isDrawPolygon()) {
+                    transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+                }
             }
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.IDLE) && isCurrentShape(null)) {
-                updateCursorStyle(isCursorOnShape(e.getPoint()));
-            } else if (isCurrentDrawMode(DrawMode.POLYGON)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+            if (isCurrentMode(Mode.IDLE)) {
+                if (isCurrentShape(null)) {
+                    updateCursorStyle(isCursorOnShape(e.getPoint()));
+                }
+            } else if (isCurrentMode(Mode.TRANSFORM)) {
+                if (isDrawPolygon()) {
+                    transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+                }
             }
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            if (isCurrentDrawMode(DrawMode.NORMAL)) {
-                transformer.finishTransform(shapes);
-                finishDraw();
+            if (isCurrentMode(Mode.TRANSFORM)) {
+                if (!isDrawPolygon()) {
+                    transformer.finishTransform(shapes);
+                    finishDraw();
+                }
             }
         }
     }
