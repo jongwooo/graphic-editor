@@ -123,8 +123,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private DrawShape getSelectedShape(Point currentPoint) {
         ArrayList<DrawShape> temp = new ArrayList<>(shapes);
         Collections.reverse(temp);
-        return temp.stream().filter(shape -> shape.isContainCurrentPoint(currentPoint)).findFirst()
-                .orElse(null);
+        return temp.stream().filter(shape -> shape.contains(currentPoint)).findFirst().orElse(null);
     }
 
     private void setSelectedShape(DrawShape shape) {
@@ -141,7 +140,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     private boolean isCursorOnShape(Point currentPoint) {
-        return shapes.stream().anyMatch(shape -> shape.isContainCurrentPoint(currentPoint));
+        return shapes.stream().anyMatch(shape -> shape.contains(currentPoint));
     }
 
     private void setCurrentAnchor(Anchor anchor) {

@@ -74,7 +74,7 @@ public abstract class DrawShape implements Serializable {
         return fillColor == Constant.DEFAULT_FILL_COLOR;
     }
 
-    public boolean isContainCurrentPoint(Point currentPoint) {
+    public boolean contains(Point currentPoint) {
         if (getCurrentAnchor(currentPoint) != null) {
             return true;
         }
