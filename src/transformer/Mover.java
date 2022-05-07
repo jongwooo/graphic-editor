@@ -13,12 +13,18 @@ public class Mover extends Transformer {
 
     @Override
     public void startTransform(Point point) {
-
+        this.previousPoint = point;
     }
 
     @Override
     public void transform(Graphics2D graphics2D, Point currentPoint) {
-
+        Point nextPoint = new Point(currentPoint.x - previousPoint.x,
+                currentPoint.y - previousPoint.y);
+        graphics2D.setXORMode(graphics2D.getBackground());
+        shape.draw(graphics2D);
+        shape.movePoint(nextPoint);
+        shape.draw(graphics2D);
+        previousPoint = currentPoint;
     }
 
     @Override

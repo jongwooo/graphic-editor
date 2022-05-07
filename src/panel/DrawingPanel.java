@@ -22,6 +22,7 @@ import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
 import popup.PanelPopup;
 import transformer.Drawer;
+import transformer.Mover;
 import transformer.Transformer;
 
 public class DrawingPanel extends JPanel implements Printable {
@@ -305,6 +306,14 @@ public class DrawingPanel extends JPanel implements Printable {
                     transformer.startTransform(e.getPoint());
                 } else {
                     setSelectedShape(getSelectedShape(e.getPoint()));
+                    if (exists(selectedShape)) {
+                        setCurrentAnchor(selectedShape.getCurrentAnchor(e.getPoint()));
+                        if (!exists(currentAnchor)) {
+                            setCurrentMode(Mode.MOVE);
+                            setTransformer(new Mover(selectedShape));
+                            transformer.startTransform(e.getPoint());
+                        }
+                    }
                 }
             }
         }
@@ -324,6 +333,9 @@ public class DrawingPanel extends JPanel implements Printable {
         public void mouseDragged(MouseEvent e) {
             if (!isCurrentMode(Mode.IDLE)) {
                 transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+                if (isCurrentMode(Mode.MOVE)) {
+                    repaint();
+                }
             }
         }
 
@@ -332,6 +344,9 @@ public class DrawingPanel extends JPanel implements Printable {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
                 transformer.finishTransform(shapes);
                 finishDraw();
+            } else if (isCurrentMode(Mode.MOVE)) {
+                setUpdate(true);
+                setIDLEMode();
             }
         }
 
