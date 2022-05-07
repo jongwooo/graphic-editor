@@ -342,7 +342,7 @@ public class DrawingPanel extends JPanel implements Printable {
         @Override
         public void mouseReleased(MouseEvent e) {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
-                transformer.finishTransform(shapes);
+                ((Drawer) transformer).finishTransform(shapes);
                 finishDraw();
             } else if (isCurrentMode(Mode.MOVE)) {
                 setUpdate(true);
@@ -357,7 +357,7 @@ public class DrawingPanel extends JPanel implements Printable {
                     if (e.getClickCount() == 1) {
                         ((Drawer) transformer).keepTransform(e.getPoint());
                     } else if (e.getClickCount() >= 2) {
-                        transformer.finishTransform(shapes);
+                        ((Drawer) transformer).finishTransform(shapes);
                         finishDraw();
                     }
                 }

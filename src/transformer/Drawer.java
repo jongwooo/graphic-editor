@@ -29,7 +29,6 @@ public class Drawer extends Transformer {
         ((DrawPolygon) shape).keepDraw(currentPoint);
     }
 
-    @Override
     public void finishTransform(ArrayList<DrawShape> shapes) {
         shapes.add(shape);
     }
