@@ -69,7 +69,7 @@ public abstract class DrawShape implements Serializable {
     private void createAnchors(Graphics2D graphics2D) {
         anchor = selected ? new DrawAnchor() : null;
         if (anchor != null) {
-            anchor.createAnchor(shape.getBounds());
+            anchor.createAnchors(shape.getBounds());
             anchor.draw(graphics2D);
         }
     }

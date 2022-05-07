@@ -26,10 +26,8 @@ public class DrawAnchor implements Serializable {
         return anchors;
     }
 
-    public void createAnchor(Rectangle bound) {
-        Arrays.stream(Anchor.values()).forEach(anchor -> {
-            anchors.add(anchor.getAnchor(bound));
-        });
+    public void createAnchors(Rectangle bound) {
+        Arrays.stream(Anchor.values()).forEach(anchor -> anchors.add(anchor.getAnchor(bound)));
     }
 
     public void draw(Graphics2D graphics2D) {
