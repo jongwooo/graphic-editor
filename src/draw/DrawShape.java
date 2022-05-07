@@ -81,6 +81,10 @@ public abstract class DrawShape implements Serializable {
         return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
     public void setSelected(boolean selected) {
         this.selected = selected;
         if (selected) {

@@ -2,11 +2,10 @@ package tool;
 
 import draw.DrawShape;
 import global.tool.ShapeToolItem;
-import panel.DrawingPanel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
+import panel.DrawingPanel;
 
 public class ButtonHandler implements ActionListener {
 
@@ -61,7 +60,7 @@ public class ButtonHandler implements ActionListener {
     private void updateCurrentShape(DrawShape currentShape) {
         drawingPanel.setCurrentShape(currentShape);
         drawingPanel.updateCursorStyle();
-        drawingPanel.repaint();
+        drawingPanel.setIDLEMode();
     }
 
     private void invokeMethod(String methodName) {
