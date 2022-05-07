@@ -1,27 +1,27 @@
 package draw;
 
 import java.awt.Point;
-import java.awt.geom.Path2D;
+import java.awt.geom.GeneralPath;
 
 public class DrawPencil extends DrawShape {
 
     private static final long serialVersionUID = 1L;
 
-    private final Path2D path2D;
+    private final GeneralPath generalPath;
 
     public DrawPencil() {
-        super(new Path2D.Double());
-        path2D = (Path2D) shape;
+        super(new GeneralPath());
+        generalPath = (GeneralPath) shape;
     }
 
     @Override
     public void setStartPoint(Point startPoint) {
-        path2D.moveTo(startPoint.x, startPoint.y);
+        generalPath.moveTo(startPoint.x, startPoint.y);
     }
 
     @Override
     public void setCurrentPoint(Point currentPoint) {
-        path2D.lineTo(currentPoint.x, currentPoint.y);
+        generalPath.lineTo(currentPoint.x, currentPoint.y);
     }
 
     @Override
