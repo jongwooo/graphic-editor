@@ -8,29 +8,29 @@ import java.util.ArrayList;
 
 public class Drawer extends Transformer {
 
-    public Drawer(DrawShape currentShape) {
-        super(currentShape);
+    public Drawer(DrawShape shape) {
+        super(shape);
     }
 
     @Override
-    public void startTransform(Point startPoint) {
-        currentShape.setStartPoint(startPoint);
+    public void startTransform(Point point) {
+        shape.setStartPoint(point);
     }
 
     @Override
     public void transform(Graphics2D graphics2D, Point currentPoint) {
         graphics2D.setXORMode(graphics2D.getBackground());
-        currentShape.draw(graphics2D);
-        currentShape.setCurrentPoint(currentPoint);
-        currentShape.draw(graphics2D);
+        shape.draw(graphics2D);
+        shape.setCurrentPoint(currentPoint);
+        shape.draw(graphics2D);
     }
 
     public void keepTransform(Point currentPoint) {
-        ((DrawPolygon) currentShape).keepDraw(currentPoint);
+        ((DrawPolygon) shape).keepDraw(currentPoint);
     }
 
     @Override
     public void finishTransform(ArrayList<DrawShape> shapes) {
-        shapes.add(currentShape);
+        shapes.add(shape);
     }
 }

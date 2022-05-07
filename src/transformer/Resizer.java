@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class Resizer extends Transformer {
 
-    public Resizer(DrawShape currentShape) {
-        super(currentShape);
+    public Resizer(DrawShape shape) {
+        super(shape);
     }
 
     @Override
-    public void startTransform(Point startPoint) {
+    public void startTransform(Point point) {
 
     }
 

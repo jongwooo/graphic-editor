@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class Mover extends Transformer {
 
-    public Mover(DrawShape currentShape) {
-        super(currentShape);
+    public Mover(DrawShape shape) {
+        super(shape);
     }
 
     @Override
-    public void startTransform(Point startPoint) {
+    public void startTransform(Point point) {
 
     }
 

@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class Rotator extends Transformer {
 
-    public Rotator(DrawShape currentShape) {
-        super(currentShape);
+    public Rotator(DrawShape shape) {
+        super(shape);
     }
 
     @Override
-    public void startTransform(Point startPoint) {
+    public void startTransform(Point point) {
 
     }
 

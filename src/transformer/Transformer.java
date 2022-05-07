@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public abstract class Transformer {
 
-    protected DrawShape currentShape;
+    protected DrawShape shape;
 
-    public Transformer(DrawShape currentShape) {
-        this.currentShape = currentShape;
+    public Transformer(DrawShape shape) {
+        this.shape = shape;
     }
 
-    public abstract void startTransform(Point startPoint);
+    public abstract void startTransform(Point point);
 
     public abstract void transform(Graphics2D graphics2D, Point currentPoint);
 
