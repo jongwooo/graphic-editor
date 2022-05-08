@@ -6,6 +6,8 @@ import java.awt.Point;
 
 public class Mover extends Transformer {
 
+    private Point previousPoint;
+
     public Mover(DrawShape shape) {
         super(shape);
     }

@@ -7,7 +7,6 @@ import java.awt.Point;
 public abstract class Transformer {
 
     protected DrawShape shape;
-    protected Point previousPoint;
 
     public Transformer(DrawShape shape) {
         this.shape = shape;
