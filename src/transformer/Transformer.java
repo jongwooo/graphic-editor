@@ -12,7 +12,7 @@ public abstract class Transformer {
         this.shape = shape;
     }
 
-    public abstract void startTransform(Point point);
+    public abstract void setPoint(Point point);
 
     public abstract void transform(Graphics2D graphics2D, Point currentPoint);
 }

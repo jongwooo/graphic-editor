@@ -13,7 +13,7 @@ public class Mover extends Transformer {
     }
 
     @Override
-    public void startTransform(Point point) {
+    public void setPoint(Point point) {
         this.previousPoint = point;
     }
 

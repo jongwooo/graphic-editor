@@ -303,7 +303,7 @@ public class DrawingPanel extends JPanel implements Printable {
                     setCurrentShape(currentShape.newShape());
                     setShapeAttributes(currentShape);
                     setTransformer(new Drawer(currentShape));
-                    transformer.startTransform(e.getPoint());
+                    transformer.setPoint(e.getPoint());
                 } else {
                     setSelectedShape(getSelectedShape(e.getPoint()));
                     if (exists(selectedShape)) {
@@ -311,7 +311,7 @@ public class DrawingPanel extends JPanel implements Printable {
                         if (!exists(currentAnchor)) {
                             setCurrentMode(Mode.MOVE);
                             setTransformer(new Mover(selectedShape));
-                            transformer.startTransform(e.getPoint());
+                            transformer.setPoint(e.getPoint());
                         }
                     }
                 }

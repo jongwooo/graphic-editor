@@ -13,7 +13,7 @@ public class Drawer extends Transformer {
     }
 
     @Override
-    public void startTransform(Point point) {
+    public void setPoint(Point point) {
         shape.setStartPoint(point);
     }
 
