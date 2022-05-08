@@ -14,7 +14,7 @@ public class Rotator extends Transformer {
 
     @Override
     public void setPoint(Point point) {
-        this.previousPoint = point;
+        previousPoint = point;
         rotatePoint = shape.getCenterPoint();
     }
 
