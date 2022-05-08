@@ -23,6 +23,7 @@ import javax.swing.undo.UndoManager;
 import popup.PanelPopup;
 import transformer.Drawer;
 import transformer.Mover;
+import transformer.Rotator;
 import transformer.Transformer;
 
 public class DrawingPanel extends JPanel implements Printable {
@@ -142,6 +143,10 @@ public class DrawingPanel extends JPanel implements Printable {
 
     private boolean isCursorOnShape(Point currentPoint) {
         return shapes.stream().anyMatch(shape -> shape.contains(currentPoint));
+    }
+
+    private boolean isRotateAnchor() {
+        return this.currentAnchor == Anchor.RR;
     }
 
     private void setCurrentAnchor(Anchor anchor) {
@@ -312,6 +317,10 @@ public class DrawingPanel extends JPanel implements Printable {
                             setCurrentMode(Mode.MOVE);
                             setTransformer(new Mover(selectedShape));
                             transformer.setPoint(e.getPoint());
+                        } else if (isRotateAnchor()) {
+                            setCurrentMode(Mode.ROTATE);
+                            setTransformer(new Rotator(selectedShape));
+                            transformer.setPoint(e.getPoint());
                         }
                     }
                 }
@@ -333,7 +342,7 @@ public class DrawingPanel extends JPanel implements Printable {
         public void mouseDragged(MouseEvent e) {
             if (!isCurrentMode(Mode.IDLE)) {
                 transformer.transform((Graphics2D) getGraphics(), e.getPoint());
-                if (isCurrentMode(Mode.MOVE)) {
+                if (isCurrentMode(Mode.MOVE) || isCurrentMode(Mode.ROTATE)) {
                     repaint();
                 }
             }
@@ -344,7 +353,7 @@ public class DrawingPanel extends JPanel implements Printable {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
                 ((Drawer) transformer).finishTransform(shapes);
                 finishDraw();
-            } else if (isCurrentMode(Mode.MOVE)) {
+            } else if (isCurrentMode(Mode.MOVE) || isCurrentMode(Mode.ROTATE)) {
                 setUpdate(true);
                 setIDLEMode();
             }

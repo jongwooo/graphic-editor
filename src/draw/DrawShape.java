@@ -105,8 +105,18 @@ public abstract class DrawShape implements Serializable {
         return fillColor == Constant.DEFAULT_FILL_COLOR;
     }
 
+    public Point getCenterPoint() {
+        return new Point((int) shape.getBounds().getCenterX(),
+                (int) shape.getBounds().getCenterY());
+    }
+
     public void movePoint(Point point) {
         affineTransform.setToTranslation(point.x, point.y);
+        shape = affineTransform.createTransformedShape(shape);
+    }
+
+    public void rotate(double rotateAngle, Point rotatePoint) {
+        affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
         shape = affineTransform.createTransformedShape(shape);
     }
 
