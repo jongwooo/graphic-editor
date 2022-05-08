@@ -23,7 +23,7 @@ public class Mover extends Transformer {
                 currentPoint.y - previousPoint.y);
         graphics2D.setXORMode(graphics2D.getBackground());
         shape.draw(graphics2D);
-        shape.movePoint(nextPoint);
+        shape.move(nextPoint);
         shape.draw(graphics2D);
         previousPoint = currentPoint;
     }

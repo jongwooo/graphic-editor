@@ -110,7 +110,7 @@ public abstract class DrawShape implements Serializable {
                 (int) shape.getBounds().getCenterY());
     }
 
-    public void movePoint(Point point) {
+    public void move(Point point) {
         affineTransform.setToTranslation(point.x, point.y);
         shape = affineTransform.createTransformedShape(shape);
     }
