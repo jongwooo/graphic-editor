@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
@@ -102,8 +103,8 @@ public class DrawingPanel extends JPanel implements Printable {
         this.update = update;
     }
 
-    private boolean isCurrentMode(Mode mode) {
-        return this.mode == mode;
+    private boolean isCurrentMode(Mode ...modes) {
+        return Arrays.stream(modes).anyMatch(mode -> this.mode == mode);
     }
 
     private void setCurrentMode(Mode mode) {
@@ -342,7 +343,7 @@ public class DrawingPanel extends JPanel implements Printable {
         public void mouseDragged(MouseEvent e) {
             if (!isCurrentMode(Mode.IDLE)) {
                 transformer.transform((Graphics2D) getGraphics(), e.getPoint());
-                if (isCurrentMode(Mode.MOVE) || isCurrentMode(Mode.ROTATE)) {
+                if (isCurrentMode(Mode.MOVE, Mode.ROTATE)) {
                     repaint();
                 }
             }
@@ -353,7 +354,7 @@ public class DrawingPanel extends JPanel implements Printable {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
                 ((Drawer) transformer).finishTransform(shapes);
                 finishDraw();
-            } else if (isCurrentMode(Mode.MOVE) || isCurrentMode(Mode.ROTATE)) {
+            } else if (isCurrentMode(Mode.MOVE, Mode.ROTATE)) {
                 setUpdate(true);
                 setIDLEMode();
             }
