@@ -28,13 +28,11 @@ public class Rotator extends Transformer {
     }
 
     private double computeAngle(Point rotatePoint, Point previousPoint, Point nextPoint) {
-        double startAngle, endAngle, computedAngle;
-        startAngle = Math.toDegrees(
+        double startAngle = Math.toDegrees(
                 Math.atan2(rotatePoint.x - previousPoint.x, rotatePoint.y - previousPoint.y));
-        endAngle = Math.toDegrees(
+        double endAngle = Math.toDegrees(
                 Math.atan2(rotatePoint.x - nextPoint.x, rotatePoint.y - nextPoint.y));
-        computedAngle = Math.toRadians(
+        return Math.toRadians(
                 (startAngle - endAngle) < 0 ? startAngle - endAngle + 360 : startAngle - endAngle);
-        return computedAngle;
     }
 }
