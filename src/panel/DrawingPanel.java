@@ -103,7 +103,7 @@ public class DrawingPanel extends JPanel implements Printable {
         this.update = update;
     }
 
-    private boolean isCurrentMode(Mode ...modes) {
+    private boolean isCurrentMode(Mode... modes) {
         return Arrays.stream(modes).anyMatch(mode -> this.mode == mode);
     }
 
