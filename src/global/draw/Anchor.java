@@ -1,5 +1,7 @@
 package global.draw;
 
+import transformer.dto.BoundDto;
+import transformer.dto.ScaleDto;
 import global.Constant;
 import java.awt.Cursor;
 import java.awt.Point;
@@ -7,25 +9,81 @@ import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
 import java.util.function.Function;
+import transformer.dto.ScaleDto.ScaleDtoBuilder;
 
 public enum Anchor {
-    NW(Constant.NW_CURSOR, bound -> new Point(bound.x, bound.y)),
-    WW(Constant.WW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height / 2)),
-    SW(Constant.SW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height)),
-    SS(Constant.SS_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y + bound.height)),
-    SE(Constant.SE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height)),
-    EE(Constant.EE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height / 2)),
-    NE(Constant.NE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y)),
-    NN(Constant.NN_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y)),
+    NW(Constant.NW_CURSOR, bound -> new Point(bound.x, bound.y),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX() + dto.getWidth())
+                    .translateY(dto.getY() + dto.getHeight())
+                    .scaleX(1 - dto.getRatioX())
+                    .scaleY(1 - dto.getRatioY())
+                    .build()),
+    WW(Constant.WW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height / 2),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX() + dto.getWidth())
+                    .translateY(0)
+                    .scaleX(1 - dto.getRatioX())
+                    .scaleY(1)
+                    .build()),
+    SW(Constant.SW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX() + dto.getWidth())
+                    .translateY(dto.getY())
+                    .scaleX(1 - dto.getRatioX())
+                    .scaleY(1 + dto.getRatioY())
+                    .build()),
+    SS(Constant.SS_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y + bound.height),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(0)
+                    .translateY(dto.getY())
+                    .scaleX(1)
+                    .scaleY(1 + dto.getRatioY())
+                    .build()),
+    SE(Constant.SE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX())
+                    .translateY(dto.getY())
+                    .scaleX(1 + dto.getRatioX())
+                    .scaleY(1 + dto.getRatioY())
+                    .build()),
+    EE(Constant.EE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height / 2),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX())
+                    .translateY(0)
+                    .scaleX(1 + dto.getRatioX())
+                    .scaleY(1)
+                    .build()),
+    NE(Constant.NE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(dto.getX())
+                    .translateY(dto.getY() + dto.getHeight())
+                    .scaleX(1 + dto.getRatioX())
+                    .scaleY(1 - dto.getRatioY())
+                    .build()),
+    NN(Constant.NN_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y),
+            dto -> new ScaleDtoBuilder()
+                    .translateX(0)
+                    .translateY(dto.getY() + dto.getHeight())
+                    .scaleX(1)
+                    .scaleY(1 - dto.getRatioY())
+                    .build()),
     RR(Constant.ROTATE_CURSOR,
             bound -> new Point(bound.x + bound.width / 2, bound.y - Constant.ROTATE_BAR_HEIGHT));
 
     private final Cursor cursorStyle;
     private final Function<Rectangle, Point> getAnchorPoint;
+    private Function<BoundDto, ScaleDto> computeScale;
 
     Anchor(Cursor cursorStyle, Function<Rectangle, Point> getAnchorPoint) {
         this.cursorStyle = cursorStyle;
         this.getAnchorPoint = getAnchorPoint;
+    }
+
+    Anchor(Cursor cursorStyle, Function<Rectangle, Point> getAnchorPoint,
+            Function<BoundDto, ScaleDto> computeScale) {
+        this(cursorStyle, getAnchorPoint);
+        this.computeScale = computeScale;
     }
 
     public Cursor getCursorStyle() {
@@ -39,5 +97,9 @@ public enum Anchor {
         int originY = anchorPoint.y - Constant.ANCHOR_HEIGHT / 2;
         anchor.setFrame(originX, originY, Constant.ANCHOR_WIDTH, Constant.ANCHOR_HEIGHT);
         return anchor;
+    }
+
+    public ScaleDto getScale(BoundDto dto) {
+        return computeScale.apply(dto);
     }
 }

@@ -7,6 +7,7 @@ import global.draw.Anchor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
@@ -24,6 +25,7 @@ public abstract class DrawShape implements Serializable {
     protected Shape shape;
     protected Point startPoint;
     protected DrawAnchor anchor;
+    protected Anchor currentAnchor;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
@@ -33,6 +35,7 @@ public abstract class DrawShape implements Serializable {
         this.shape = shape;
         selected = false;
         anchor = null;
+        currentAnchor = null;
         affineTransform = new AffineTransform();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
@@ -52,7 +55,7 @@ public abstract class DrawShape implements Serializable {
     }
 
     public boolean contains(Point currentPoint) {
-        if (getCurrentAnchor(currentPoint) != null) {
+        if (getCurrentAnchor() != null) {
             return true;
         }
         return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
@@ -66,6 +69,10 @@ public abstract class DrawShape implements Serializable {
         this.selected = selected;
     }
 
+    public Rectangle getBound() {
+        return shape.getBounds();
+    }
+
     private void createAnchors(Graphics2D graphics2D) {
         anchor = selected ? new DrawAnchor() : null;
         if (anchor != null) {
@@ -74,11 +81,21 @@ public abstract class DrawShape implements Serializable {
         }
     }
 
+    public boolean isCurrentAnchor(Anchor anchor) {
+        return currentAnchor == anchor;
+    }
+
+    public Anchor getCurrentAnchor() {
+        return currentAnchor;
+    }
+
     public Anchor getCurrentAnchor(Point currentPoint) {
         if (anchor != null) {
             ArrayList<Ellipse2D> anchors = anchor.getAnchors();
-            return anchors.stream().filter(anchor -> anchor.contains(currentPoint)).findFirst()
-                    .map(anchor -> Anchor.values()[anchors.indexOf(anchor)]).orElse(null);
+            currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
+                    .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
+                    .orElse(null);
+            return currentAnchor;
         } else {
             return null;
         }
@@ -112,6 +129,13 @@ public abstract class DrawShape implements Serializable {
 
     public void move(Point point) {
         affineTransform.setToTranslation(point.x, point.y);
+        shape = affineTransform.createTransformedShape(shape);
+    }
+
+    public void resize(double translateX, double translateY, double scaleX, double scaleY) {
+        affineTransform.setToTranslation(translateX, translateY);
+        affineTransform.scale(scaleX, scaleY);
+        affineTransform.translate(-translateX, -translateY);
         shape = affineTransform.createTransformedShape(shape);
     }
 

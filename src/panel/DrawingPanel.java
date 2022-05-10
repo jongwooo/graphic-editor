@@ -24,6 +24,7 @@ import javax.swing.undo.UndoManager;
 import popup.PanelPopup;
 import transformer.Drawer;
 import transformer.Mover;
+import transformer.Resizer;
 import transformer.Rotator;
 import transformer.Transformer;
 
@@ -38,7 +39,6 @@ public class DrawingPanel extends JPanel implements Printable {
     private final UndoManager undoManager;
     private final MouseHandler mouseHandler;
     private Transformer transformer;
-    private Anchor currentAnchor;
     private DrawShape currentShape, selectedShape;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
@@ -53,7 +53,6 @@ public class DrawingPanel extends JPanel implements Printable {
         undoManager = new UndoManager();
         mouseHandler = new MouseHandler();
         transformer = null;
-        currentAnchor = null;
         currentShape = null;
         selectedShape = null;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -146,14 +145,6 @@ public class DrawingPanel extends JPanel implements Printable {
         return shapes.stream().anyMatch(shape -> shape.contains(currentPoint));
     }
 
-    private boolean isRotateAnchor() {
-        return this.currentAnchor == Anchor.RR;
-    }
-
-    private void setCurrentAnchor(Anchor anchor) {
-        this.currentAnchor = anchor;
-    }
-
     public void updateCursorStyle() {
         setCursor(exists(currentShape) ? Constant.CROSSHAIR_STYLE_CURSOR
                 : Constant.DEFAULT_STYLE_CURSOR);
@@ -161,7 +152,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     private void updateCursorStyle(Point currentPoint) {
         if (exists(selectedShape)) {
-            setCurrentAnchor(selectedShape.getCurrentAnchor(currentPoint));
+            Anchor currentAnchor = selectedShape.getCurrentAnchor(currentPoint);
             setCursor(exists(currentAnchor) ? currentAnchor.getCursorStyle()
                     : isCursorOnShape(currentPoint) ? Constant.HAND_STYLE_CURSOR
                             : Constant.DEFAULT_STYLE_CURSOR);
@@ -313,14 +304,18 @@ public class DrawingPanel extends JPanel implements Printable {
                 } else {
                     setSelectedShape(getSelectedShape(e.getPoint()));
                     if (exists(selectedShape)) {
-                        setCurrentAnchor(selectedShape.getCurrentAnchor(e.getPoint()));
+                        Anchor currentAnchor = selectedShape.getCurrentAnchor(e.getPoint());
                         if (!exists(currentAnchor)) {
                             setCurrentMode(Mode.MOVE);
                             setTransformer(new Mover(selectedShape));
                             transformer.setPoint(e.getPoint());
-                        } else if (isRotateAnchor()) {
+                        } else if (selectedShape.isCurrentAnchor(Anchor.RR)) {
                             setCurrentMode(Mode.ROTATE);
                             setTransformer(new Rotator(selectedShape));
+                            transformer.setPoint(e.getPoint());
+                        } else {
+                            setCurrentMode(Mode.RESIZE);
+                            setTransformer(new Resizer(selectedShape));
                             transformer.setPoint(e.getPoint());
                         }
                     }
@@ -343,7 +338,7 @@ public class DrawingPanel extends JPanel implements Printable {
         public void mouseDragged(MouseEvent e) {
             if (!isCurrentMode(Mode.IDLE)) {
                 transformer.transform((Graphics2D) getGraphics(), e.getPoint());
-                if (isCurrentMode(Mode.MOVE, Mode.ROTATE)) {
+                if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
                     repaint();
                 }
             }
@@ -354,7 +349,7 @@ public class DrawingPanel extends JPanel implements Printable {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
                 ((Drawer) transformer).finishTransform(shapes);
                 finishDraw();
-            } else if (isCurrentMode(Mode.MOVE, Mode.ROTATE)) {
+            } else if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
                 setUpdate(true);
                 setIDLEMode();
             }
