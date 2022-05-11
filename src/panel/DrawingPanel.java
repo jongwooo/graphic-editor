@@ -15,6 +15,7 @@ import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -35,7 +36,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     private boolean update;
     private Mode mode;
-    private ArrayList<DrawShape> shapes;
+    private List<DrawShape> shapes;
     private final UndoManager undoManager;
     private final MouseHandler mouseHandler;
     private Transformer transformer;
@@ -91,7 +92,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     @SuppressWarnings("unchecked")
     public void setShapes(Object shapeObject) {
-        this.shapes = (ArrayList<DrawShape>) shapeObject;
+        this.shapes = (List<DrawShape>) shapeObject;
     }
 
     public boolean checkUpdate() {
@@ -123,7 +124,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     private DrawShape getSelectedShape(Point currentPoint) {
-        ArrayList<DrawShape> temp = new ArrayList<>(shapes);
+        List<DrawShape> temp = new ArrayList<>(shapes);
         Collections.reverse(temp);
         return temp.stream().filter(shape -> shape.contains(currentPoint)).findFirst().orElse(null);
     }

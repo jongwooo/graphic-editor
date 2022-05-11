@@ -15,7 +15,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class DrawShape implements Serializable {
 
@@ -91,7 +91,7 @@ public abstract class DrawShape implements Serializable {
 
     public Anchor getCurrentAnchor(Point currentPoint) {
         if (anchor != null) {
-            ArrayList<Ellipse2D> anchors = anchor.getAnchors();
+            List<Ellipse2D> anchors = anchor.getAnchors();
             currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
                     .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
                     .orElse(null);

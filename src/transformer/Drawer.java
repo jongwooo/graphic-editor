@@ -4,7 +4,7 @@ import draw.DrawPolygon;
 import draw.DrawShape;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Drawer extends Transformer {
 
@@ -29,7 +29,7 @@ public class Drawer extends Transformer {
         ((DrawPolygon) shape).keepDraw(currentPoint);
     }
 
-    public void finishTransform(ArrayList<DrawShape> shapes) {
+    public void finishTransform(List<DrawShape> shapes) {
         shapes.add(shape);
     }
 }

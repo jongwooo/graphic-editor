@@ -9,12 +9,13 @@ import java.awt.geom.Ellipse2D;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DrawAnchor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final ArrayList<Ellipse2D> anchors;
+    private final List<Ellipse2D> anchors;
     private final StrokeFactory strokeFactory;
 
     public DrawAnchor() {
@@ -22,7 +23,7 @@ public class DrawAnchor implements Serializable {
         strokeFactory = StrokeFactory.createStrokeFactory();
     }
 
-    public ArrayList<Ellipse2D> getAnchors() {
+    public List<Ellipse2D> getAnchors() {
         return anchors;
     }
 
