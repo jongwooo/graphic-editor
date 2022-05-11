@@ -11,8 +11,8 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 import java.util.List;
@@ -115,7 +115,7 @@ public abstract class DrawShape implements Serializable {
     }
 
     private boolean isUnfilledShape() {
-        return shape instanceof Line2D.Double || shape instanceof GeneralPath;
+        return shape instanceof Line2D.Double || shape instanceof Path2D.Float;
     }
 
     private boolean isDefaultFillColor() {
@@ -127,21 +127,29 @@ public abstract class DrawShape implements Serializable {
                 (int) shape.getBounds().getCenterY());
     }
 
+    public Shape createTransformedShape(AffineTransform at, Shape pSrc) {
+        if (pSrc == null) {
+            return null;
+        }
+        return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
+                : new Path2D.Double(pSrc, at);
+    }
+
     public void move(Point point) {
         affineTransform.setToTranslation(point.x, point.y);
-        shape = affineTransform.createTransformedShape(shape);
+        shape = createTransformedShape(affineTransform, shape);
     }
 
     public void resize(double translateX, double translateY, double scaleX, double scaleY) {
         affineTransform.setToTranslation(translateX, translateY);
         affineTransform.scale(scaleX, scaleY);
         affineTransform.translate(-translateX, -translateY);
-        shape = affineTransform.createTransformedShape(shape);
+        shape = createTransformedShape(affineTransform, shape);
     }
 
     public void rotate(double rotateAngle, Point rotatePoint) {
         affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
-        shape = affineTransform.createTransformedShape(shape);
+        shape = createTransformedShape(affineTransform, shape);
     }
 
     public abstract void setStartPoint(Point startPoint);
