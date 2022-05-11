@@ -18,7 +18,7 @@ public class FileMenu extends JMenu {
         super(Constant.FILE_MENU_TITLE);
     }
 
-    public static FileMenu createFileMenu() {
+    public static FileMenu getInstance() {
         return FILE_MENU;
     }
 

@@ -18,7 +18,7 @@ public class EditMenu extends JMenu {
         super(Constant.EDIT_MENU_TITLE);
     }
 
-    public static EditMenu createEditMenu() {
+    public static EditMenu getInstance() {
         return EDIT_MENU;
     }
 

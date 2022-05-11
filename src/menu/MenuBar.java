@@ -15,12 +15,12 @@ public class MenuBar extends JMenuBar {
     private final MenuBarHandler menuBarHandler;
 
     private MenuBar() {
-        menuBarHandler = MenuBarHandler.createMenuBarHandler();
-        fileMenu = FileMenu.createFileMenu();
-        editMenu = EditMenu.createEditMenu();
+        menuBarHandler = MenuBarHandler.getInstance();
+        fileMenu = FileMenu.getInstance();
+        editMenu = EditMenu.getInstance();
     }
 
-    public static MenuBar createMenuBar() {
+    public static MenuBar getInstance() {
         return MENU_BAR;
     }
 

@@ -15,10 +15,10 @@ public class PanelPopup extends JPopupMenu {
     private final PanelPopupHandler panelPopupHandler;
 
     private PanelPopup() {
-        panelPopupHandler = PanelPopupHandler.createPanelPopupHandler();
+        panelPopupHandler = PanelPopupHandler.getInstance();
     }
 
-    public static PanelPopup createPanelPopup() {
+    public static PanelPopup getInstance() {
         return PANEL_POPUP;
     }
 

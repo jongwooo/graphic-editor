@@ -13,7 +13,7 @@ public class ButtonHandler implements ActionListener {
 
     private DrawingPanel drawingPanel;
 
-    public static ButtonHandler createButtonHandler() {
+    public static ButtonHandler getInstance() {
         return BUTTON_HANDLER;
     }
 

@@ -14,7 +14,7 @@ public class SpinnerHandler implements ChangeListener {
 
     private DrawingPanel drawingPanel;
 
-    public static SpinnerHandler createSpinnerHandler() {
+    public static SpinnerHandler getInstance() {
         return SPINNER_HANDLER;
     }
 

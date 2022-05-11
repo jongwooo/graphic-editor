@@ -20,7 +20,7 @@ public class DrawAnchor implements Serializable {
 
     public DrawAnchor() {
         anchors = new ArrayList<>();
-        strokeFactory = StrokeFactory.createStrokeFactory();
+        strokeFactory = StrokeFactory.getInstance();
     }
 
     public List<Ellipse2D> getAnchors() {

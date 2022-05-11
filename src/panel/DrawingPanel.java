@@ -60,10 +60,10 @@ public class DrawingPanel extends JPanel implements Printable {
         fillColor = Constant.DEFAULT_FILL_COLOR;
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
         dashSize = Constant.DEFAULT_DASH_SIZE;
-        panelPopup = PanelPopup.createPanelPopup();
+        panelPopup = PanelPopup.getInstance();
     }
 
-    public static DrawingPanel createDrawingPanel() {
+    public static DrawingPanel getInstance() {
         return DRAWING_PANEL;
     }
 

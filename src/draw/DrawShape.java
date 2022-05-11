@@ -40,7 +40,7 @@ public abstract class DrawShape implements Serializable {
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         customStroke = Constant.DEFAULT_STROKE;
-        strokeFactory = StrokeFactory.createStrokeFactory();
+        strokeFactory = StrokeFactory.getInstance();
     }
 
     public void draw(Graphics2D graphics2D) {
@@ -55,7 +55,7 @@ public abstract class DrawShape implements Serializable {
     }
 
     public boolean contains(Point currentPoint) {
-        if (getCurrentAnchor() != null) {
+        if (currentAnchor != null) {
             return true;
         }
         return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));

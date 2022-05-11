@@ -14,7 +14,7 @@ public class MenuBarHandler implements ActionListener {
     private DrawingPanel drawingPanel;
     private FileControl fileControl;
 
-    public static MenuBarHandler createMenuBarHandler() {
+    public static MenuBarHandler getInstance() {
         return MENU_BAR_HANDLER;
     }
 

@@ -34,10 +34,10 @@ public class FileControl {
         fileChooser.setFileFilter(new FileNameExtensionFilter(Constant.FILE_EXTENSION_DESCRIPTION,
                 Constant.FILE_EXTENSION));
         fileChooser.setMultiSelectionEnabled(false);
-        fileFactory = FileFactory.createFileFactory();
+        fileFactory = FileFactory.getInstance();
     }
 
-    public static FileControl createFileControl() {
+    public static FileControl getInstance() {
         return FILE_CONTROL;
     }
 

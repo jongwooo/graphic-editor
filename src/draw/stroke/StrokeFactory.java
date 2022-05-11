@@ -16,7 +16,7 @@ public class StrokeFactory implements Serializable {
         cache = new HashMap<>();
     }
 
-    public static StrokeFactory createStrokeFactory() {
+    public static StrokeFactory getInstance() {
         return STROKE_FACTORY;
     }
 

@@ -11,7 +11,7 @@ public class PanelPopupHandler implements ActionListener {
 
     private DrawingPanel drawingPanel;
 
-    public static PanelPopupHandler createPanelPopupHandler() {
+    public static PanelPopupHandler getInstance() {
         return PANEL_POPUP_HANDLER;
     }
 

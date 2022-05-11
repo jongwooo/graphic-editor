@@ -32,14 +32,14 @@ public class ToolBar extends JToolBar {
         setBorderPainted(true);
         setFloatable(false);
 
-        buttonHandler = ButtonHandler.createButtonHandler();
-        spinnerHandler = SpinnerHandler.createSpinnerHandler();
+        buttonHandler = ButtonHandler.getInstance();
+        spinnerHandler = SpinnerHandler.getInstance();
         shapeToolBtnGroup = new ButtonGroup();
         outlineSizeModel = SpinnerModels.outlineSizeModel.getModel();
         dashSizeModel = SpinnerModels.dashSizeModel.getModel();
     }
 
-    public static ToolBar createToolBar() {
+    public static ToolBar getInstance() {
         return TOOL_BAR;
     }
 

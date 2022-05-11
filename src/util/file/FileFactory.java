@@ -16,7 +16,7 @@ public class FileFactory implements Serializable {
         cache = new HashMap<>();
     }
 
-    public static FileFactory createFileFactory() {
+    public static FileFactory getInstance() {
         return FILE_FACTORY;
     }
 

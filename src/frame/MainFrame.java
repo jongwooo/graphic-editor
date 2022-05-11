@@ -25,13 +25,13 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        menuBar = MenuBar.createMenuBar();
-        toolBar = ToolBar.createToolBar();
-        drawingPanel = DrawingPanel.createDrawingPanel();
-        fileControl = FileControl.createFileControl();
+        menuBar = MenuBar.getInstance();
+        toolBar = ToolBar.getInstance();
+        drawingPanel = DrawingPanel.getInstance();
+        fileControl = FileControl.getInstance();
     }
 
-    public static MainFrame createMainFrame() {
+    public static MainFrame getInstance() {
         return MAIN_FRAME;
     }
 
