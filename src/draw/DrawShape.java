@@ -127,10 +127,7 @@ public abstract class DrawShape implements Serializable {
                 (int) shape.getBounds().getCenterY());
     }
 
-    public Shape createTransformedShape(AffineTransform at, Shape pSrc) {
-        if (pSrc == null) {
-            return null;
-        }
+    private Shape createTransformedShape(AffineTransform at, Shape pSrc) {
         return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
                 : new Path2D.Double(pSrc, at);
     }
