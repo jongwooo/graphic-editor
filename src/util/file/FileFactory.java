@@ -8,7 +8,10 @@ public class FileFactory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final FileFactory FILE_FACTORY = new FileFactory();
+    private static class InstanceHolder {
+
+        private static final FileFactory INSTANCE = new FileFactory();
+    }
 
     private final HashMap<String, File> cache;
 
@@ -17,7 +20,7 @@ public class FileFactory implements Serializable {
     }
 
     public static FileFactory getInstance() {
-        return FILE_FACTORY;
+        return InstanceHolder.INSTANCE;
     }
 
     public File getFile(String filePath) {

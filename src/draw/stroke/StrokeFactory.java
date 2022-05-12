@@ -8,7 +8,10 @@ public class StrokeFactory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final StrokeFactory STROKE_FACTORY = new StrokeFactory();
+    private static class InstanceHolder {
+
+        private static final StrokeFactory INSTANCE = new StrokeFactory();
+    }
 
     private final HashMap<String, CustomStroke> cache;
 
@@ -17,7 +20,7 @@ public class StrokeFactory implements Serializable {
     }
 
     public static StrokeFactory getInstance() {
-        return STROKE_FACTORY;
+        return InstanceHolder.INSTANCE;
     }
 
     public CustomStroke getStroke(int outlineSize) {

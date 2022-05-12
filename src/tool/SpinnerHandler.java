@@ -10,12 +10,15 @@ import javax.swing.event.ChangeListener;
 
 public class SpinnerHandler implements ChangeListener {
 
-    private static final SpinnerHandler SPINNER_HANDLER = new SpinnerHandler();
+    private static class InstanceHolder {
+
+        private static final SpinnerHandler INSTANCE = new SpinnerHandler();
+    }
 
     private DrawingPanel drawingPanel;
 
     public static SpinnerHandler getInstance() {
-        return SPINNER_HANDLER;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel) {

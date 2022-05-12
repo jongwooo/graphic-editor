@@ -32,7 +32,11 @@ import transformer.Transformer;
 public class DrawingPanel extends JPanel implements Printable {
 
     private static final long serialVersionUID = 1L;
-    private static final DrawingPanel DRAWING_PANEL = new DrawingPanel();
+
+    private static class InstanceHolder {
+
+        private static final DrawingPanel INSTANCE = new DrawingPanel();
+    }
 
     private boolean update;
     private Mode mode;
@@ -64,7 +68,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public static DrawingPanel getInstance() {
-        return DRAWING_PANEL;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate() {

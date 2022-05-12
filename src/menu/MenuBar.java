@@ -8,7 +8,11 @@ import util.file.FileControl;
 public class MenuBar extends JMenuBar {
 
     private static final long serialVersionUID = 1L;
-    private static final MenuBar MENU_BAR = new MenuBar();
+
+    private static class InstanceHolder {
+
+        private static final MenuBar INSTANCE = new MenuBar();
+    }
 
     private final FileMenu fileMenu;
     private final EditMenu editMenu;
@@ -21,7 +25,7 @@ public class MenuBar extends JMenuBar {
     }
 
     public static MenuBar getInstance() {
-        return MENU_BAR;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel, FileControl fileControl) {

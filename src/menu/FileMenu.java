@@ -10,7 +10,11 @@ import java.util.Arrays;
 public class FileMenu extends JMenu {
 
     private static final long serialVersionUID = 1L;
-    private static final FileMenu FILE_MENU = new FileMenu();
+
+    private static class InstanceHolder {
+
+        private static final FileMenu INSTANCE = new FileMenu();
+    }
 
     private MenuBarHandler menuBarHandler;
 
@@ -19,7 +23,7 @@ public class FileMenu extends JMenu {
     }
 
     public static FileMenu getInstance() {
-        return FILE_MENU;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(MenuBarHandler menuBarHandler) {

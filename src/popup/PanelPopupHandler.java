@@ -7,12 +7,15 @@ import panel.DrawingPanel;
 
 public class PanelPopupHandler implements ActionListener {
 
-    private static final PanelPopupHandler PANEL_POPUP_HANDLER = new PanelPopupHandler();
+    private static class InstanceHolder {
+
+        private static final PanelPopupHandler INSTANCE = new PanelPopupHandler();
+    }
 
     private DrawingPanel drawingPanel;
 
     public static PanelPopupHandler getInstance() {
-        return PANEL_POPUP_HANDLER;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel) {

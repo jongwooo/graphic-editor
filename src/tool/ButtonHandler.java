@@ -9,12 +9,15 @@ import panel.DrawingPanel;
 
 public class ButtonHandler implements ActionListener {
 
-    private static final ButtonHandler BUTTON_HANDLER = new ButtonHandler();
+    private static class InstanceHolder {
+
+        private static final ButtonHandler INSTANCE = new ButtonHandler();
+    }
 
     private DrawingPanel drawingPanel;
 
     public static ButtonHandler getInstance() {
-        return BUTTON_HANDLER;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel) {

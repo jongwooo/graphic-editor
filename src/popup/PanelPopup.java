@@ -10,7 +10,10 @@ public class PanelPopup extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
 
-    private static final PanelPopup PANEL_POPUP = new PanelPopup();
+    private static class InstanceHolder {
+
+        private static final PanelPopup INSTANCE = new PanelPopup();
+    }
 
     private final PanelPopupHandler panelPopupHandler;
 
@@ -19,7 +22,7 @@ public class PanelPopup extends JPopupMenu {
     }
 
     public static PanelPopup getInstance() {
-        return PANEL_POPUP;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel) {

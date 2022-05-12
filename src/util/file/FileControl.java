@@ -20,7 +20,10 @@ import panel.DrawingPanel;
 
 public class FileControl {
 
-    private static final FileControl FILE_CONTROL = new FileControl();
+    private static class InstanceHolder {
+
+        private static final FileControl INSTANCE = new FileControl();
+    }
 
     private MainFrame mainFrame;
     private DrawingPanel drawingPanel;
@@ -38,7 +41,7 @@ public class FileControl {
     }
 
     public static FileControl getInstance() {
-        return FILE_CONTROL;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(MainFrame mainFrame, DrawingPanel drawingPanel) {

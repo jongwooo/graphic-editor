@@ -20,7 +20,11 @@ import java.util.Arrays;
 public class ToolBar extends JToolBar {
 
     private static final long serialVersionUID = 1L;
-    private static final ToolBar TOOL_BAR = new ToolBar();
+
+    private static class InstanceHolder {
+
+        private static final ToolBar INSTANCE = new ToolBar();
+    }
 
     private final ButtonHandler buttonHandler;
     private final ButtonGroup shapeToolBtnGroup;
@@ -40,7 +44,7 @@ public class ToolBar extends JToolBar {
     }
 
     public static ToolBar getInstance() {
-        return TOOL_BAR;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel) {

@@ -9,13 +9,16 @@ import util.file.FileControl;
 
 public class MenuBarHandler implements ActionListener {
 
-    private static final MenuBarHandler MENU_BAR_HANDLER = new MenuBarHandler();
+    private static class InstanceHolder {
+
+        private static final MenuBarHandler INSTANCE = new MenuBarHandler();
+    }
 
     private DrawingPanel drawingPanel;
     private FileControl fileControl;
 
     public static MenuBarHandler getInstance() {
-        return MENU_BAR_HANDLER;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(DrawingPanel drawingPanel, FileControl fileControl) {

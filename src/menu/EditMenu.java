@@ -10,7 +10,11 @@ import java.util.Arrays;
 public class EditMenu extends JMenu {
 
     private static final long serialVersionUID = 1L;
-    private static final EditMenu EDIT_MENU = new EditMenu();
+
+    private static class InstanceHolder {
+
+        private static final EditMenu INSTANCE = new EditMenu();
+    }
 
     private MenuBarHandler menuBarHandler;
 
@@ -19,7 +23,7 @@ public class EditMenu extends JMenu {
     }
 
     public static EditMenu getInstance() {
-        return EDIT_MENU;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate(MenuBarHandler menuBarHandler) {

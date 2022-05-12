@@ -11,7 +11,11 @@ import util.file.FileControl;
 public class MainFrame extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final MainFrame MAIN_FRAME = new MainFrame();
+
+    private static class InstanceHolder {
+
+        private static final MainFrame INSTANCE = new MainFrame();
+    }
 
     private final MenuBar menuBar;
     private final ToolBar toolBar;
@@ -32,7 +36,7 @@ public class MainFrame extends JFrame {
     }
 
     public static MainFrame getInstance() {
-        return MAIN_FRAME;
+        return InstanceHolder.INSTANCE;
     }
 
     public void associate() {
