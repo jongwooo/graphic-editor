@@ -15,13 +15,13 @@ public enum ShapeToolItem {
     polygon(new DrawPolygon()),
     pencil(new DrawPencil());
 
-    private final DrawShape currentShape;
+    private final DrawShape shape;
 
-    ShapeToolItem(DrawShape currentShape) {
-        this.currentShape = currentShape;
+    ShapeToolItem(DrawShape shape) {
+        this.shape = shape;
     }
 
     public DrawShape newShape() {
-        return currentShape;
+        return shape;
     }
 }

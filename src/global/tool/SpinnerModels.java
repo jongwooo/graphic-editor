@@ -9,17 +9,17 @@ public enum SpinnerModels {
     outlineSizeModel(Constant.OUTLINE_SIZE_MODEL),
     dashSizeModel(Constant.DASH_SIZE_MODEL);
 
-    private final SpinnerNumberModel currentSpinnerModel;
+    private final SpinnerNumberModel spinnerNumberModel;
 
-    SpinnerModels(SpinnerNumberModel currentSpinnerModel) {
-        this.currentSpinnerModel = currentSpinnerModel;
+    SpinnerModels(SpinnerNumberModel spinnerNumberModel) {
+        this.spinnerNumberModel = spinnerNumberModel;
     }
 
     public SpinnerNumberModel getModel() {
-        return currentSpinnerModel;
+        return spinnerNumberModel;
     }
 
-    public boolean isCurrentModel(SpinnerModel currentSpinnerModel) {
-        return this.currentSpinnerModel == currentSpinnerModel;
+    public boolean isCurrentModel(SpinnerModel spinnerModel) {
+        return this.spinnerNumberModel == spinnerModel;
     }
 }
