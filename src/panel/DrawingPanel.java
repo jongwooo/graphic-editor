@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -164,6 +165,10 @@ public class DrawingPanel extends JPanel implements Printable {
         }
     }
 
+    private Optional<Transformer> getTransformer() {
+        return Optional.ofNullable(transformer);
+    }
+
     private void setTransformer(Transformer transformer) {
         this.transformer = transformer;
     }
@@ -203,9 +208,9 @@ public class DrawingPanel extends JPanel implements Printable {
 
     private Color chooseColor(Color defaultColor, Color currentColor) {
         setIDLEMode();
-        Color chosenColor = JColorChooser.showDialog(this, Constant.COLOR_CHOOSER_TITLE,
-                defaultColor);
-        return chosenColor != null ? chosenColor : currentColor;
+        Optional<Color> chosenColor = Optional.of(
+                JColorChooser.showDialog(this, Constant.COLOR_CHOOSER_TITLE, defaultColor));
+        return chosenColor.orElse(currentColor);
     }
 
     public void chooseOutlineColor() {
@@ -305,7 +310,6 @@ public class DrawingPanel extends JPanel implements Printable {
                     setCurrentShape(currentShape.newShape());
                     setShapeAttributes(currentShape);
                     setTransformer(new Drawer(currentShape));
-                    transformer.setPoint(e.getPoint());
                 } else {
                     setSelectedShape(getSelectedShape(e.getPoint()));
                     if (exists(selectedShape)) {
@@ -313,18 +317,16 @@ public class DrawingPanel extends JPanel implements Printable {
                         if (!exists(currentAnchor)) {
                             setCurrentMode(Mode.MOVE);
                             setTransformer(new Mover(selectedShape));
-                            transformer.setPoint(e.getPoint());
                         } else if (selectedShape.isCurrentAnchor(Anchor.RR)) {
                             setCurrentMode(Mode.ROTATE);
                             setTransformer(new Rotator(selectedShape));
-                            transformer.setPoint(e.getPoint());
                         } else {
                             setCurrentMode(Mode.RESIZE);
                             setTransformer(new Resizer(selectedShape));
-                            transformer.setPoint(e.getPoint());
                         }
                     }
                 }
+                getTransformer().ifPresent(transformer -> transformer.setPoint(e.getPoint()));
             }
         }
 
@@ -335,14 +337,18 @@ public class DrawingPanel extends JPanel implements Printable {
                     updateCursorStyle(e.getPoint());
                 }
             } else if (isCurrentMode(Mode.DRAW_POLYGON)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+                Graphics2D graphics2D = (Graphics2D) getGraphics();
+                getTransformer().ifPresent(
+                        transformer -> transformer.transform(graphics2D, e.getPoint()));
             }
         }
 
         @Override
         public void mouseDragged(MouseEvent e) {
             if (!isCurrentMode(Mode.IDLE)) {
-                transformer.transform((Graphics2D) getGraphics(), e.getPoint());
+                Graphics2D graphics2D = (Graphics2D) getGraphics();
+                getTransformer().ifPresent(
+                        transformer -> transformer.transform(graphics2D, e.getPoint()));
                 if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
                     repaint();
                 }
@@ -352,7 +358,8 @@ public class DrawingPanel extends JPanel implements Printable {
         @Override
         public void mouseReleased(MouseEvent e) {
             if (isCurrentMode(Mode.DRAW_NORMAL)) {
-                ((Drawer) transformer).finishTransform(shapes);
+                getTransformer().ifPresent(
+                        transformer -> ((Drawer) transformer).finishTransform(shapes));
                 finishDraw();
             } else if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
                 setUpdate(true);
@@ -365,9 +372,11 @@ public class DrawingPanel extends JPanel implements Printable {
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (isCurrentMode(Mode.DRAW_POLYGON)) {
                     if (e.getClickCount() == 1) {
-                        ((Drawer) transformer).keepTransform(e.getPoint());
+                        getTransformer().ifPresent(
+                                transformer -> ((Drawer) transformer).keepTransform(e.getPoint()));
                     } else if (e.getClickCount() >= 2) {
-                        ((Drawer) transformer).finishTransform(shapes);
+                        getTransformer().ifPresent(
+                                transformer -> ((Drawer) transformer).finishTransform(shapes));
                         finishDraw();
                     }
                 }
