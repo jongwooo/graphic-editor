@@ -30,8 +30,8 @@ public class Resizer extends Transformer {
                                 .boundY(bound.getMinY())
                                 .boundWidth(bound.getWidth())
                                 .boundHeight(bound.getHeight())
-                                .ratioX((currentPoint.x - previousPoint.x) / bound.getWidth())
-                                .ratioY((currentPoint.y - previousPoint.y) / bound.getHeight())
+                                .xFactor((currentPoint.x - previousPoint.x) / bound.getWidth())
+                                .yFactor((currentPoint.y - previousPoint.y) / bound.getHeight())
                                 .build());
         graphics2D.setXORMode(graphics2D.getBackground());
         shape.draw(graphics2D);
