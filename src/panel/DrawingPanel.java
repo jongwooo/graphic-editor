@@ -73,7 +73,7 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void associate() {
-        panelPopup.associate(this);
+        panelPopup.associate();
     }
 
     public void initialize() {

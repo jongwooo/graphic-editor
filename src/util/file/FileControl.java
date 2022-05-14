@@ -44,9 +44,9 @@ public class FileControl {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(MainFrame mainFrame, DrawingPanel drawingPanel) {
-        this.mainFrame = mainFrame;
-        this.drawingPanel = drawingPanel;
+    public void associate() {
+        mainFrame = MainFrame.getInstance();
+        drawingPanel = DrawingPanel.getInstance();
     }
 
     private boolean isNewFile() {

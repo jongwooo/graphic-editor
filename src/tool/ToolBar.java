@@ -4,8 +4,7 @@ import global.Constant;
 import global.tool.DrawingToolItem;
 import global.tool.ShapeToolItem;
 import global.tool.SpinnerModels;
-import panel.DrawingPanel;
-
+import java.util.Arrays;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,7 +14,6 @@ import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import java.util.Arrays;
 
 public class ToolBar extends JToolBar {
 
@@ -47,9 +45,9 @@ public class ToolBar extends JToolBar {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
-        buttonHandler.associate(drawingPanel);
-        spinnerHandler.associate(drawingPanel);
+    public void associate() {
+        buttonHandler.associate();
+        spinnerHandler.associate();
     }
 
     public void initialize() {

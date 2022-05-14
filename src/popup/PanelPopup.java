@@ -4,7 +4,6 @@ import global.menu.EditMenuItem;
 import java.util.Arrays;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import panel.DrawingPanel;
 
 public class PanelPopup extends JPopupMenu {
 
@@ -25,8 +24,8 @@ public class PanelPopup extends JPopupMenu {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
-        panelPopupHandler.associate(drawingPanel);
+    public void associate() {
+        panelPopupHandler.associate();
     }
 
     public void initialize() {

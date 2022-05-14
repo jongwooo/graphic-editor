@@ -18,8 +18,8 @@ public class PanelPopupHandler implements ActionListener {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
-        this.drawingPanel = drawingPanel;
+    public void associate() {
+        drawingPanel = DrawingPanel.getInstance();
     }
 
     public void undo() {

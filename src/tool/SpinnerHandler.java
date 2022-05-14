@@ -21,8 +21,8 @@ public class SpinnerHandler implements ChangeListener {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel) {
-        this.drawingPanel = drawingPanel;
+    public void associate() {
+        drawingPanel = DrawingPanel.getInstance();
     }
 
     @Override

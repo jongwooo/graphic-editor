@@ -1,9 +1,6 @@
 package menu;
 
-import panel.DrawingPanel;
-
 import javax.swing.JMenuBar;
-import util.file.FileControl;
 
 public class MenuBar extends JMenuBar {
 
@@ -28,10 +25,10 @@ public class MenuBar extends JMenuBar {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel, FileControl fileControl) {
-        menuBarHandler.associate(drawingPanel, fileControl);
-        fileMenu.associate(menuBarHandler);
-        editMenu.associate(menuBarHandler);
+    public void associate() {
+        menuBarHandler.associate();
+        fileMenu.associate();
+        editMenu.associate();
     }
 
     public void initialize() {

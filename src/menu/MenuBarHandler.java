@@ -21,9 +21,9 @@ public class MenuBarHandler implements ActionListener {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(DrawingPanel drawingPanel, FileControl fileControl) {
-        this.drawingPanel = drawingPanel;
-        this.fileControl = fileControl;
+    public void associate() {
+        drawingPanel = DrawingPanel.getInstance();
+        fileControl = FileControl.getInstance();
     }
 
     public void newFile() {

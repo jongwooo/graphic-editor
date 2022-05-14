@@ -40,10 +40,10 @@ public class MainFrame extends JFrame {
     }
 
     public void associate() {
-        menuBar.associate(drawingPanel, fileControl);
-        toolBar.associate(drawingPanel);
+        menuBar.associate();
+        toolBar.associate();
         drawingPanel.associate();
-        fileControl.associate(this, drawingPanel);
+        fileControl.associate();
     }
 
     public void initialize() {

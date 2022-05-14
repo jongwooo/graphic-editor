@@ -26,8 +26,8 @@ public class EditMenu extends JMenu {
         return InstanceHolder.INSTANCE;
     }
 
-    public void associate(MenuBarHandler menuBarHandler) {
-        this.menuBarHandler = menuBarHandler;
+    public void associate() {
+        menuBarHandler = MenuBarHandler.getInstance();
     }
 
     public void initialize() {
