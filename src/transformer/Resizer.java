@@ -23,20 +23,22 @@ public class Resizer extends Transformer {
     @Override
     public void transform(Graphics2D graphics2D, Point currentPoint) {
         Rectangle bound = shape.getBound();
-        ScaleDto dto = shape.getCurrentAnchor()
-                .getScale(
-                        new BoundDtoBuilder()
-                                .boundX(bound.getMinX())
-                                .boundY(bound.getMinY())
-                                .boundWidth(bound.getWidth())
-                                .boundHeight(bound.getHeight())
-                                .xFactor((currentPoint.x - previousPoint.x) / bound.getWidth())
-                                .yFactor((currentPoint.y - previousPoint.y) / bound.getHeight())
-                                .build());
-        graphics2D.setXORMode(graphics2D.getBackground());
-        shape.draw(graphics2D);
-        shape.resize(dto.getTranslateX(), dto.getTranslateY(), dto.getScaleX(), dto.getScaleY());
-        shape.draw(graphics2D);
-        previousPoint = currentPoint;
+        if (bound.getWidth() > 0 && bound.getHeight() > 0) {
+            ScaleDto dto = shape.getCurrentAnchor()
+                    .getScale(
+                            new BoundDtoBuilder()
+                                    .boundX(bound.getMinX())
+                                    .boundY(bound.getMinY())
+                                    .boundWidth(bound.getWidth())
+                                    .boundHeight(bound.getHeight())
+                                    .xFactor((currentPoint.x - previousPoint.x) / bound.getWidth())
+                                    .yFactor((currentPoint.y - previousPoint.y) / bound.getHeight())
+                                    .build());
+            graphics2D.setXORMode(graphics2D.getBackground());
+            shape.draw(graphics2D);
+            shape.resize(dto.getTranslateX(), dto.getTranslateY(), dto.getScaleX(), dto.getScaleY());
+            shape.draw(graphics2D);
+            previousPoint = currentPoint;
+        }
     }
 }
