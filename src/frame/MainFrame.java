@@ -21,18 +21,20 @@ public class MainFrame extends JFrame {
     private final ToolBar toolBar;
     private final DrawingPanel drawingPanel;
     private final FileControl fileControl;
+    private final WindowHandler windowHandler;
 
     private MainFrame() {
         super(Constant.MAINFRAME_TITLE);
         setSize(Constant.MAINFRAME_WIDTH, Constant.MAINFRAME_HEIGHT);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         menuBar = MenuBar.getInstance();
         toolBar = ToolBar.getInstance();
         drawingPanel = DrawingPanel.getInstance();
         fileControl = FileControl.getInstance();
+        windowHandler = WindowHandler.getInstance();
     }
 
     public static MainFrame getInstance() {
@@ -44,6 +46,7 @@ public class MainFrame extends JFrame {
         toolBar.associate();
         drawingPanel.associate();
         fileControl.associate();
+        windowHandler.associate();
     }
 
     public void initialize() {
@@ -55,6 +58,8 @@ public class MainFrame extends JFrame {
 
         drawingPanel.initialize();
         this.add(BorderLayout.CENTER, drawingPanel);
+
+        addWindowListener(windowHandler);
     }
 
     public void setDefaultTitle() {
