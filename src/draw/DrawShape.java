@@ -21,11 +21,11 @@ public abstract class DrawShape implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    protected boolean selected;
     protected Shape shape;
     protected Point startPoint;
-    protected DrawAnchor anchor;
-    protected Anchor currentAnchor;
+    private boolean selected;
+    private DrawAnchor anchor;
+    private Anchor currentAnchor;
     private Color outlineColor, fillColor;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
