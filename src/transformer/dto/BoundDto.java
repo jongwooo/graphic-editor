@@ -6,16 +6,16 @@ public class BoundDto {
     private final double boundY;
     private final double boundWidth;
     private final double boundHeight;
-    private final double ratioX;
-    private final double ratioY;
+    private final double xFactor;
+    private final double yFactor;
 
     public BoundDto(BoundDtoBuilder builder) {
         this.boundX = builder.boundX;
         this.boundY = builder.boundY;
         this.boundWidth = builder.boundWidth;
         this.boundHeight = builder.boundHeight;
-        this.ratioX = builder.xFactor;
-        this.ratioY = builder.yFactor;
+        this.xFactor = builder.xFactor;
+        this.yFactor = builder.yFactor;
     }
 
     public double getX() {
@@ -34,12 +34,12 @@ public class BoundDto {
         return boundHeight;
     }
 
-    public double getRatioX() {
-        return ratioX;
+    public double getXFactor() {
+        return xFactor;
     }
 
-    public double getRatioY() {
-        return ratioY;
+    public double getYFactor() {
+        return yFactor;
     }
 
     public static class BoundDtoBuilder {
