@@ -77,9 +77,9 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     public void initialize() {
+        panelPopup.initialize();
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
-        panelPopup.initialize();
     }
 
     private void showPanelPopup(Point currentPoint) {
