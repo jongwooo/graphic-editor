@@ -27,6 +27,7 @@ public abstract class DrawShape implements Serializable {
     private DrawAnchor anchor;
     private Anchor currentAnchor;
     private Color outlineColor, fillColor;
+    private int outlineSize, dashSize;
     private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
     private final AffineTransform affineTransform;
@@ -110,8 +111,18 @@ public abstract class DrawShape implements Serializable {
     }
 
     public void setStroke(int outlineSize, int dashSize) {
+        this.outlineSize = outlineSize;
+        this.dashSize = dashSize;
         customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
                 : strokeFactory.getStroke(outlineSize, dashSize);
+    }
+
+    public int getOutlineSize() {
+        return outlineSize;
+    }
+
+    public int getDashSize() {
+        return dashSize;
     }
 
     private boolean isUnfilledShape() {

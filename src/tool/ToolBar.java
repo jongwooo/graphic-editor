@@ -3,17 +3,13 @@ package tool;
 import global.Constant;
 import global.tool.DrawingToolItem;
 import global.tool.ShapeToolItem;
-import global.tool.SpinnerModels;
 import java.util.Arrays;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import javax.swing.JSpinner;
 import javax.swing.JToolBar;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
 
 public class ToolBar extends JToolBar {
 
@@ -27,18 +23,19 @@ public class ToolBar extends JToolBar {
     private final ButtonHandler buttonHandler;
     private final ButtonGroup shapeToolBtnGroup;
     private final SpinnerHandler spinnerHandler;
-    private final SpinnerNumberModel outlineSizeModel, dashSizeModel;
+    private final OutlineSizeSpinner outlineSizeSpinner;
+    private final DashSizeSpinner dashSizeSpinner;
 
     private ToolBar() {
         super(Constant.TOOLBAR_TITLE);
         setBorderPainted(true);
         setFloatable(false);
 
+        shapeToolBtnGroup = new ButtonGroup();
         buttonHandler = ButtonHandler.getInstance();
         spinnerHandler = SpinnerHandler.getInstance();
-        shapeToolBtnGroup = new ButtonGroup();
-        outlineSizeModel = SpinnerModels.outlineSizeModel.getModel();
-        dashSizeModel = SpinnerModels.dashSizeModel.getModel();
+        outlineSizeSpinner = OutlineSizeSpinner.getInstance();
+        dashSizeSpinner = DashSizeSpinner.getInstance();
     }
 
     public static ToolBar getInstance() {
@@ -48,14 +45,24 @@ public class ToolBar extends JToolBar {
     public void associate() {
         buttonHandler.associate();
         spinnerHandler.associate();
+        outlineSizeSpinner.associate();
+        dashSizeSpinner.associate();
     }
 
     public void initialize() {
         createShapeToolButtons();
         createDrawingToolButtons();
-        createSizeSpinner(outlineSizeModel, Constant.OUTLINE_SPINNER_TITLE);
-        createSizeSpinner(dashSizeModel, Constant.DASH_SPINNER_TITLE);
         setDefaultButton();
+
+        outlineSizeSpinner.initialize();
+        this.add(new JLabel(Constant.OUTLINE_SPINNER_TITLE));
+        this.add(outlineSizeSpinner);
+        this.addSeparator();
+
+        dashSizeSpinner.initialize();
+        this.add(new JLabel(Constant.DASH_SPINNER_TITLE));
+        this.add(dashSizeSpinner);
+        this.addSeparator();
     }
 
     private ImageIcon createImageIcon(String imageName, boolean selected) {
@@ -97,15 +104,5 @@ public class ToolBar extends JToolBar {
         JRadioButton defaultBtn = (JRadioButton) this.getComponent(
                 ShapeToolItem.rectangle.ordinal());
         defaultBtn.doClick();
-    }
-
-    private void createSizeSpinner(SpinnerModel spinnerModel, String spinnerName) {
-        JSpinner sizeSpinner = new JSpinner(spinnerModel);
-        sizeSpinner.setToolTipText(spinnerName.toLowerCase().concat(" size"));
-        sizeSpinner.setMaximumSize(sizeSpinner.getPreferredSize());
-        sizeSpinner.addChangeListener(spinnerHandler);
-        this.add(new JLabel(spinnerName));
-        this.add(sizeSpinner);
-        this.addSeparator();
     }
 }

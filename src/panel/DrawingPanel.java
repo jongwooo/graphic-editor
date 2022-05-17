@@ -24,6 +24,8 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
 import popup.PanelPopup;
+import tool.DashSizeSpinner;
+import tool.OutlineSizeSpinner;
 import transformer.Drawer;
 import transformer.Mover;
 import transformer.Resizer;
@@ -46,6 +48,8 @@ public class DrawingPanel extends JPanel implements Printable {
     private final MouseHandler mouseHandler;
     private Transformer transformer;
     private DrawShape currentShape, selectedShape;
+    private OutlineSizeSpinner outlineSizeSpinner;
+    private DashSizeSpinner dashSizeSpinner;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
     private final PanelPopup panelPopup;
@@ -61,6 +65,8 @@ public class DrawingPanel extends JPanel implements Printable {
         transformer = null;
         currentShape = null;
         selectedShape = null;
+        outlineSizeSpinner = null;
+        dashSizeSpinner = null;
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
         outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -74,6 +80,8 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void associate() {
         panelPopup.associate();
+        outlineSizeSpinner = OutlineSizeSpinner.getInstance();
+        dashSizeSpinner = DashSizeSpinner.getInstance();
     }
 
     public void initialize() {
@@ -235,18 +243,25 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void updateOutlineSize(int outlineSize) {
         setIDLEMode();
-        this.outlineSize = outlineSize;
         if (checkSelectedShape()) {
-            selectedShape.setStroke(outlineSize, dashSize);
+            selectedShape.setStroke(outlineSize, selectedShape.getDashSize());
+        } else {
+            this.outlineSize = outlineSize;
         }
     }
 
     public void updateDashSize(int dashSize) {
         setIDLEMode();
-        this.dashSize = dashSize;
         if (checkSelectedShape()) {
-            selectedShape.setStroke(outlineSize, dashSize);
+            selectedShape.setStroke(selectedShape.getOutlineSize(), dashSize);
+        } else {
+            this.dashSize = dashSize;
         }
+    }
+
+    private void setSpinnerValue(int outlineSize, int dashSize) {
+        outlineSizeSpinner.setValue(outlineSize);
+        dashSizeSpinner.setValue(dashSize);
     }
 
     @Override
@@ -305,6 +320,7 @@ public class DrawingPanel extends JPanel implements Printable {
                 showPanelPopup(e.getPoint());
             } else if (isCurrentMode(Mode.IDLE)) {
                 clearSelectedShapes();
+                setSpinnerValue(outlineSize, dashSize);
                 if (exists(currentShape)) {
                     setCurrentMode(isDrawPolygon() ? Mode.DRAW_POLYGON : Mode.DRAW_NORMAL);
                     setCurrentShape(currentShape.newShape());
@@ -313,8 +329,9 @@ public class DrawingPanel extends JPanel implements Printable {
                 } else {
                     setSelectedShape(getSelectedShape(e.getPoint()));
                     if (exists(selectedShape)) {
-                        Anchor currentAnchor = selectedShape.getCurrentAnchor(e.getPoint());
-                        if (!exists(currentAnchor)) {
+                        setSpinnerValue(selectedShape.getOutlineSize(),
+                                selectedShape.getDashSize());
+                        if (!exists(selectedShape.getCurrentAnchor(e.getPoint()))) {
                             setCurrentMode(Mode.MOVE);
                             setTransformer(new Mover(selectedShape));
                         } else if (selectedShape.isCurrentAnchor(Anchor.RR)) {
