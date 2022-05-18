@@ -216,7 +216,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     private Color chooseColor(Color defaultColor, Color currentColor) {
         setIDLEMode();
-        Optional<Color> chosenColor = Optional.of(
+        Optional<Color> chosenColor = Optional.ofNullable(
                 JColorChooser.showDialog(this, Constant.COLOR_CHOOSER_TITLE, defaultColor));
         return chosenColor.orElse(currentColor);
     }
