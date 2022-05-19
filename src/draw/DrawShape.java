@@ -143,8 +143,8 @@ public abstract class DrawShape implements Serializable {
                 : new Path2D.Double(pSrc, at);
     }
 
-    public void move(Point point) {
-        affineTransform.setToTranslation(point.x, point.y);
+    public void move(double translateX, double translateY) {
+        affineTransform.setToTranslation(translateX, translateY);
         shape = createTransformedShape(affineTransform, shape);
     }
 
