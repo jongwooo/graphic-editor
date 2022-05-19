@@ -16,6 +16,7 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 import java.util.List;
+import transformer.dto.ScaleDto;
 
 public abstract class DrawShape implements Serializable {
 
@@ -148,10 +149,10 @@ public abstract class DrawShape implements Serializable {
         shape = createTransformedShape(affineTransform, shape);
     }
 
-    public void resize(double translateX, double translateY, double scaleX, double scaleY) {
-        affineTransform.setToTranslation(translateX, translateY);
-        affineTransform.scale(scaleX, scaleY);
-        affineTransform.translate(-translateX, -translateY);
+    public void resize(ScaleDto dto) {
+        affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
+        affineTransform.scale(dto.getScaleX(), dto.getScaleY());
+        affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
         shape = createTransformedShape(affineTransform, shape);
     }
 

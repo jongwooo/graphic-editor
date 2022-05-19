@@ -99,7 +99,7 @@ public enum Anchor {
         return anchor;
     }
 
-    public ScaleDto getScale(BoundDto dto) {
+    public ScaleDto computeScale(BoundDto dto) {
         return computeScale.apply(dto);
     }
 }
