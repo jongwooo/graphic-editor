@@ -44,6 +44,7 @@ public class Constant {
     public static final int DEFAULT_OUTLINE_SIZE = 1;
     public static final int DEFAULT_DASH_SIZE = 0;
 
+    public static final Toolkit DEFAULT_TOOLKIT = Toolkit.getDefaultToolkit();
     public static final Cursor DEFAULT_STYLE_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
     public static final Cursor HAND_STYLE_CURSOR = new Cursor(Cursor.HAND_CURSOR);
     public static final Cursor CROSSHAIR_STYLE_CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
@@ -55,7 +56,6 @@ public class Constant {
     public static final Cursor EE_CURSOR = new Cursor(Cursor.E_RESIZE_CURSOR);
     public static final Cursor NE_CURSOR = new Cursor(Cursor.NE_RESIZE_CURSOR);
     public static final Cursor NN_CURSOR = new Cursor(Cursor.N_RESIZE_CURSOR);
-    public static final Cursor ROTATE_CURSOR = Toolkit.getDefaultToolkit()
-            .createCustomCursor(Toolkit.getDefaultToolkit().getImage("src/image/cursor/rotate.png"),
-                    new Point(8, 8), "Rotate");
+    public static final Cursor ROTATE_CURSOR = DEFAULT_TOOLKIT.createCustomCursor(
+            DEFAULT_TOOLKIT.getImage("src/image/cursor/rotate.png"), new Point(8, 8), "Rotate");
 }
