@@ -1,6 +1,5 @@
 package global;
 
-import draw.stroke.CustomStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Point;
@@ -39,8 +38,6 @@ public class Constant {
 
     public static final SpinnerNumberModel OUTLINE_SIZE_MODEL = new SpinnerNumberModel(1, 1, 10, 1);
     public static final SpinnerNumberModel DASH_SIZE_MODEL = new SpinnerNumberModel(0, 0, 10, 1);
-
-    public static final CustomStroke DEFAULT_STROKE = new CustomStroke();
     public static final int DEFAULT_OUTLINE_SIZE = 1;
     public static final int DEFAULT_DASH_SIZE = 0;
 

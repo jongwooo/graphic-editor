@@ -1,6 +1,5 @@
 package draw;
 
-import draw.stroke.CustomStroke;
 import draw.stroke.StrokeFactory;
 import global.Constant;
 import global.draw.Anchor;
@@ -29,7 +28,6 @@ public abstract class DrawShape implements Serializable {
     private Anchor currentAnchor;
     private Color outlineColor, fillColor;
     private int outlineSize, dashSize;
-    private CustomStroke customStroke;
     private final StrokeFactory strokeFactory;
     private final AffineTransform affineTransform;
 
@@ -41,7 +39,8 @@ public abstract class DrawShape implements Serializable {
         affineTransform = new AffineTransform();
         outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
         fillColor = Constant.DEFAULT_FILL_COLOR;
-        customStroke = Constant.DEFAULT_STROKE;
+        outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
+        dashSize = Constant.DEFAULT_DASH_SIZE;
         strokeFactory = StrokeFactory.getInstance();
     }
 
@@ -51,7 +50,7 @@ public abstract class DrawShape implements Serializable {
             graphics2D.fill(shape);
         }
         graphics2D.setColor(outlineColor);
-        graphics2D.setStroke(customStroke);
+        graphics2D.setStroke(strokeFactory.getStroke(outlineSize, dashSize));
         graphics2D.draw(shape);
         createAnchors(graphics2D);
     }
@@ -111,19 +110,20 @@ public abstract class DrawShape implements Serializable {
         this.fillColor = fillColor;
     }
 
-    public void setStroke(int outlineSize, int dashSize) {
-        this.outlineSize = outlineSize;
-        this.dashSize = dashSize;
-        customStroke = (dashSize == 0) ? strokeFactory.getStroke(outlineSize)
-                : strokeFactory.getStroke(outlineSize, dashSize);
-    }
-
     public int getOutlineSize() {
         return outlineSize;
     }
 
+    public void setOutlineSize(int outlineSize) {
+        this.outlineSize = outlineSize;
+    }
+
     public int getDashSize() {
         return dashSize;
+    }
+
+    public void setDashSize(int dashSize) {
+        this.dashSize = dashSize;
     }
 
     private boolean isUnfilledShape() {

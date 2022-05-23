@@ -197,7 +197,8 @@ public class DrawingPanel extends JPanel implements Printable {
     private void setShapeAttributes(DrawShape shape) {
         shape.setOutlineColor(outlineColor);
         shape.setFillColor(fillColor);
-        shape.setStroke(outlineSize, dashSize);
+        shape.setOutlineSize(outlineSize);
+        shape.setDashSize(dashSize);
     }
 
     private void finishDraw() {
@@ -244,7 +245,7 @@ public class DrawingPanel extends JPanel implements Printable {
     public void updateOutlineSize(int outlineSize) {
         setIDLEMode();
         if (checkSelectedShape()) {
-            selectedShape.setStroke(outlineSize, selectedShape.getDashSize());
+            selectedShape.setOutlineSize(outlineSize);
         } else {
             this.outlineSize = outlineSize;
         }
@@ -253,7 +254,7 @@ public class DrawingPanel extends JPanel implements Printable {
     public void updateDashSize(int dashSize) {
         setIDLEMode();
         if (checkSelectedShape()) {
-            selectedShape.setStroke(selectedShape.getOutlineSize(), dashSize);
+            selectedShape.setDashSize(dashSize);
         } else {
             this.dashSize = dashSize;
         }
