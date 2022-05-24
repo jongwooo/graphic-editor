@@ -165,11 +165,13 @@ public class DrawingPanel extends JPanel implements Printable {
     }
 
     private void updateCursorStyle(Point currentPoint) {
+        setCursor(isCursorOnShape(currentPoint) ? Constant.HAND_STYLE_CURSOR
+                : Constant.DEFAULT_STYLE_CURSOR);
         if (exists(selectedShape)) {
             Anchor currentAnchor = selectedShape.getCurrentAnchor(currentPoint);
-            setCursor(exists(currentAnchor) ? currentAnchor.getCursorStyle()
-                    : isCursorOnShape(currentPoint) ? Constant.HAND_STYLE_CURSOR
-                            : Constant.DEFAULT_STYLE_CURSOR);
+            if (exists(currentAnchor)) {
+                setCursor(currentAnchor.getCursorStyle());
+            }
         }
     }
 
