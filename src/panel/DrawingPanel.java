@@ -124,8 +124,8 @@ public class DrawingPanel extends JPanel implements Printable {
         this.mode = mode;
     }
 
-    private boolean isDrawPolygon() {
-        return currentShape instanceof DrawPolygon;
+    private boolean isCurrentShape(Class<?>... classes) {
+        return Arrays.stream(classes).anyMatch(aClass -> aClass.isInstance(currentShape));
     }
 
     public void setCurrentShape(DrawShape shape) {
@@ -325,7 +325,8 @@ public class DrawingPanel extends JPanel implements Printable {
                 clearSelectedShapes();
                 setSpinnerValue(outlineSize, dashSize);
                 if (exists(currentShape)) {
-                    setCurrentMode(isDrawPolygon() ? Mode.DRAW_POLYGON : Mode.DRAW_NORMAL);
+                    setCurrentMode(isCurrentShape(DrawPolygon.class) ? Mode.DRAW_POLYGON
+                            : Mode.DRAW_NORMAL);
                     setCurrentShape(currentShape.newShape());
                     setShapeAttributes(currentShape);
                     setTransformer(new Drawer(currentShape));
