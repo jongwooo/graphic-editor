@@ -18,19 +18,19 @@ public class BoundDto {
         this.yFactor = builder.yFactor;
     }
 
-    public double getX() {
+    public double getBoundX() {
         return boundX;
     }
 
-    public double getY() {
+    public double getBoundY() {
         return boundY;
     }
 
-    public double getWidth() {
+    public double getBoundWidth() {
         return boundWidth;
     }
 
-    public double getHeight() {
+    public double getBoundHeight() {
         return boundHeight;
     }
 
