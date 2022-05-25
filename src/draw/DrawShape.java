@@ -139,26 +139,26 @@ public abstract class DrawShape implements Serializable {
                 (int) shape.getBounds().getCenterY());
     }
 
-    private Shape createTransformedShape(AffineTransform at, Shape pSrc) {
+    private Shape createTransformedShape(Shape pSrc, AffineTransform at) {
         return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
                 : new Path2D.Double(pSrc, at);
     }
 
     public void move(double translateX, double translateY) {
         affineTransform.setToTranslation(translateX, translateY);
-        shape = createTransformedShape(affineTransform, shape);
+        shape = createTransformedShape(shape, affineTransform);
     }
 
     public void resize(ScaleDto dto) {
         affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
         affineTransform.scale(dto.getScaleX(), dto.getScaleY());
         affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
-        shape = createTransformedShape(affineTransform, shape);
+        shape = createTransformedShape(shape, affineTransform);
     }
 
     public void rotate(double rotateAngle, Point rotatePoint) {
         affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
-        shape = createTransformedShape(affineTransform, shape);
+        shape = createTransformedShape(shape, affineTransform);
     }
 
     public abstract void setStartPoint(Point startPoint);
