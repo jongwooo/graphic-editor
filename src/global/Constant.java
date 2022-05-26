@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.SpinnerNumberModel;
 
 public class Constant {
@@ -42,6 +43,10 @@ public class Constant {
   public static final int DEFAULT_DASH_SIZE = 0;
 
   public static final Toolkit DEFAULT_TOOLKIT = Toolkit.getDefaultToolkit();
+
+  public static final int CMD_MASK = System.getProperty("os.name").toLowerCase().contains("mac")
+      ? DEFAULT_TOOLKIT.getMenuShortcutKeyMaskEx() : KeyEvent.CTRL_DOWN_MASK;
+
   public static final Cursor DEFAULT_STYLE_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
   public static final Cursor HAND_STYLE_CURSOR = new Cursor(Cursor.HAND_CURSOR);
   public static final Cursor CROSSHAIR_STYLE_CURSOR = new Cursor(Cursor.CROSSHAIR_CURSOR);
