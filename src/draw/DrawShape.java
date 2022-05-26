@@ -19,151 +19,151 @@ import transformer.dto.ScaleDto;
 
 public abstract class DrawShape implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    protected Shape shape;
-    protected Point startPoint;
-    private boolean selected;
-    private DrawAnchor anchor;
-    private Anchor currentAnchor;
-    private Color outlineColor, fillColor;
-    private int outlineSize, dashSize;
-    private final StrokeFactory strokeFactory;
-    private final AffineTransform affineTransform;
+  protected Shape shape;
+  protected Point startPoint;
+  private boolean selected;
+  private DrawAnchor anchor;
+  private Anchor currentAnchor;
+  private Color outlineColor, fillColor;
+  private int outlineSize, dashSize;
+  private final StrokeFactory strokeFactory;
+  private final AffineTransform affineTransform;
 
-    public DrawShape(Shape shape) {
-        this.shape = shape;
-        selected = false;
-        anchor = null;
-        currentAnchor = null;
-        affineTransform = new AffineTransform();
-        outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
-        fillColor = Constant.DEFAULT_FILL_COLOR;
-        outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
-        dashSize = Constant.DEFAULT_DASH_SIZE;
-        strokeFactory = StrokeFactory.getInstance();
+  public DrawShape(Shape shape) {
+    this.shape = shape;
+    selected = false;
+    anchor = null;
+    currentAnchor = null;
+    affineTransform = new AffineTransform();
+    outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
+    fillColor = Constant.DEFAULT_FILL_COLOR;
+    outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
+    dashSize = Constant.DEFAULT_DASH_SIZE;
+    strokeFactory = StrokeFactory.getInstance();
+  }
+
+  public void draw(Graphics2D graphics2D) {
+    if (!isDefaultFillColor() && !isUnfilledShape()) {
+      graphics2D.setColor(fillColor);
+      graphics2D.fill(shape);
     }
+    graphics2D.setColor(outlineColor);
+    graphics2D.setStroke(strokeFactory.getStroke(outlineSize, dashSize));
+    graphics2D.draw(shape);
+    createAnchors(graphics2D);
+  }
 
-    public void draw(Graphics2D graphics2D) {
-        if (!isDefaultFillColor() && !isUnfilledShape()) {
-            graphics2D.setColor(fillColor);
-            graphics2D.fill(shape);
-        }
-        graphics2D.setColor(outlineColor);
-        graphics2D.setStroke(strokeFactory.getStroke(outlineSize, dashSize));
-        graphics2D.draw(shape);
-        createAnchors(graphics2D);
+  public boolean contains(Point currentPoint) {
+    if (currentAnchor != null) {
+      return true;
     }
+    return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
+  }
 
-    public boolean contains(Point currentPoint) {
-        if (currentAnchor != null) {
-            return true;
-        }
-        return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
+  }
+
+  public Rectangle getBound() {
+    return shape.getBounds();
+  }
+
+  private void createAnchors(Graphics2D graphics2D) {
+    anchor = selected ? new DrawAnchor() : null;
+    if (anchor != null) {
+      anchor.createAnchors(shape.getBounds());
+      anchor.draw(graphics2D);
     }
+  }
 
-    public boolean isSelected() {
-        return selected;
+  public boolean isCurrentAnchor(Anchor anchor) {
+    return currentAnchor == anchor;
+  }
+
+  public Anchor getCurrentAnchor() {
+    return currentAnchor;
+  }
+
+  public Anchor getCurrentAnchor(Point currentPoint) {
+    if (anchor != null) {
+      List<Ellipse2D> anchors = anchor.getAnchors();
+      currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
+          .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
+          .orElse(null);
+      return currentAnchor;
+    } else {
+      return null;
     }
+  }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-    }
+  public void setOutlineColor(Color outlineColor) {
+    this.outlineColor = outlineColor;
+  }
 
-    public Rectangle getBound() {
-        return shape.getBounds();
-    }
+  public void setFillColor(Color fillColor) {
+    this.fillColor = fillColor;
+  }
 
-    private void createAnchors(Graphics2D graphics2D) {
-        anchor = selected ? new DrawAnchor() : null;
-        if (anchor != null) {
-            anchor.createAnchors(shape.getBounds());
-            anchor.draw(graphics2D);
-        }
-    }
+  public int getOutlineSize() {
+    return outlineSize;
+  }
 
-    public boolean isCurrentAnchor(Anchor anchor) {
-        return currentAnchor == anchor;
-    }
+  public void setOutlineSize(int outlineSize) {
+    this.outlineSize = outlineSize;
+  }
 
-    public Anchor getCurrentAnchor() {
-        return currentAnchor;
-    }
+  public int getDashSize() {
+    return dashSize;
+  }
 
-    public Anchor getCurrentAnchor(Point currentPoint) {
-        if (anchor != null) {
-            List<Ellipse2D> anchors = anchor.getAnchors();
-            currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
-                    .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
-                    .orElse(null);
-            return currentAnchor;
-        } else {
-            return null;
-        }
-    }
+  public void setDashSize(int dashSize) {
+    this.dashSize = dashSize;
+  }
 
-    public void setOutlineColor(Color outlineColor) {
-        this.outlineColor = outlineColor;
-    }
+  private boolean isUnfilledShape() {
+    return shape instanceof Line2D.Double || shape instanceof Path2D.Float;
+  }
 
-    public void setFillColor(Color fillColor) {
-        this.fillColor = fillColor;
-    }
+  private boolean isDefaultFillColor() {
+    return fillColor == Constant.DEFAULT_FILL_COLOR;
+  }
 
-    public int getOutlineSize() {
-        return outlineSize;
-    }
+  public Point getCenterPoint() {
+    return new Point((int) shape.getBounds().getCenterX(),
+        (int) shape.getBounds().getCenterY());
+  }
 
-    public void setOutlineSize(int outlineSize) {
-        this.outlineSize = outlineSize;
-    }
+  private Shape createTransformedShape(Shape pSrc, AffineTransform at) {
+    return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
+        : new Path2D.Double(pSrc, at);
+  }
 
-    public int getDashSize() {
-        return dashSize;
-    }
+  public void move(double translateX, double translateY) {
+    affineTransform.setToTranslation(translateX, translateY);
+    shape = createTransformedShape(shape, affineTransform);
+  }
 
-    public void setDashSize(int dashSize) {
-        this.dashSize = dashSize;
-    }
+  public void resize(ScaleDto dto) {
+    affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
+    affineTransform.scale(dto.getScaleX(), dto.getScaleY());
+    affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
+    shape = createTransformedShape(shape, affineTransform);
+  }
 
-    private boolean isUnfilledShape() {
-        return shape instanceof Line2D.Double || shape instanceof Path2D.Float;
-    }
+  public void rotate(double rotateAngle, Point rotatePoint) {
+    affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
+    shape = createTransformedShape(shape, affineTransform);
+  }
 
-    private boolean isDefaultFillColor() {
-        return fillColor == Constant.DEFAULT_FILL_COLOR;
-    }
+  public abstract void setStartPoint(Point startPoint);
 
-    public Point getCenterPoint() {
-        return new Point((int) shape.getBounds().getCenterX(),
-                (int) shape.getBounds().getCenterY());
-    }
+  public abstract void setCurrentPoint(Point currentPoint);
 
-    private Shape createTransformedShape(Shape pSrc, AffineTransform at) {
-        return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
-                : new Path2D.Double(pSrc, at);
-    }
-
-    public void move(double translateX, double translateY) {
-        affineTransform.setToTranslation(translateX, translateY);
-        shape = createTransformedShape(shape, affineTransform);
-    }
-
-    public void resize(ScaleDto dto) {
-        affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
-        affineTransform.scale(dto.getScaleX(), dto.getScaleY());
-        affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
-        shape = createTransformedShape(shape, affineTransform);
-    }
-
-    public void rotate(double rotateAngle, Point rotatePoint) {
-        affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
-        shape = createTransformedShape(shape, affineTransform);
-    }
-
-    public abstract void setStartPoint(Point startPoint);
-
-    public abstract void setCurrentPoint(Point currentPoint);
-
-    public abstract DrawShape newShape();
+  public abstract DrawShape newShape();
 }

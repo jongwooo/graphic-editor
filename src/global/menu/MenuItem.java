@@ -4,9 +4,9 @@ import javax.swing.KeyStroke;
 
 public interface MenuItem {
 
-    String getMenuName();
+  String getMenuName();
 
-    KeyStroke getKeyStroke();
+  KeyStroke getKeyStroke();
 
-    boolean hasSeparator();
+  boolean hasSeparator();
 }

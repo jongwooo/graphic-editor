@@ -5,27 +5,27 @@ import java.awt.Rectangle;
 
 public class DrawRectangle extends DrawShape {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private final Rectangle rectangle;
+  private final Rectangle rectangle;
 
-    public DrawRectangle() {
-        super(new Rectangle());
-        rectangle = (Rectangle) shape;
-    }
+  public DrawRectangle() {
+    super(new Rectangle());
+    rectangle = (Rectangle) shape;
+  }
 
-    @Override
-    public void setStartPoint(Point startPoint) {
-        this.startPoint = startPoint;
-    }
+  @Override
+  public void setStartPoint(Point startPoint) {
+    this.startPoint = startPoint;
+  }
 
-    @Override
-    public void setCurrentPoint(Point currentPoint) {
-        rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
-    }
+  @Override
+  public void setCurrentPoint(Point currentPoint) {
+    rectangle.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
+  }
 
-    @Override
-    public DrawShape newShape() {
-        return new DrawRectangle();
-    }
+  @Override
+  public DrawShape newShape() {
+    return new DrawRectangle();
+  }
 }

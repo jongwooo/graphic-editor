@@ -13,31 +13,31 @@ import java.util.List;
 
 public class DrawAnchor implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private final List<Ellipse2D> anchors;
-    private final StrokeFactory strokeFactory;
+  private final List<Ellipse2D> anchors;
+  private final StrokeFactory strokeFactory;
 
-    public DrawAnchor() {
-        anchors = new ArrayList<>();
-        strokeFactory = StrokeFactory.getInstance();
-    }
+  public DrawAnchor() {
+    anchors = new ArrayList<>();
+    strokeFactory = StrokeFactory.getInstance();
+  }
 
-    public List<Ellipse2D> getAnchors() {
-        return anchors;
-    }
+  public List<Ellipse2D> getAnchors() {
+    return anchors;
+  }
 
-    public void createAnchors(Rectangle bound) {
-        Arrays.stream(Anchor.values()).forEach(anchor -> anchors.add(anchor.getAnchor(bound)));
-    }
+  public void createAnchors(Rectangle bound) {
+    Arrays.stream(Anchor.values()).forEach(anchor -> anchors.add(anchor.getAnchor(bound)));
+  }
 
-    public void draw(Graphics2D graphics2D) {
-        anchors.forEach(anchor -> {
-            graphics2D.setColor(graphics2D.getBackground());
-            graphics2D.fill(anchor);
-            graphics2D.setColor(Constant.DEFAULT_OUTLINE_COLOR);
-            graphics2D.setStroke(strokeFactory.getStroke(1));
-            graphics2D.draw(anchor);
-        });
-    }
+  public void draw(Graphics2D graphics2D) {
+    anchors.forEach(anchor -> {
+      graphics2D.setColor(graphics2D.getBackground());
+      graphics2D.fill(anchor);
+      graphics2D.setColor(Constant.DEFAULT_OUTLINE_COLOR);
+      graphics2D.setStroke(strokeFactory.getStroke(1));
+      graphics2D.draw(anchor);
+    });
+  }
 }
