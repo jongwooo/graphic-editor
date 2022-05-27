@@ -4,7 +4,7 @@ import draw.DrawShape;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import transformer.dto.BoundDto.BoundDtoBuilder;
+import transformer.dto.BoundDto;
 import transformer.dto.ScaleDto;
 
 public class Resizer extends Transformer {
@@ -25,7 +25,7 @@ public class Resizer extends Transformer {
     Rectangle bound = shape.getBound();
     if (bound.getWidth() > 0 && bound.getHeight() > 0) {
       ScaleDto dto = shape.getCurrentAnchor().computeScale(
-          new BoundDtoBuilder()
+          BoundDto.builder()
               .boundX(bound.getMinX())
               .boundY(bound.getMinY())
               .boundWidth(bound.getWidth())

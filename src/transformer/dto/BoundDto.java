@@ -9,13 +9,17 @@ public class BoundDto {
   private final double xFactor;
   private final double yFactor;
 
-  public BoundDto(BoundDtoBuilder builder) {
+  private BoundDto(Builder builder) {
     this.boundX = builder.boundX;
     this.boundY = builder.boundY;
     this.boundWidth = builder.boundWidth;
     this.boundHeight = builder.boundHeight;
     this.xFactor = builder.xFactor;
     this.yFactor = builder.yFactor;
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   public double getBoundX() {
@@ -42,7 +46,7 @@ public class BoundDto {
     return yFactor;
   }
 
-  public static class BoundDtoBuilder {
+  public static class Builder {
 
     private double boundX;
     private double boundY;
@@ -51,32 +55,32 @@ public class BoundDto {
     private double xFactor;
     private double yFactor;
 
-    public BoundDtoBuilder boundX(double boundX) {
+    public Builder boundX(double boundX) {
       this.boundX = boundX;
       return this;
     }
 
-    public BoundDtoBuilder boundY(double boundY) {
+    public Builder boundY(double boundY) {
       this.boundY = boundY;
       return this;
     }
 
-    public BoundDtoBuilder boundWidth(double boundWidth) {
+    public Builder boundWidth(double boundWidth) {
       this.boundWidth = boundWidth;
       return this;
     }
 
-    public BoundDtoBuilder boundHeight(double boundHeight) {
+    public Builder boundHeight(double boundHeight) {
       this.boundHeight = boundHeight;
       return this;
     }
 
-    public BoundDtoBuilder xFactor(double xFactor) {
+    public Builder xFactor(double xFactor) {
       this.xFactor = xFactor;
       return this;
     }
 
-    public BoundDtoBuilder yFactor(double yFactor) {
+    public Builder yFactor(double yFactor) {
       this.yFactor = yFactor;
       return this;
     }

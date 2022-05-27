@@ -7,11 +7,15 @@ public class ScaleDto {
   private final double scaleX;
   private final double scaleY;
 
-  public ScaleDto(ScaleDtoBuilder builder) {
+  private ScaleDto(Builder builder) {
     this.translateX = builder.translateX;
     this.translateY = builder.translateY;
     this.scaleX = builder.scaleX;
     this.scaleY = builder.scaleY;
+  }
+
+  public static Builder builder() {
+    return new Builder();
   }
 
   public double getTranslateX() {
@@ -30,29 +34,29 @@ public class ScaleDto {
     return scaleY;
   }
 
-  public static class ScaleDtoBuilder {
+  public static class Builder {
 
     private double translateX;
     private double translateY;
     private double scaleX;
     private double scaleY;
 
-    public ScaleDtoBuilder translateX(double translateX) {
+    public Builder translateX(double translateX) {
       this.translateX = translateX;
       return this;
     }
 
-    public ScaleDtoBuilder translateY(double translateY) {
+    public Builder translateY(double translateY) {
       this.translateY = translateY;
       return this;
     }
 
-    public ScaleDtoBuilder scaleX(double scaleX) {
+    public Builder scaleX(double scaleX) {
       this.scaleX = scaleX;
       return this;
     }
 
-    public ScaleDtoBuilder scaleY(double scaleY) {
+    public Builder scaleY(double scaleY) {
       this.scaleY = scaleY;
       return this;
     }
