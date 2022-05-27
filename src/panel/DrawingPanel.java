@@ -306,12 +306,19 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void undo() {
       super.undo();
-      shapes.remove(shape);
+      clearSelectedShapes();
+      if (!shapes.isEmpty()) {
+        shapes.remove(shape);
+        setSelectedShape(shapes.get(shapes.size() - 1));
+      }
+
     }
 
     public void redo() {
       super.redo();
+      clearSelectedShapes();
       shapes.add(shape);
+      setSelectedShape(shape);
     }
   }
 
