@@ -188,6 +188,7 @@ public class FileControl {
       ObjectInputStream objectInputStream = new ObjectInputStream(
           new BufferedInputStream(new FileInputStream(currentFile)));
       drawingPanel.setShapes(objectInputStream.readObject());
+      drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
       MainFrame.getInstance().setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
       objectInputStream.close();
@@ -205,6 +206,7 @@ public class FileControl {
           new BufferedOutputStream(new FileOutputStream(currentFile)));
       drawingPanel.clearSelectedShapes();
       objectOutputStream.writeObject(drawingPanel.getShapes());
+      drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
       drawingPanel.setUpdate(false);
       MainFrame.getInstance().setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
