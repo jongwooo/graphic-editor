@@ -80,6 +80,7 @@ public class FileControl {
   }
 
   public void newFile() {
+    MainFrame mainFrame = MainFrame.getInstance();
     DrawingPanel drawingPanel = DrawingPanel.getInstance();
 
     if (checkSave()) {
@@ -90,7 +91,7 @@ public class FileControl {
 
       if (checkOtherOptions(dialogOption)) {
         setFilePath(null);
-        MainFrame.getInstance().setDefaultTitle();
+        mainFrame.setDefaultTitle();
         drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
         drawingPanel.clearShapes();
         drawingPanel.setUpdate(false);
@@ -182,6 +183,7 @@ public class FileControl {
   }
 
   private void readShapeObject(File currentFile) {
+    MainFrame mainFrame = MainFrame.getInstance();
     DrawingPanel drawingPanel = DrawingPanel.getInstance();
 
     try {
@@ -189,7 +191,7 @@ public class FileControl {
           new BufferedInputStream(new FileInputStream(currentFile)));
       drawingPanel.setShapes(objectInputStream.readObject());
       drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
-      MainFrame.getInstance().setTitle(currentFile.getName());
+      mainFrame.setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
       objectInputStream.close();
     } catch (IOException | ClassNotFoundException exception) {
@@ -199,6 +201,7 @@ public class FileControl {
   }
 
   private void writeShapeObject(File currentFile) {
+    MainFrame mainFrame = MainFrame.getInstance();
     DrawingPanel drawingPanel = DrawingPanel.getInstance();
 
     try {
@@ -208,7 +211,7 @@ public class FileControl {
       objectOutputStream.writeObject(drawingPanel.getShapes());
       drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
       drawingPanel.setUpdate(false);
-      MainFrame.getInstance().setTitle(currentFile.getName());
+      mainFrame.setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
       objectOutputStream.close();
     } catch (IOException exception) {
