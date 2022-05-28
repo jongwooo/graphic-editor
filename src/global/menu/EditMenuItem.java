@@ -12,7 +12,7 @@ public enum EditMenuItem implements MenuItem {
   copy("Copy", KeyEvent.VK_C, Constant.CMD_MASK),
   paste("Paste", KeyEvent.VK_V, Constant.CMD_MASK, true),
   group("Group", KeyEvent.VK_G, Constant.CMD_MASK),
-  ungroup("Ungroup", KeyEvent.VK_G, Constant.CMD_MASK + InputEvent.SHIFT_DOWN_MASK);
+  ungroup("Ungroup", KeyEvent.VK_G, Constant.CMD_MASK + InputEvent.SHIFT_DOWN_MASK, true);
 
   private final String menuName;
   private final int keyCode, modifiers;
@@ -29,10 +29,12 @@ public enum EditMenuItem implements MenuItem {
     this.separated = separated;
   }
 
+  @Override
   public String getMenuName() {
     return menuName;
   }
 
+  @Override
   public KeyStroke getKeyStroke() {
     return KeyStroke.getKeyStroke(keyCode, modifiers);
   }

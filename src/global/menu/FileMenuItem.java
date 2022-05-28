@@ -28,10 +28,12 @@ public enum FileMenuItem implements MenuItem {
     this.separated = separated;
   }
 
+  @Override
   public String getMenuName() {
     return menuName;
   }
 
+  @Override
   public KeyStroke getKeyStroke() {
     return KeyStroke.getKeyStroke(keyCode, modifiers);
   }

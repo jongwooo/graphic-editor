@@ -19,6 +19,8 @@ public class Constant {
 
   public static final String FILE_MENU_TITLE = "File";
   public static final String EDIT_MENU_TITLE = "Edit";
+  public static final String BRING_TO_FRONT_MENU_TITLE = "Bring to front";
+  public static final String SEND_TO_BACK_MENU_TITLE = "Send to Back";
 
   public static final String OUTLINE_SPINNER_TITLE = "Outline";
   public static final String DASH_SPINNER_TITLE = "Dash";

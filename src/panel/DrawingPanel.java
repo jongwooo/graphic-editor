@@ -292,6 +292,65 @@ public class DrawingPanel extends JPanel implements Printable {
     }
   }
 
+  public void cut() {
+
+  }
+
+  public void copy() {
+
+  }
+
+  public void paste() {
+
+  }
+
+  public void group() {
+
+  }
+
+  public void ungroup() {
+
+  }
+
+  public void bringForward() {
+    if (exists(selectedShape)) {
+      int shapeIndex = shapes.indexOf(selectedShape);
+      if (shapeIndex < shapes.size() - 1) {
+        Collections.swap(shapes, shapeIndex, shapeIndex + 1);
+        repaint();
+      }
+    }
+  }
+
+  public void sendBackward() {
+    if (exists(selectedShape)) {
+      int shapeIndex = shapes.indexOf(selectedShape);
+      if (shapeIndex > 0) {
+        Collections.swap(shapes, shapeIndex - 1, shapeIndex);
+        repaint();
+      }
+    }
+  }
+
+  public void bringToFront() {
+    if (exists(selectedShape)) {
+      shapes.remove(selectedShape);
+      shapes.add(selectedShape);
+      repaint();
+    }
+  }
+
+  public void sendToBack() {
+    if (exists(selectedShape)) {
+      shapes.remove(selectedShape);
+      List<DrawShape> temp = new ArrayList<>(shapes);
+      shapes.clear();
+      shapes.add(selectedShape);
+      shapes.addAll(temp);
+      repaint();
+    }
+  }
+
   private class UndoablePanel extends AbstractUndoableEdit {
 
     private static final long serialVersionUID = 1L;

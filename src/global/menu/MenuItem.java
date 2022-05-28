@@ -7,6 +7,4 @@ public interface MenuItem {
   String getMenuName();
 
   KeyStroke getKeyStroke();
-
-  boolean hasSeparator();
 }
