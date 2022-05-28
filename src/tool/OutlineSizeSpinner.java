@@ -2,9 +2,8 @@ package tool;
 
 import global.Constant;
 import global.tool.SpinnerModels;
-import javax.swing.JSpinner;
 
-public class OutlineSizeSpinner extends JSpinner {
+public class OutlineSizeSpinner extends SizeSpinner {
 
   private static final long serialVersionUID = 1L;
 
