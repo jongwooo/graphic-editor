@@ -1,5 +1,6 @@
 package draw;
 
+import draw.stroke.CustomStroke;
 import draw.stroke.StrokeFactory;
 import global.Constant;
 import global.draw.Anchor;
@@ -28,6 +29,7 @@ public abstract class DrawShape implements Serializable {
   private Anchor currentAnchor;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
+  private CustomStroke customStroke;
   private final StrokeFactory strokeFactory;
   private final AffineTransform affineTransform;
 
@@ -41,6 +43,7 @@ public abstract class DrawShape implements Serializable {
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
     dashSize = Constant.DEFAULT_DASH_SIZE;
+    customStroke = Constant.DEFAULT_STROKE;
     strokeFactory = StrokeFactory.getInstance();
   }
 
@@ -50,7 +53,7 @@ public abstract class DrawShape implements Serializable {
       graphics2D.fill(shape);
     }
     graphics2D.setColor(outlineColor);
-    graphics2D.setStroke(strokeFactory.getStroke(outlineSize, dashSize));
+    graphics2D.setStroke(customStroke);
     graphics2D.draw(shape);
     createAnchors(graphics2D);
   }
@@ -116,6 +119,7 @@ public abstract class DrawShape implements Serializable {
 
   public void setOutlineSize(int outlineSize) {
     this.outlineSize = outlineSize;
+    customStroke = strokeFactory.getStroke(outlineSize, dashSize);
   }
 
   public int getDashSize() {
@@ -124,6 +128,7 @@ public abstract class DrawShape implements Serializable {
 
   public void setDashSize(int dashSize) {
     this.dashSize = dashSize;
+    customStroke = strokeFactory.getStroke(outlineSize, dashSize);
   }
 
   private boolean isUnfilledShape() {

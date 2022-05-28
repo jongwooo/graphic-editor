@@ -1,6 +1,5 @@
 package draw;
 
-import draw.stroke.StrokeFactory;
 import global.Constant;
 import global.draw.Anchor;
 import java.awt.Graphics2D;
@@ -16,11 +15,9 @@ public class DrawAnchor implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private final List<Ellipse2D> anchors;
-  private final StrokeFactory strokeFactory;
 
   public DrawAnchor() {
     anchors = new ArrayList<>();
-    strokeFactory = StrokeFactory.getInstance();
   }
 
   public List<Ellipse2D> getAnchors() {
@@ -36,7 +33,7 @@ public class DrawAnchor implements Serializable {
       graphics2D.setColor(graphics2D.getBackground());
       graphics2D.fill(anchor);
       graphics2D.setColor(Constant.DEFAULT_OUTLINE_COLOR);
-      graphics2D.setStroke(strokeFactory.getStroke(1));
+      graphics2D.setStroke(Constant.DEFAULT_STROKE);
       graphics2D.draw(anchor);
     });
   }
