@@ -15,18 +15,15 @@ public class EditMenu extends JMenu {
     private static final EditMenu INSTANCE = new EditMenu();
   }
 
-  private MenuBarHandler menuBarHandler;
+  private final EditMenuHandler editMenuHandler;
 
   private EditMenu() {
     super(Constant.EDIT_MENU_TITLE);
+    editMenuHandler = EditMenuHandler.getInstance();
   }
 
   public static EditMenu getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    menuBarHandler = MenuBarHandler.getInstance();
   }
 
   public void initialize() {
@@ -37,7 +34,7 @@ public class EditMenu extends JMenu {
     Arrays.stream(EditMenuItem.values()).forEach(editMenuItem -> {
       JMenuItem menuItem = new JMenuItem(editMenuItem.getMenuName());
       menuItem.setActionCommand(editMenuItem.name());
-      menuItem.addActionListener(menuBarHandler);
+      menuItem.addActionListener(editMenuHandler);
       menuItem.setAccelerator(editMenuItem.getKeyStroke());
       this.add(menuItem);
       if (editMenuItem.hasSeparator()) {

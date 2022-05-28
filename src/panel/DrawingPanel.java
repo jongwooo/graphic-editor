@@ -48,8 +48,6 @@ public class DrawingPanel extends JPanel implements Printable {
   private final MouseHandler mouseHandler;
   private Transformer transformer;
   private DrawShape currentShape, selectedShape;
-  private OutlineSizeSpinner outlineSizeSpinner;
-  private DashSizeSpinner dashSizeSpinner;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
   private final PanelPopup panelPopup;
@@ -65,8 +63,6 @@ public class DrawingPanel extends JPanel implements Printable {
     transformer = null;
     currentShape = null;
     selectedShape = null;
-    outlineSizeSpinner = null;
-    dashSizeSpinner = null;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -76,12 +72,6 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public static DrawingPanel getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    panelPopup.associate();
-    outlineSizeSpinner = OutlineSizeSpinner.getInstance();
-    dashSizeSpinner = DashSizeSpinner.getInstance();
   }
 
   public void initialize() {
@@ -130,6 +120,12 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void setCurrentShape(DrawShape shape) {
     this.currentShape = shape;
+  }
+
+  public void updateCurrentShape(DrawShape currentShape) {
+    setCurrentShape(currentShape);
+    updateCursorStyle();
+    setIDLEMode();
   }
 
   private boolean checkSelectedShape() {
@@ -262,7 +258,9 @@ public class DrawingPanel extends JPanel implements Printable {
     }
   }
 
-  private void setSpinnerValue(int outlineSize, int dashSize) {
+  public void setSpinnerValue(int outlineSize, int dashSize) {
+    OutlineSizeSpinner outlineSizeSpinner = OutlineSizeSpinner.getInstance();
+    DashSizeSpinner dashSizeSpinner = DashSizeSpinner.getInstance();
     outlineSizeSpinner.setValue(outlineSize);
     dashSizeSpinner.setValue(dashSize);
   }

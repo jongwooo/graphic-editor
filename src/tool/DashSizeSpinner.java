@@ -13,18 +13,15 @@ public class DashSizeSpinner extends JSpinner {
     private static final DashSizeSpinner INSTANCE = new DashSizeSpinner();
   }
 
-  private SpinnerHandler spinnerHandler;
+  private final SpinnerHandler spinnerHandler;
 
   private DashSizeSpinner() {
     super(SpinnerModels.dashSizeModel.getModel());
+    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public static DashSizeSpinner getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public void initialize() {

@@ -13,18 +13,15 @@ public class OutlineSizeSpinner extends JSpinner {
     private static final OutlineSizeSpinner INSTANCE = new OutlineSizeSpinner();
   }
 
-  private SpinnerHandler spinnerHandler;
+  private final SpinnerHandler spinnerHandler;
 
   private OutlineSizeSpinner() {
     super(SpinnerModels.outlineSizeModel.getModel());
+    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public static OutlineSizeSpinner getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public void initialize() {

@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import menu.MenuBar;
 import panel.DrawingPanel;
 import tool.ToolBar;
-import util.file.FileControl;
 
 public class MainFrame extends JFrame {
 
@@ -20,7 +19,6 @@ public class MainFrame extends JFrame {
   private final MenuBar menuBar;
   private final ToolBar toolBar;
   private final DrawingPanel drawingPanel;
-  private final FileControl fileControl;
   private final WindowHandler windowHandler;
 
   private MainFrame() {
@@ -33,20 +31,11 @@ public class MainFrame extends JFrame {
     menuBar = MenuBar.getInstance();
     toolBar = ToolBar.getInstance();
     drawingPanel = DrawingPanel.getInstance();
-    fileControl = FileControl.getInstance();
     windowHandler = WindowHandler.getInstance();
   }
 
   public static MainFrame getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    menuBar.associate();
-    toolBar.associate();
-    drawingPanel.associate();
-    fileControl.associate();
-    windowHandler.associate();
   }
 
   public void initialize() {

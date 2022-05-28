@@ -14,14 +14,8 @@ public class SpinnerHandler implements ChangeListener {
     private static final SpinnerHandler INSTANCE = new SpinnerHandler();
   }
 
-  private DrawingPanel drawingPanel;
-
   public static SpinnerHandler getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    drawingPanel = DrawingPanel.getInstance();
   }
 
   @Override
@@ -30,6 +24,7 @@ public class SpinnerHandler implements ChangeListener {
     SpinnerModel currentSpinnerModel = currentSpinner.getModel();
     int currentSize = (int) currentSpinner.getValue();
 
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
     if (SpinnerModels.outlineSizeModel.isCurrentModel(currentSpinnerModel)) {
       drawingPanel.updateOutlineSize(currentSize);
     } else if (SpinnerModels.dashSizeModel.isCurrentModel(currentSpinnerModel)) {

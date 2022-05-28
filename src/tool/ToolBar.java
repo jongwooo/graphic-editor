@@ -20,9 +20,9 @@ public class ToolBar extends JToolBar {
     private static final ToolBar INSTANCE = new ToolBar();
   }
 
-  private final ButtonHandler buttonHandler;
+  private final ShapeToolHandler shapeToolHandler;
+  private final DrawingToolHandler drawingToolHandler;
   private final ButtonGroup shapeToolBtnGroup;
-  private final SpinnerHandler spinnerHandler;
   private final OutlineSizeSpinner outlineSizeSpinner;
   private final DashSizeSpinner dashSizeSpinner;
 
@@ -32,21 +32,14 @@ public class ToolBar extends JToolBar {
     setFloatable(false);
 
     shapeToolBtnGroup = new ButtonGroup();
-    buttonHandler = ButtonHandler.getInstance();
-    spinnerHandler = SpinnerHandler.getInstance();
+    shapeToolHandler = ShapeToolHandler.getInstance();
+    drawingToolHandler = DrawingToolHandler.getInstance();
     outlineSizeSpinner = OutlineSizeSpinner.getInstance();
     dashSizeSpinner = DashSizeSpinner.getInstance();
   }
 
   public static ToolBar getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    buttonHandler.associate();
-    spinnerHandler.associate();
-    outlineSizeSpinner.associate();
-    dashSizeSpinner.associate();
   }
 
   public void initialize() {
@@ -76,7 +69,7 @@ public class ToolBar extends JToolBar {
       JRadioButton shapeToolBtn = new JRadioButton();
       shapeToolBtn.setToolTipText(shapeToolItem.name());
       shapeToolBtn.setActionCommand(shapeToolItem.name());
-      shapeToolBtn.addActionListener(buttonHandler);
+      shapeToolBtn.addActionListener(shapeToolHandler);
       shapeToolBtn.setIcon(createImageIcon(shapeToolItem.name(), false));
       shapeToolBtn.setSelectedIcon(createImageIcon(shapeToolItem.name(), true));
       shapeToolBtnGroup.add(shapeToolBtn);
@@ -89,8 +82,8 @@ public class ToolBar extends JToolBar {
     Arrays.stream(DrawingToolItem.values()).forEach(drawingToolItem -> {
       JButton drawingToolBtn = new JButton();
       drawingToolBtn.setToolTipText(drawingToolItem.name());
-      drawingToolBtn.setActionCommand(drawingToolItem.name());
-      drawingToolBtn.addActionListener(buttonHandler);
+      drawingToolBtn.setActionCommand(drawingToolItem.getMethodName());
+      drawingToolBtn.addActionListener(drawingToolHandler);
       drawingToolBtn.setIcon(createImageIcon(drawingToolItem.name(), false));
       drawingToolBtn.setBorderPainted(false);
       drawingToolBtn.setFocusPainted(false);

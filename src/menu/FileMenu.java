@@ -15,18 +15,15 @@ public class FileMenu extends JMenu {
     private static final FileMenu INSTANCE = new FileMenu();
   }
 
-  private MenuBarHandler menuBarHandler;
+  private final FileMenuHandler fileMenuHandler;
 
   private FileMenu() {
     super(Constant.FILE_MENU_TITLE);
+    fileMenuHandler = FileMenuHandler.getInstance();
   }
 
   public static FileMenu getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    menuBarHandler = MenuBarHandler.getInstance();
   }
 
   public void initialize() {
@@ -37,7 +34,7 @@ public class FileMenu extends JMenu {
     Arrays.stream(FileMenuItem.values()).forEach(fileMenuItem -> {
       JMenuItem menuItem = new JMenuItem(fileMenuItem.getMenuName());
       menuItem.setActionCommand(fileMenuItem.name());
-      menuItem.addActionListener(menuBarHandler);
+      menuItem.addActionListener(fileMenuHandler);
       menuItem.setAccelerator(fileMenuItem.getKeyStroke());
       this.add(menuItem);
       if (fileMenuItem.hasSeparator()) {

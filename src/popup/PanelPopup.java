@@ -24,10 +24,6 @@ public class PanelPopup extends JPopupMenu {
     return InstanceHolder.INSTANCE;
   }
 
-  public void associate() {
-    panelPopupHandler.associate();
-  }
-
   public void initialize() {
     createPanelPopupItems();
   }

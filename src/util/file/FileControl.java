@@ -25,8 +25,6 @@ public class FileControl {
     private static final FileControl INSTANCE = new FileControl();
   }
 
-  private MainFrame mainFrame;
-  private DrawingPanel drawingPanel;
   private String filePath;
   private final JFileChooser fileChooser;
   private final FileFactory fileFactory;
@@ -44,11 +42,6 @@ public class FileControl {
     return InstanceHolder.INSTANCE;
   }
 
-  public void associate() {
-    mainFrame = MainFrame.getInstance();
-    drawingPanel = DrawingPanel.getInstance();
-  }
-
   private boolean isNewFile() {
     return filePath == null;
   }
@@ -63,6 +56,8 @@ public class FileControl {
   }
 
   private boolean checkSave() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     if (drawingPanel.checkUpdate()) {
       int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
           FileDialog.SAVE_CONFIRM_DIALOG_MESSAGE, FileDialog.SAVE_CONFIRM_DIALOG_TITLE,
@@ -85,6 +80,8 @@ public class FileControl {
   }
 
   public void newFile() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     if (checkSave()) {
       int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
           FileDialog.NEW_FILE_CONFIRM_DIALOG_MESSAGE,
@@ -93,7 +90,8 @@ public class FileControl {
 
       if (checkOtherOptions(dialogOption)) {
         setFilePath(null);
-        mainFrame.setDefaultTitle();
+        MainFrame.getInstance().setDefaultTitle();
+        drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
         drawingPanel.clearShapes();
         drawingPanel.setUpdate(false);
         drawingPanel.repaint();
@@ -106,6 +104,8 @@ public class FileControl {
   }
 
   public void openFile() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     if (checkSave()) {
       int dialogOption = fileChooser.showOpenDialog(drawingPanel);
 
@@ -114,6 +114,7 @@ public class FileControl {
             fileChooser.getSelectedFile().getAbsolutePath());
         if (checkExtension(currentFile)) {
           readShapeObject(currentFile);
+          drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
           drawingPanel.setUpdate(false);
           drawingPanel.repaint();
         } else {
@@ -132,6 +133,8 @@ public class FileControl {
   }
 
   public void saveFileAs() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     fileChooser.setSelectedFile(fileFactory.getFile(
         fileChooser.getCurrentDirectory() + Constant.DEFAULT_FILE_NAME));
     int dialogOption = fileChooser.showSaveDialog(drawingPanel);
@@ -148,6 +151,8 @@ public class FileControl {
   }
 
   public void print() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     PrinterJob printerJob = PrinterJob.getPrinterJob();
     printerJob.setPrintable(drawingPanel);
     boolean isPrintable = printerJob.printDialog();
@@ -163,6 +168,8 @@ public class FileControl {
   }
 
   public void quitEditor() {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     if (checkSave()) {
       int dialogOption = JOptionPane.showConfirmDialog(drawingPanel,
           FileDialog.QUIT_CONFIRM_DIALOG_MESSAGE, FileDialog.QUIT_CONFIRM_DIALOG_TITLE,
@@ -175,11 +182,13 @@ public class FileControl {
   }
 
   private void readShapeObject(File currentFile) {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     try {
       ObjectInputStream objectInputStream = new ObjectInputStream(
           new BufferedInputStream(new FileInputStream(currentFile)));
       drawingPanel.setShapes(objectInputStream.readObject());
-      mainFrame.setTitle(currentFile.getName());
+      MainFrame.getInstance().setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
       objectInputStream.close();
     } catch (IOException | ClassNotFoundException exception) {
@@ -189,13 +198,15 @@ public class FileControl {
   }
 
   private void writeShapeObject(File currentFile) {
+    DrawingPanel drawingPanel = DrawingPanel.getInstance();
+
     try {
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(
           new BufferedOutputStream(new FileOutputStream(currentFile)));
       drawingPanel.clearSelectedShapes();
       objectOutputStream.writeObject(drawingPanel.getShapes());
       drawingPanel.setUpdate(false);
-      mainFrame.setTitle(currentFile.getName());
+      MainFrame.getInstance().setTitle(currentFile.getName());
       setFilePath(currentFile.getAbsolutePath());
       objectOutputStream.close();
     } catch (IOException exception) {

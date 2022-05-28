@@ -11,14 +11,14 @@ public class WindowHandler implements WindowListener {
     private static final WindowHandler INSTANCE = new WindowHandler();
   }
 
-  private FileControl fileControl;
+  private final FileControl fileControl;
+
+  private WindowHandler() {
+    fileControl = FileControl.getInstance();
+  }
 
   public static WindowHandler getInstance() {
     return InstanceHolder.INSTANCE;
-  }
-
-  public void associate() {
-    fileControl = FileControl.getInstance();
   }
 
   @Override
