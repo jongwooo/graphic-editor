@@ -33,9 +33,13 @@ public class Resizer extends Transformer {
               .xFactor((currentPoint.x - previousPoint.x) / bound.getWidth())
               .yFactor((currentPoint.y - previousPoint.y) / bound.getHeight())
               .build());
+
       graphics2D.setXORMode(graphics2D.getBackground());
       shape.draw(graphics2D);
-      shape.resize(dto);
+      affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
+      affineTransform.scale(dto.getScaleX(), dto.getScaleY());
+      affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
+      shape.transform(affineTransform);
       shape.draw(graphics2D);
       previousPoint = currentPoint;
     }

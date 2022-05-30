@@ -16,7 +16,6 @@ import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 import java.util.List;
-import transformer.dto.ScaleDto;
 
 public abstract class DrawShape implements Cloneable, Serializable {
 
@@ -31,14 +30,12 @@ public abstract class DrawShape implements Cloneable, Serializable {
   private int outlineSize, dashSize;
   private CustomStroke customStroke;
   private final StrokeFactory strokeFactory;
-  private final AffineTransform affineTransform;
 
   public DrawShape(Shape shape) {
     this.shape = shape;
     selected = false;
     anchor = null;
     currentAnchor = null;
-    affineTransform = new AffineTransform();
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -144,26 +141,9 @@ public abstract class DrawShape implements Cloneable, Serializable {
         (int) shape.getBounds().getCenterY());
   }
 
-  private Shape createTransformedShape(Shape pSrc, AffineTransform at) {
-    return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
-        : new Path2D.Double(pSrc, at);
-  }
-
-  public void move(double translateX, double translateY) {
-    affineTransform.setToTranslation(translateX, translateY);
-    shape = createTransformedShape(shape, affineTransform);
-  }
-
-  public void resize(ScaleDto dto) {
-    affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
-    affineTransform.scale(dto.getScaleX(), dto.getScaleY());
-    affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
-    shape = createTransformedShape(shape, affineTransform);
-  }
-
-  public void rotate(double rotateAngle, Point rotatePoint) {
-    affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
-    shape = createTransformedShape(shape, affineTransform);
+  public void transform(AffineTransform at) {
+    shape = shape instanceof Path2D.Float ? new Path2D.Float(shape, at)
+        : new Path2D.Double(shape, at);
   }
 
   @Override
