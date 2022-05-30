@@ -166,12 +166,6 @@ public abstract class DrawShape implements Cloneable, Serializable {
     shape = createTransformedShape(shape, affineTransform);
   }
 
-  public abstract void setStartPoint(Point startPoint);
-
-  public abstract void setCurrentPoint(Point currentPoint);
-
-  public abstract DrawShape newShape();
-
   @Override
   public DrawShape clone() {
     try {
@@ -180,4 +174,10 @@ public abstract class DrawShape implements Cloneable, Serializable {
       throw new AssertionError();
     }
   }
+
+  public abstract void setStartPoint(Point startPoint);
+
+  public abstract void setCurrentPoint(Point currentPoint);
+
+  public abstract DrawShape newShape();
 }
