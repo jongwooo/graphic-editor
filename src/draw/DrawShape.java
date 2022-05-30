@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.List;
 import transformer.dto.ScaleDto;
 
-public abstract class DrawShape implements Serializable {
+public abstract class DrawShape implements Cloneable, Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -171,4 +171,13 @@ public abstract class DrawShape implements Serializable {
   public abstract void setCurrentPoint(Point currentPoint);
 
   public abstract DrawShape newShape();
+
+  @Override
+  public DrawShape clone() {
+    try {
+      return (DrawShape) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError();
+    }
+  }
 }

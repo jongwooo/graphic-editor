@@ -44,6 +44,7 @@ public class DrawingPanel extends JPanel implements Printable {
   private boolean update;
   private Mode mode;
   private List<DrawShape> shapes;
+  private final List<DrawShape> clipboard;
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
   private Transformer transformer;
@@ -58,6 +59,7 @@ public class DrawingPanel extends JPanel implements Printable {
     update = false;
     mode = Mode.IDLE;
     shapes = new ArrayList<>();
+    clipboard = new ArrayList<>();
     undoManager = new UndoManager();
     mouseHandler = new MouseHandler();
     transformer = null;
@@ -292,16 +294,38 @@ public class DrawingPanel extends JPanel implements Printable {
     }
   }
 
-  public void cut() {
+  private void registerClipboard(DrawShape shape) {
+    DrawShape copiedShape = shape.clone();
+    setSelectedShape(copiedShape);
+    clipboard.clear();
+    clipboard.add(copiedShape);
+  }
 
+  public void cut() {
+    if (exists(selectedShape)) {
+      shapes.remove(selectedShape);
+      registerClipboard(selectedShape);
+      repaint();
+    }
   }
 
   public void copy() {
-
+    if (exists(selectedShape)) {
+      registerClipboard(selectedShape);
+    }
   }
 
   public void paste() {
-
+    if (!clipboard.isEmpty()) {
+      clearSelectedShapes();
+      clipboard.forEach(shape -> {
+        shape.move(8, 8);
+        DrawShape copiedShape = shape.clone();
+        setSelectedShape(copiedShape);
+        shapes.add(copiedShape);
+      });
+      repaint();
+    }
   }
 
   public void group() {
