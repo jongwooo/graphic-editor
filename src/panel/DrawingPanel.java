@@ -305,6 +305,7 @@ public class DrawingPanel extends JPanel implements Printable {
     if (exists(selectedShape)) {
       shapes.remove(selectedShape);
       registerClipboard(selectedShape);
+      setUpdate(true);
       repaint();
     }
   }
@@ -319,11 +320,11 @@ public class DrawingPanel extends JPanel implements Printable {
     if (!clipboard.isEmpty()) {
       clearSelectedShapes();
       clipboard.forEach(shape -> {
-        shape.move(8, 8);
         DrawShape copiedShape = shape.clone();
         setSelectedShape(copiedShape);
         shapes.add(copiedShape);
       });
+      setUpdate(true);
       repaint();
     }
   }
@@ -341,6 +342,7 @@ public class DrawingPanel extends JPanel implements Printable {
       int shapeIndex = shapes.indexOf(selectedShape);
       if (shapeIndex < shapes.size() - 1) {
         Collections.swap(shapes, shapeIndex, shapeIndex + 1);
+        setUpdate(true);
         repaint();
       }
     }
@@ -351,6 +353,7 @@ public class DrawingPanel extends JPanel implements Printable {
       int shapeIndex = shapes.indexOf(selectedShape);
       if (shapeIndex > 0) {
         Collections.swap(shapes, shapeIndex - 1, shapeIndex);
+        setUpdate(true);
         repaint();
       }
     }
@@ -360,6 +363,7 @@ public class DrawingPanel extends JPanel implements Printable {
     if (exists(selectedShape)) {
       shapes.remove(selectedShape);
       shapes.add(selectedShape);
+      setUpdate(true);
       repaint();
     }
   }
@@ -371,6 +375,7 @@ public class DrawingPanel extends JPanel implements Printable {
       shapes.clear();
       shapes.add(selectedShape);
       shapes.addAll(temp);
+      setUpdate(true);
       repaint();
     }
   }
