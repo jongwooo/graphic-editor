@@ -44,13 +44,13 @@ public class DrawingPanel extends JPanel implements Printable {
   private boolean update;
   private Mode mode;
   private List<DrawShape> shapes;
-  private final List<DrawShape> clipboard;
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
   private Transformer transformer;
   private DrawShape currentShape, selectedShape;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
+  private final Clipboard clipboard;
   private final PanelPopup panelPopup;
 
   private DrawingPanel() {
@@ -59,7 +59,6 @@ public class DrawingPanel extends JPanel implements Printable {
     update = false;
     mode = Mode.IDLE;
     shapes = new ArrayList<>();
-    clipboard = new ArrayList<>();
     undoManager = new UndoManager();
     mouseHandler = new MouseHandler();
     transformer = null;
@@ -69,6 +68,7 @@ public class DrawingPanel extends JPanel implements Printable {
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
     dashSize = Constant.DEFAULT_DASH_SIZE;
+    clipboard = Clipboard.getInstance();
     panelPopup = PanelPopup.getInstance();
   }
 
@@ -297,7 +297,6 @@ public class DrawingPanel extends JPanel implements Printable {
   private void registerClipboard(DrawShape shape) {
     DrawShape copiedShape = shape.clone();
     setSelectedShape(copiedShape);
-    clipboard.clear();
     clipboard.add(copiedShape);
   }
 
@@ -319,14 +318,9 @@ public class DrawingPanel extends JPanel implements Printable {
   public void paste() {
     if (!clipboard.isEmpty()) {
       clearSelectedShapes();
-      clipboard.forEach(shape -> {
-        Transformer transformer = new Mover(shape);
-        transformer.setPoint(new Point(0, 0));
-        transformer.transform((Graphics2D) getGraphics(),
-            new Point(8, 8));
-        DrawShape copiedShape = shape.clone();
-        setSelectedShape(copiedShape);
-        shapes.add(copiedShape);
+      clipboard.paste((Graphics2D) getGraphics()).forEach(shape -> {
+        setSelectedShape(shape);
+        shapes.add(shape);
       });
       setUpdate(true);
       repaint();
