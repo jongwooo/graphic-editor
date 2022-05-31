@@ -449,18 +449,16 @@ public class DrawingPanel extends JPanel implements Printable {
           updateCursorStyle(e.getPoint());
         }
       } else if (isCurrentMode(Mode.DRAW_POLYGON)) {
-        Graphics2D graphics2D = (Graphics2D) getGraphics();
         getTransformer().ifPresent(
-            transformer -> transformer.transform(graphics2D, e.getPoint()));
+            transformer -> transformer.transform((Graphics2D) getGraphics(), e.getPoint()));
       }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
       if (!isCurrentMode(Mode.IDLE)) {
-        Graphics2D graphics2D = (Graphics2D) getGraphics();
         getTransformer().ifPresent(
-            transformer -> transformer.transform(graphics2D, e.getPoint()));
+            transformer -> transformer.transform((Graphics2D) getGraphics(), e.getPoint()));
         if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
           repaint();
         }
