@@ -16,10 +16,10 @@ public class DrawingToolHandler implements ActionListener {
     return InstanceHolder.INSTANCE;
   }
 
-  private void invokeMethod(String methodName) {
+  private void invokeMethod(String actionCommand) {
     try {
       DrawingPanel drawingPanel = DrawingPanel.getInstance();
-      drawingPanel.getClass().getMethod(methodName).invoke(drawingPanel);
+      drawingPanel.getClass().getMethod(actionCommand).invoke(drawingPanel);
     } catch (InvocationTargetException | IllegalAccessException |
              NoSuchMethodException exception) {
       exception.printStackTrace();

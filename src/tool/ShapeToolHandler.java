@@ -18,11 +18,11 @@ public class ShapeToolHandler implements ActionListener {
     return InstanceHolder.INSTANCE;
   }
 
-  private void invokeMethod(String methodName) {
+  private void invokeMethod(String actionCommand) {
     try {
       DrawingPanel drawingPanel = DrawingPanel.getInstance();
       drawingPanel.getClass().getMethod("updateCurrentShape", DrawShape.class)
-          .invoke(drawingPanel, ShapeToolItem.valueOf(methodName).newShape());
+          .invoke(drawingPanel, ShapeToolItem.valueOf(actionCommand).newShape());
     } catch (InvocationTargetException | IllegalAccessException |
              NoSuchMethodException exception) {
       exception.printStackTrace();

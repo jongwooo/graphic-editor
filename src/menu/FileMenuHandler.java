@@ -16,10 +16,10 @@ public class FileMenuHandler implements ActionListener {
     return InstanceHolder.INSTANCE;
   }
 
-  private void invokeMethod(String methodName) {
+  private void invokeMethod(String actionCommand) {
     try {
       FileControl fileControl = FileControl.getInstance();
-      fileControl.getClass().getMethod(methodName).invoke(fileControl);
+      fileControl.getClass().getMethod(actionCommand).invoke(fileControl);
     } catch (InvocationTargetException | IllegalAccessException |
              NoSuchMethodException exception) {
       exception.printStackTrace();
