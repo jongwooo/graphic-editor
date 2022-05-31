@@ -50,8 +50,4 @@ public class MainFrame extends JFrame {
 
     addWindowListener(windowHandler);
   }
-
-  public void setDefaultTitle() {
-    setTitle(Constant.MAINFRAME_TITLE);
-  }
 }

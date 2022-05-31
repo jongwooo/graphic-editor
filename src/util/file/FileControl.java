@@ -91,7 +91,7 @@ public class FileControl {
 
       if (checkOtherOptions(dialogOption)) {
         setFilePath(null);
-        mainFrame.setDefaultTitle();
+        mainFrame.setTitle(Constant.MAINFRAME_TITLE);
         drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
         drawingPanel.clearShapes();
         drawingPanel.setUpdate(false);
