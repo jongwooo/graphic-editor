@@ -320,6 +320,10 @@ public class DrawingPanel extends JPanel implements Printable {
     if (!clipboard.isEmpty()) {
       clearSelectedShapes();
       clipboard.forEach(shape -> {
+        Transformer transformer = new Mover(shape);
+        transformer.setPoint(new Point(0, 0));
+        transformer.transform((Graphics2D) getGraphics(),
+            new Point(8, 8));
         DrawShape copiedShape = shape.clone();
         setSelectedShape(copiedShape);
         shapes.add(copiedShape);
