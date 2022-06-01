@@ -16,7 +16,7 @@ import java.io.ObjectOutputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import panel.DrawingPanel;
+import components.panel.DrawingPanel;
 
 public class FileControl {
 

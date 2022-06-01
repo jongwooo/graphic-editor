@@ -7,8 +7,8 @@ import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Ellipse2D.Double;
 import java.util.function.Function;
-import transformer.dto.BoundDto;
-import transformer.dto.ScaleDto;
+import util.transformer.dto.BoundDto;
+import util.transformer.dto.ScaleDto;
 
 public enum Anchor {
   NW(Constant.NW_CURSOR, bound -> new Point(bound.x, bound.y),
