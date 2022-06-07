@@ -30,7 +30,6 @@ public class OutlineSizeSpinner extends SizeSpinner {
 
   private void createOutlineSizeSpinner() {
     setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase().concat(" size"));
-    setMaximumSize(getPreferredSize());
     addChangeListener(spinnerHandler);
   }
 }

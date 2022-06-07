@@ -14,4 +14,8 @@ public abstract class SizeSpinner extends JSpinner {
       editor.getTextField().setEditable(false);
     }
   }
+
+  public void setMaximumSize() {
+    super.setMaximumSize(getPreferredSize());
+  }
 }

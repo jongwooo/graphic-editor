@@ -33,6 +33,9 @@ public class MainFrame extends JFrame {
     toolBar = ToolBar.getInstance();
     drawingPanel = DrawingPanel.getInstance();
     windowHandler = WindowHandler.getInstance();
+    this.setJMenuBar(menuBar);
+    this.add(BorderLayout.NORTH, toolBar);
+    this.add(BorderLayout.CENTER, drawingPanel);
   }
 
   public static MainFrame getInstance() {
@@ -41,14 +44,8 @@ public class MainFrame extends JFrame {
 
   public void initialize() {
     menuBar.initialize();
-    this.setJMenuBar(menuBar);
-
     toolBar.initialize();
-    this.add(BorderLayout.NORTH, toolBar);
-
     drawingPanel.initialize();
-    this.add(BorderLayout.CENTER, drawingPanel);
-
     addWindowListener(windowHandler);
   }
 }

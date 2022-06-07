@@ -30,7 +30,6 @@ public class DashSizeSpinner extends SizeSpinner {
 
   private void createDashSizeSpinner() {
     setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase().concat(" size"));
-    setMaximumSize(getPreferredSize());
     addChangeListener(spinnerHandler);
   }
 }

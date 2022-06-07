@@ -1,5 +1,8 @@
 package components.panel;
 
+import components.popup.PanelPopup;
+import components.tool.spinner.DashSizeSpinner;
+import components.tool.spinner.OutlineSizeSpinner;
 import global.Constant;
 import global.draw.Anchor;
 import global.transformer.Mode;
@@ -8,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.util.ArrayList;
@@ -21,9 +25,6 @@ import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
-import components.popup.PanelPopup;
-import components.tool.spinner.DashSizeSpinner;
-import components.tool.spinner.OutlineSizeSpinner;
 import util.draw.DrawPolygon;
 import util.draw.DrawShape;
 import util.transformer.Drawer;
@@ -44,6 +45,8 @@ public class DrawingPanel extends JPanel implements Printable {
   private boolean update;
   private Mode mode;
   private List<DrawShape> shapes;
+  private BufferedImage bufferedImage;
+  private Graphics2D bufferedImageGraphics2D;
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
   private Transformer transformer;
@@ -184,8 +187,17 @@ public class DrawingPanel extends JPanel implements Printable {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    Graphics2D graphics2D = (Graphics2D) graphics;
-    shapes.forEach(shape -> shape.draw(graphics2D));
+    bufferedImage = (BufferedImage) createImage(this.getWidth(), this.getHeight());
+    bufferedImageGraphics2D = (Graphics2D) bufferedImage.getGraphics();
+
+    bufferedImageGraphics2D.setBackground(Constant.BACKGROUND_COLOR);
+    bufferedImageGraphics2D.fillRect(0, 0, this.getWidth(), this.getHeight());
+    bufferedImageGraphics2D.setXORMode(this.getBackground());
+
+    bufferedImageGraphics2D.clearRect(0, 0,
+        this.getWidth(), this.getHeight());
+    shapes.forEach(shape -> shape.draw(bufferedImageGraphics2D));
+    graphics.drawImage(bufferedImage, 0, 0, this);
   }
 
   public void setIDLEMode() {
@@ -450,7 +462,11 @@ public class DrawingPanel extends JPanel implements Printable {
         }
       } else if (isCurrentMode(Mode.DRAW_POLYGON)) {
         getTransformer().ifPresent(
-            transformer -> transformer.transform((Graphics2D) getGraphics(), e.getPoint()));
+            transformer -> {
+              transformer.transform(bufferedImageGraphics2D, e.getPoint());
+              bufferedImageGraphics2D.setPaintMode();
+              getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
+            });
       }
     }
 
@@ -458,7 +474,11 @@ public class DrawingPanel extends JPanel implements Printable {
     public void mouseDragged(MouseEvent e) {
       if (!isCurrentMode(Mode.IDLE)) {
         getTransformer().ifPresent(
-            transformer -> transformer.transform((Graphics2D) getGraphics(), e.getPoint()));
+            transformer -> {
+              transformer.transform(bufferedImageGraphics2D, e.getPoint());
+              bufferedImageGraphics2D.setPaintMode();
+              getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
+            });
         if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
           repaint();
         }

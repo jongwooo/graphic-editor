@@ -1,5 +1,8 @@
 package components.tool;
 
+import components.tool.spinner.DashSizeSpinner;
+import components.tool.spinner.OutlineSizeSpinner;
+import components.tool.spinner.SizeSpinner;
 import global.Constant;
 import global.tool.DrawingToolItem;
 import global.tool.ShapeToolItem;
@@ -12,8 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JToolBar;
-import components.tool.spinner.DashSizeSpinner;
-import components.tool.spinner.OutlineSizeSpinner;
 
 public class ToolBar extends JToolBar {
 
@@ -40,6 +41,12 @@ public class ToolBar extends JToolBar {
     drawingToolHandler = DrawingToolHandler.getInstance();
     outlineSizeSpinner = OutlineSizeSpinner.getInstance();
     dashSizeSpinner = DashSizeSpinner.getInstance();
+
+    createShapeToolButtons();
+    createDrawingToolButtons();
+    addSizeSpinner(Constant.OUTLINE_SPINNER_TITLE, outlineSizeSpinner);
+    addSizeSpinner(Constant.DASH_SPINNER_TITLE, dashSizeSpinner);
+    setDefaultButton();
   }
 
   public static ToolBar getInstance() {
@@ -47,19 +54,8 @@ public class ToolBar extends JToolBar {
   }
 
   public void initialize() {
-    createShapeToolButtons();
-    createDrawingToolButtons();
-    setDefaultButton();
-
     outlineSizeSpinner.initialize();
-    this.add(new JLabel(Constant.OUTLINE_SPINNER_TITLE));
-    this.add(outlineSizeSpinner);
-    this.addSeparator();
-
     dashSizeSpinner.initialize();
-    this.add(new JLabel(Constant.DASH_SPINNER_TITLE));
-    this.add(dashSizeSpinner);
-    this.addSeparator();
   }
 
   private ImageIcon createImageIcon(String imageName, boolean selected) {
@@ -101,5 +97,12 @@ public class ToolBar extends JToolBar {
     JRadioButton defaultBtn = (JRadioButton) this.getComponent(
         ShapeToolItem.rectangle.ordinal());
     defaultBtn.doClick();
+  }
+
+  private void addSizeSpinner(String label, SizeSpinner spinner) {
+    spinner.setMaximumSize();
+    this.add(new JLabel(label));
+    this.add(spinner);
+    this.addSeparator();
   }
 }

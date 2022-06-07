@@ -17,6 +17,8 @@ public class MenuBar extends JMenuBar {
   private MenuBar() {
     fileMenu = FileMenu.getInstance();
     editMenu = EditMenu.getInstance();
+    this.add(fileMenu);
+    this.add(editMenu);
   }
 
   public static MenuBar getInstance() {
@@ -25,9 +27,6 @@ public class MenuBar extends JMenuBar {
 
   public void initialize() {
     fileMenu.initialize();
-    this.add(fileMenu);
-
     editMenu.initialize();
-    this.add(editMenu);
   }
 }
