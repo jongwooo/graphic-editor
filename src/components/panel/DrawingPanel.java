@@ -191,11 +191,9 @@ public class DrawingPanel extends JPanel implements Printable {
     bufferedImageGraphics2D = (Graphics2D) bufferedImage.getGraphics();
 
     bufferedImageGraphics2D.setBackground(Constant.BACKGROUND_COLOR);
-    bufferedImageGraphics2D.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-    bufferedImageGraphics2D.clearRect(0, 0,
-        this.getWidth(), this.getHeight());
+    bufferedImageGraphics2D.clearRect(0, 0, this.getWidth(), this.getHeight());
     shapes.forEach(shape -> shape.draw(bufferedImageGraphics2D));
+
     graphics.drawImage(bufferedImage, 0, 0, this);
   }
 
