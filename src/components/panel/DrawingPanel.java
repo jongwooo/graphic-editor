@@ -329,6 +329,8 @@ public class DrawingPanel extends JPanel implements Printable {
       clearSelectedShapes();
       clipboard.paste(bufferedImageGraphics2D).forEach(shape -> {
         setSelectedShape(shape);
+        undoManager.undoableEditHappened(
+            new UndoableEditEvent(this, new UndoablePanel(shape)));
         shapes.add(shape);
       });
       setUpdate(true);
