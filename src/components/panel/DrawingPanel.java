@@ -192,7 +192,6 @@ public class DrawingPanel extends JPanel implements Printable {
 
     bufferedImageGraphics2D.setBackground(Constant.BACKGROUND_COLOR);
     bufferedImageGraphics2D.fillRect(0, 0, this.getWidth(), this.getHeight());
-    bufferedImageGraphics2D.setXORMode(this.getBackground());
 
     bufferedImageGraphics2D.clearRect(0, 0,
         this.getWidth(), this.getHeight());
