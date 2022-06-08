@@ -327,7 +327,7 @@ public class DrawingPanel extends JPanel implements Printable {
   public void paste() {
     if (!clipboard.isEmpty()) {
       clearSelectedShapes();
-      clipboard.paste((Graphics2D) getGraphics()).forEach(shape -> {
+      clipboard.paste(bufferedImageGraphics2D).forEach(shape -> {
         setSelectedShape(shape);
         shapes.add(shape);
       });
