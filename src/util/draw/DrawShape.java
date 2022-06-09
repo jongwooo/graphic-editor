@@ -102,29 +102,35 @@ public abstract class DrawShape implements Cloneable, Serializable {
     }
   }
 
-  public void setOutlineColor(Color outlineColor) {
+  public DrawShape setOutlineColor(Color outlineColor) {
     this.outlineColor = outlineColor;
+    return this;
   }
 
-  public void setFillColor(Color fillColor) {
+  public DrawShape setFillColor(Color fillColor) {
     this.fillColor = fillColor;
+    return this;
   }
 
   public int getOutlineSize() {
     return outlineSize;
   }
 
-  public void setOutlineSize(int outlineSize) {
+  public DrawShape setOutlineSize(int outlineSize) {
     this.outlineSize = outlineSize;
-    customStroke = strokeFactory.getStroke(outlineSize, dashSize);
+    return this;
   }
 
   public int getDashSize() {
     return dashSize;
   }
 
-  public void setDashSize(int dashSize) {
+  public DrawShape setDashSize(int dashSize) {
     this.dashSize = dashSize;
+    return this;
+  }
+
+  public void setStroke() {
     customStroke = strokeFactory.getStroke(outlineSize, dashSize);
   }
 
