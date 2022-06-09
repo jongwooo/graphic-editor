@@ -461,7 +461,6 @@ public class DrawingPanel extends JPanel implements Printable {
         getTransformer().ifPresent(
             transformer -> {
               transformer.transform(bufferedImageGraphics2D, e.getPoint());
-              bufferedImageGraphics2D.setPaintMode();
               getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
             });
       }
@@ -473,7 +472,6 @@ public class DrawingPanel extends JPanel implements Printable {
         getTransformer().ifPresent(
             transformer -> {
               transformer.transform(bufferedImageGraphics2D, e.getPoint());
-              bufferedImageGraphics2D.setPaintMode();
               getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
             });
         if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
