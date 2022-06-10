@@ -22,7 +22,7 @@ public class Resizer extends Transformer {
 
   @Override
   public void transform(Graphics2D graphics2D, Point currentPoint) {
-    Rectangle bound = shape.getBound();
+    Rectangle bound = shape.getBounds();
     if (bound.getWidth() > 0 && bound.getHeight() > 0) {
       ScaleDto dto = shape.getCurrentAnchor().computeScale(
           BoundDto.builder()

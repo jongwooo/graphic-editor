@@ -66,7 +66,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
     return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
   }
 
-  public Rectangle getBound() {
+  public Rectangle getBounds() {
     return shape.getBounds();
   }
 
