@@ -23,9 +23,9 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   protected Shape shape;
   protected Point startPoint;
-  private boolean selected;
-  private DrawAnchor anchor;
+  private final DrawAnchor anchor;
   private Anchor currentAnchor;
+  private boolean selected;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
   private CustomStroke customStroke;
@@ -33,9 +33,9 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   public DrawShape(Shape shape) {
     this.shape = shape;
-    selected = false;
-    anchor = null;
+    anchor = new DrawAnchor();
     currentAnchor = null;
+    selected = false;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -52,7 +52,11 @@ public abstract class DrawShape implements Cloneable, Serializable {
     graphics2D.setColor(outlineColor);
     graphics2D.setStroke(customStroke);
     graphics2D.draw(shape);
-    createAnchors(graphics2D);
+
+    if (selected) {
+      anchor.createAnchors(shape.getBounds());
+      anchor.draw(graphics2D);
+    }
   }
 
   public boolean contains(Point currentPoint) {
@@ -62,24 +66,8 @@ public abstract class DrawShape implements Cloneable, Serializable {
     return shape.intersects(new Double(currentPoint.x, currentPoint.y, 2, 2));
   }
 
-  public boolean isSelected() {
-    return selected;
-  }
-
-  public void setSelected(boolean selected) {
-    this.selected = selected;
-  }
-
   public Rectangle getBound() {
     return shape.getBounds();
-  }
-
-  private void createAnchors(Graphics2D graphics2D) {
-    anchor = selected ? new DrawAnchor() : null;
-    if (anchor != null) {
-      anchor.createAnchors(shape.getBounds());
-      anchor.draw(graphics2D);
-    }
   }
 
   public boolean isCurrentAnchor(Anchor anchor) {
@@ -100,6 +88,14 @@ public abstract class DrawShape implements Cloneable, Serializable {
     } else {
       return null;
     }
+  }
+
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
   }
 
   public DrawShape setOutlineColor(Color outlineColor) {

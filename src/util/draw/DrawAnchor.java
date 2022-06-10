@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DrawAnchor implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private final List<Ellipse2D> anchors;
+  private List<Ellipse2D> anchors;
 
   public DrawAnchor() {
     anchors = new ArrayList<>();
@@ -25,7 +26,8 @@ public class DrawAnchor implements Serializable {
   }
 
   public void createAnchors(Rectangle bound) {
-    Arrays.stream(Anchor.values()).forEach(anchor -> anchors.add(anchor.getAnchor(bound)));
+    anchors = Arrays.stream(Anchor.values()).map(anchor -> anchor.getAnchor(bound))
+        .collect(Collectors.toList());
   }
 
   public void draw(Graphics2D graphics2D) {
