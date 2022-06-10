@@ -143,9 +143,9 @@ public abstract class DrawShape implements Cloneable, Serializable {
         (int) shape.getBounds().getCenterY());
   }
 
-  public void transform(AffineTransform at) {
-    shape = shape instanceof Path2D.Float ? new Path2D.Float(shape, at)
-        : new Path2D.Double(shape, at);
+  public void transform(AffineTransform affineTransform) {
+    shape = shape instanceof Path2D.Float ? new Path2D.Float(shape, affineTransform)
+        : new Path2D.Double(shape, affineTransform);
   }
 
   @Override
