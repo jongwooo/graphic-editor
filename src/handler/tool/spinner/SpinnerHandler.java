@@ -1,11 +1,11 @@
 package handler.tool.spinner;
 
+import components.panel.DrawingPanel;
 import global.tool.SpinnerModels;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import components.panel.DrawingPanel;
 
 public class SpinnerHandler implements ChangeListener {
 
