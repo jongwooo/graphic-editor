@@ -93,10 +93,6 @@ public class DrawingPanel extends JPanel implements Printable {
     setIDLEMode();
   }
 
-  private boolean exists(Object object) {
-    return object != null;
-  }
-
   public Object getShapes() {
     return shapes;
   }
@@ -156,7 +152,7 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void updateCursorStyle() {
-    setCursor(exists(currentShape) ? Constant.CROSSHAIR_STYLE_CURSOR
+    setCursor(currentShape != null ? Constant.CROSSHAIR_STYLE_CURSOR
         : Constant.DEFAULT_STYLE_CURSOR);
   }
 
@@ -449,7 +445,7 @@ public class DrawingPanel extends JPanel implements Printable {
             selectedShape.setSelected(true);
             setSpinnerValue(selectedShape.getOutlineSize(),
                 selectedShape.getDashSize());
-            if (!exists(selectedShape.getCurrentAnchor(e.getPoint()))) {
+            if (selectedShape.getCurrentAnchor(e.getPoint()) == null) {
               setCurrentMode(Mode.MOVE);
               setTransformer(new Mover(selectedShape));
             } else if (selectedShape.isCurrentAnchor(Anchor.RR)) {
