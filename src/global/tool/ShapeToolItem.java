@@ -5,10 +5,11 @@ import util.draw.DrawLine;
 import util.draw.DrawPencil;
 import util.draw.DrawPolygon;
 import util.draw.DrawRectangle;
+import util.draw.DrawSelection;
 import util.draw.DrawShape;
 
 public enum ShapeToolItem {
-  cursor(null),
+  cursor(new DrawSelection()),
   rectangle(new DrawRectangle()),
   ellipse(new DrawEllipse()),
   line(new DrawLine()),

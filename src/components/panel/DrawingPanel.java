@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -26,11 +28,13 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
 import util.draw.DrawPolygon;
+import util.draw.DrawSelection;
 import util.draw.DrawShape;
 import util.transformer.Drawer;
 import util.transformer.Mover;
 import util.transformer.Resizer;
 import util.transformer.Rotator;
+import util.transformer.Selector;
 import util.transformer.Transformer;
 
 public class DrawingPanel extends JPanel implements Printable {
@@ -50,7 +54,7 @@ public class DrawingPanel extends JPanel implements Printable {
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
   private Transformer transformer;
-  private DrawShape currentShape, selectedShape;
+  private DrawShape currentShape;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
   private final Clipboard clipboard;
@@ -66,7 +70,6 @@ public class DrawingPanel extends JPanel implements Printable {
     mouseHandler = new MouseHandler();
     transformer = null;
     currentShape = null;
-    selectedShape = null;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
@@ -133,26 +136,18 @@ public class DrawingPanel extends JPanel implements Printable {
     setIDLEMode();
   }
 
-  private boolean checkSelectedShape() {
-    return shapes.stream().anyMatch(DrawShape::isSelected);
-  }
-
   private DrawShape getSelectedShape(Point currentPoint) {
     List<DrawShape> temp = new ArrayList<>(shapes);
     Collections.reverse(temp);
     return temp.stream().filter(shape -> shape.contains(currentPoint)).findFirst().orElse(null);
   }
 
-  private void setSelectedShape(DrawShape shape) {
-    this.selectedShape = shape;
-    if (exists(shape)) {
-      shape.setSelected(true);
-    }
+  private List<DrawShape> getSelectedShapes() {
+    return shapes.stream().filter(DrawShape::isSelected).collect(Collectors.toList());
   }
 
   public void clearSelectedShapes() {
     shapes.forEach(shape -> shape.setSelected(false));
-    setSelectedShape(null);
     repaint();
   }
 
@@ -168,12 +163,10 @@ public class DrawingPanel extends JPanel implements Printable {
   private void updateCursorStyle(Point currentPoint) {
     setCursor(isCursorOnShape(currentPoint) ? Constant.HAND_STYLE_CURSOR
         : Constant.DEFAULT_STYLE_CURSOR);
-    if (exists(selectedShape)) {
-      Anchor currentAnchor = selectedShape.getCurrentAnchor(currentPoint);
-      if (exists(currentAnchor)) {
-        setCursor(currentAnchor.getCursorStyle());
-      }
-    }
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    selectedShapes.stream().map(shape -> shape.getCurrentAnchor(currentPoint)).filter(
+            Objects::nonNull).findFirst()
+        .ifPresent(currentAnchor -> setCursor(currentAnchor.getCursorStyle()));
   }
 
   private Optional<Transformer> getTransformer() {
@@ -211,7 +204,7 @@ public class DrawingPanel extends JPanel implements Printable {
   private void finishDraw() {
     undoManager.undoableEditHappened(
         new UndoableEditEvent(this, new UndoablePanel(currentShape)));
-    setSelectedShape(currentShape);
+    currentShape.setSelected(true);
     setUpdate(true);
     setIDLEMode();
   }
@@ -231,39 +224,45 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void chooseOutlineColor() {
     Color chosenColor = chooseColor(Constant.DEFAULT_OUTLINE_COLOR, outlineColor);
-    if (checkSelectedShape()) {
-      selectedShape.setOutlineColor(chosenColor);
-      repaint();
-    } else {
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (selectedShapes.isEmpty()) {
       outlineColor = chosenColor;
+    } else {
+      selectedShapes.forEach(shape -> shape.setOutlineColor(chosenColor));
+      repaint();
     }
   }
 
   public void chooseFillColor() {
     Color chosenColor = chooseColor(Constant.DEFAULT_FILL_COLOR, fillColor);
-    if (checkSelectedShape()) {
-      selectedShape.setFillColor(chosenColor);
-      repaint();
-    } else {
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (selectedShapes.isEmpty()) {
       fillColor = chosenColor;
+    } else {
+      selectedShapes.forEach(shape -> shape.setFillColor(chosenColor));
+      repaint();
     }
   }
 
   public void updateOutlineSize(int outlineSize) {
     setIDLEMode();
-    if (checkSelectedShape()) {
-      selectedShape.setOutlineSize(outlineSize).setStroke();
-    } else {
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (selectedShapes.isEmpty()) {
       this.outlineSize = outlineSize;
+    } else {
+      selectedShapes.forEach(shape -> shape.setOutlineSize(outlineSize).setStroke());
+      repaint();
     }
   }
 
   public void updateDashSize(int dashSize) {
     setIDLEMode();
-    if (checkSelectedShape()) {
-      selectedShape.setDashSize(dashSize).setStroke();
-    } else {
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (selectedShapes.isEmpty()) {
       this.dashSize = dashSize;
+    } else {
+      selectedShapes.forEach(shape -> shape.setDashSize(dashSize).setStroke());
+      repaint();
     }
   }
 
@@ -303,22 +302,26 @@ public class DrawingPanel extends JPanel implements Printable {
 
   private void registerClipboard(DrawShape shape) {
     DrawShape copiedShape = shape.clone();
-    setSelectedShape(copiedShape);
+    copiedShape.setSelected(true);
     clipboard.add(copiedShape);
   }
 
   public void cut() {
-    if (exists(selectedShape)) {
-      shapes.remove(selectedShape);
-      registerClipboard(selectedShape);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      selectedShapes.forEach(shape -> {
+        shapes.remove(shape);
+        registerClipboard(shape);
+      });
       setUpdate(true);
       repaint();
     }
   }
 
   public void copy() {
-    if (exists(selectedShape)) {
-      registerClipboard(selectedShape);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      selectedShapes.forEach(this::registerClipboard);
     }
   }
 
@@ -326,7 +329,7 @@ public class DrawingPanel extends JPanel implements Printable {
     if (!clipboard.isEmpty()) {
       clearSelectedShapes();
       clipboard.paste(bufferedImageGraphics2D).forEach(shape -> {
-        setSelectedShape(shape);
+        shape.setSelected(true);
         undoManager.undoableEditHappened(
             new UndoableEditEvent(this, new UndoablePanel(shape)));
         shapes.add(shape);
@@ -345,10 +348,14 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void bringForward() {
-    if (exists(selectedShape)) {
-      int shapeIndex = shapes.indexOf(selectedShape);
-      if (shapeIndex < shapes.size() - 1) {
-        Collections.swap(shapes, shapeIndex, shapeIndex + 1);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      int maxIndex = selectedShapes.stream().mapToInt(shape -> shapes.indexOf(shape)).max()
+          .orElse(shapes.size() - 1);
+
+      if (maxIndex < shapes.size() - 1) {
+        selectedShapes.forEach(shape -> shapes.remove(shape));
+        shapes.addAll(maxIndex, selectedShapes);
         setUpdate(true);
         repaint();
       }
@@ -356,10 +363,14 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void sendBackward() {
-    if (exists(selectedShape)) {
-      int shapeIndex = shapes.indexOf(selectedShape);
-      if (shapeIndex > 0) {
-        Collections.swap(shapes, shapeIndex - 1, shapeIndex);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      int minIndex = selectedShapes.stream().mapToInt(shape -> shapes.indexOf(shape)).min()
+          .orElse(-1);
+
+      if (minIndex > 0) {
+        selectedShapes.forEach(shape -> shapes.remove(shape));
+        shapes.addAll(minIndex - 1, selectedShapes);
         setUpdate(true);
         repaint();
       }
@@ -367,20 +378,29 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void bringToFront() {
-    if (exists(selectedShape)) {
-      shapes.remove(selectedShape);
-      shapes.add(selectedShape);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      selectedShapes.forEach(shape -> {
+        shapes.remove(shape);
+        shapes.add(shape);
+      });
       setUpdate(true);
       repaint();
     }
   }
 
   public void sendToBack() {
-    if (exists(selectedShape)) {
-      shapes.remove(selectedShape);
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      List<DrawShape> selectedList = new ArrayList<>();
+      selectedShapes.forEach(shape -> {
+        shapes.remove(shape);
+        selectedList.add(shape);
+      });
+
       List<DrawShape> temp = new ArrayList<>(shapes);
       shapes.clear();
-      shapes.add(selectedShape);
+      shapes.addAll(selectedList);
       shapes.addAll(temp);
       setUpdate(true);
       repaint();
@@ -402,7 +422,7 @@ public class DrawingPanel extends JPanel implements Printable {
       clearSelectedShapes();
       shapes.remove(shape);
       if (!shapes.isEmpty()) {
-        setSelectedShape(shapes.get(shapes.size() - 1));
+        shapes.get(shapes.size() - 1).setSelected(true);
       }
 
     }
@@ -411,7 +431,7 @@ public class DrawingPanel extends JPanel implements Printable {
       super.redo();
       clearSelectedShapes();
       shapes.add(shape);
-      setSelectedShape(shape);
+      shape.setSelected(true);
     }
   }
 
@@ -424,15 +444,9 @@ public class DrawingPanel extends JPanel implements Printable {
       } else if (isCurrentMode(Mode.IDLE)) {
         clearSelectedShapes();
         setSpinnerValue(outlineSize, dashSize);
-        if (exists(currentShape)) {
-          setCurrentMode(isCurrentShape(DrawPolygon.class) ? Mode.DRAW_POLYGON
-              : Mode.DRAW_NORMAL);
-          setCurrentShape(currentShape.newShape());
-          setShapeAttributes(currentShape);
-          setTransformer(new Drawer(currentShape));
-        } else {
-          setSelectedShape(getSelectedShape(e.getPoint()));
-          if (exists(selectedShape)) {
+        if (isCurrentShape(DrawSelection.class)) {
+          Optional.ofNullable(getSelectedShape(e.getPoint())).ifPresentOrElse(selectedShape -> {
+            selectedShape.setSelected(true);
             setSpinnerValue(selectedShape.getOutlineSize(),
                 selectedShape.getDashSize());
             if (!exists(selectedShape.getCurrentAnchor(e.getPoint()))) {
@@ -445,7 +459,18 @@ public class DrawingPanel extends JPanel implements Printable {
               setCurrentMode(Mode.RESIZE);
               setTransformer(new Resizer(selectedShape));
             }
-          }
+          }, () -> {
+            setCurrentMode(Mode.SELECTION);
+            setCurrentShape(currentShape.newShape());
+            currentShape.setOutlineSize(1).setDashSize(5).setStroke();
+            setTransformer(new Selector(currentShape));
+          });
+        } else {
+          setCurrentMode(isCurrentShape(DrawPolygon.class) ? Mode.DRAW_POLYGON
+              : Mode.DRAW_NORMAL);
+          setCurrentShape(currentShape.newShape());
+          setShapeAttributes(currentShape);
+          setTransformer(new Drawer(currentShape));
         }
         getTransformer().ifPresent(transformer -> transformer.setPoint(e.getPoint()));
       }
@@ -454,7 +479,7 @@ public class DrawingPanel extends JPanel implements Printable {
     @Override
     public void mouseMoved(MouseEvent e) {
       if (isCurrentMode(Mode.IDLE)) {
-        if (!exists(currentShape)) {
+        if (isCurrentShape(DrawSelection.class)) {
           updateCursorStyle(e.getPoint());
         }
       } else if (isCurrentMode(Mode.DRAW_POLYGON)) {
@@ -486,6 +511,10 @@ public class DrawingPanel extends JPanel implements Printable {
         getTransformer().ifPresent(
             transformer -> ((Drawer) transformer).finishTransform(shapes));
         finishDraw();
+      } else if (isCurrentMode(Mode.SELECTION)) {
+        getTransformer().ifPresent(
+            transformer -> ((Selector) transformer).finishTransform(shapes));
+        setIDLEMode();
       } else if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {
         setUpdate(true);
         setIDLEMode();
