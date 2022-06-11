@@ -22,9 +22,7 @@ public class Rotator extends Transformer {
   public void transform(Graphics2D graphics2D, Point currentPoint) {
     graphics2D.setXORMode(graphics2D.getBackground());
     shape.draw(graphics2D);
-    affineTransform.setToRotation(computeAngle(rotatePoint, previousPoint, currentPoint),
-        rotatePoint.getX(), rotatePoint.getY());
-    shape.transform(affineTransform);
+    shape.rotate(computeAngle(rotatePoint, previousPoint, currentPoint), rotatePoint);
     shape.draw(graphics2D);
     previousPoint = currentPoint;
   }

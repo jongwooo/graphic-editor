@@ -36,10 +36,7 @@ public class Resizer extends Transformer {
 
       graphics2D.setXORMode(graphics2D.getBackground());
       shape.draw(graphics2D);
-      affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
-      affineTransform.scale(dto.getScaleX(), dto.getScaleY());
-      affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
-      shape.transform(affineTransform);
+      shape.resize(dto);
       shape.draw(graphics2D);
       previousPoint = currentPoint;
     }

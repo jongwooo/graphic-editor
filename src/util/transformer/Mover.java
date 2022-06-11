@@ -21,9 +21,7 @@ public class Mover extends Transformer {
   public void transform(Graphics2D graphics2D, Point currentPoint) {
     graphics2D.setXORMode(graphics2D.getBackground());
     shape.draw(graphics2D);
-    affineTransform.setToTranslation(currentPoint.x - previousPoint.x,
-        currentPoint.y - previousPoint.y);
-    shape.transform(affineTransform);
+    shape.move(currentPoint.x - previousPoint.x, currentPoint.y - previousPoint.y);
     shape.draw(graphics2D);
     previousPoint = currentPoint;
   }

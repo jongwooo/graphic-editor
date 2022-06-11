@@ -1,13 +1,10 @@
 package components.panel;
 
-import global.Constant;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import util.draw.DrawShape;
-import util.transformer.Mover;
-import util.transformer.Transformer;
 
 public class Clipboard {
 
@@ -41,9 +38,7 @@ public class Clipboard {
   }
 
   public DrawShape move(Graphics2D graphics2D, DrawShape shape) {
-    Transformer transformer = new Mover(shape);
-    transformer.setPoint(Constant.BEFORE_PASTE_POINT);
-    transformer.transform(graphics2D, Constant.AFTER_PASTE_POINT);
+    shape.move(8, 8);
     return shape.clone();
   }
 }

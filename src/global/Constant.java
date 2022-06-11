@@ -46,9 +46,6 @@ public class Constant {
   public static final int DEFAULT_DASH_SIZE = 0;
   public static final CustomStroke DEFAULT_STROKE = new CustomStroke(DEFAULT_OUTLINE_SIZE);
 
-  public static final Point BEFORE_PASTE_POINT = new Point(0, 0);
-  public static final Point AFTER_PASTE_POINT = new Point(8, 8);
-
   public static final Toolkit DEFAULT_TOOLKIT = Toolkit.getDefaultToolkit();
 
   public static final int CMD_MASK = System.getProperty("os.name").toLowerCase().contains("mac")

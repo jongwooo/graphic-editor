@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 import util.draw.stroke.CustomStroke;
 import util.draw.stroke.StrokeFactory;
+import util.transformer.dto.ScaleDto;
 
 public abstract class DrawShape implements Cloneable, Serializable {
 
@@ -23,6 +24,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   protected Shape shape;
   protected Point startPoint;
+  private final AffineTransform affineTransform;
   private final DrawAnchor anchor;
   private Anchor currentAnchor;
   private boolean selected;
@@ -33,6 +35,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   public DrawShape(Shape shape) {
     this.shape = shape;
+    affineTransform = new AffineTransform();
     anchor = new DrawAnchor();
     currentAnchor = null;
     selected = false;
@@ -79,15 +82,11 @@ public abstract class DrawShape implements Cloneable, Serializable {
   }
 
   public Anchor getCurrentAnchor(Point currentPoint) {
-    if (anchor != null) {
-      List<Ellipse2D> anchors = anchor.getAnchors();
-      currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
-          .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
-          .orElse(null);
-      return currentAnchor;
-    } else {
-      return null;
-    }
+    List<Ellipse2D> anchors = anchor.getAnchors();
+    currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
+        .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
+        .orElse(null);
+    return currentAnchor;
   }
 
   public boolean isSelected() {
@@ -98,32 +97,28 @@ public abstract class DrawShape implements Cloneable, Serializable {
     this.selected = selected;
   }
 
-  public DrawShape setOutlineColor(Color outlineColor) {
+  public void setOutlineColor(Color outlineColor) {
     this.outlineColor = outlineColor;
-    return this;
   }
 
-  public DrawShape setFillColor(Color fillColor) {
+  public void setFillColor(Color fillColor) {
     this.fillColor = fillColor;
-    return this;
   }
 
   public int getOutlineSize() {
     return outlineSize;
   }
 
-  public DrawShape setOutlineSize(int outlineSize) {
+  public void setOutlineSize(int outlineSize) {
     this.outlineSize = outlineSize;
-    return this;
   }
 
   public int getDashSize() {
     return dashSize;
   }
 
-  public DrawShape setDashSize(int dashSize) {
+  public void setDashSize(int dashSize) {
     this.dashSize = dashSize;
-    return this;
   }
 
   public void setStroke() {
@@ -143,9 +138,26 @@ public abstract class DrawShape implements Cloneable, Serializable {
         (int) shape.getBounds().getCenterY());
   }
 
-  public void transform(AffineTransform affineTransform) {
-    shape = shape instanceof Path2D.Float ? new Path2D.Float(shape, affineTransform)
-        : new Path2D.Double(shape, affineTransform);
+  private Shape createTransformedShape(Shape pSrc, AffineTransform at) {
+    return pSrc instanceof Path2D.Float ? new Path2D.Float(pSrc, at)
+        : new Path2D.Double(pSrc, at);
+  }
+
+  public void move(double translateX, double translateY) {
+    affineTransform.setToTranslation(translateX, translateY);
+    shape = createTransformedShape(shape, affineTransform);
+  }
+
+  public void resize(ScaleDto dto) {
+    affineTransform.setToTranslation(dto.getTranslateX(), dto.getTranslateY());
+    affineTransform.scale(dto.getScaleX(), dto.getScaleY());
+    affineTransform.translate(-dto.getTranslateX(), -dto.getTranslateY());
+    shape = createTransformedShape(shape, affineTransform);
+  }
+
+  public void rotate(double rotateAngle, Point rotatePoint) {
+    affineTransform.setToRotation(rotateAngle, rotatePoint.getX(), rotatePoint.getY());
+    shape = createTransformedShape(shape, affineTransform);
   }
 
   @Override

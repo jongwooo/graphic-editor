@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
+import util.draw.DrawGroup;
 import util.draw.DrawPolygon;
 import util.draw.DrawSelection;
 import util.draw.DrawShape;
@@ -193,8 +195,11 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   private void setShapeAttributes(DrawShape shape) {
-    shape.setOutlineColor(outlineColor).setFillColor(fillColor)
-        .setOutlineSize(outlineSize).setDashSize(dashSize).setStroke();
+    shape.setOutlineColor(outlineColor);
+    shape.setFillColor(fillColor);
+    shape.setOutlineSize(outlineSize);
+    shape.setDashSize(dashSize);
+    shape.setStroke();
   }
 
   private void finishDraw() {
@@ -246,7 +251,10 @@ public class DrawingPanel extends JPanel implements Printable {
     if (selectedShapes.isEmpty()) {
       this.outlineSize = outlineSize;
     } else {
-      selectedShapes.forEach(shape -> shape.setOutlineSize(outlineSize).setStroke());
+      selectedShapes.forEach(shape -> {
+        shape.setOutlineSize(outlineSize);
+        shape.setStroke();
+      });
       repaint();
     }
   }
@@ -257,7 +265,10 @@ public class DrawingPanel extends JPanel implements Printable {
     if (selectedShapes.isEmpty()) {
       this.dashSize = dashSize;
     } else {
-      selectedShapes.forEach(shape -> shape.setDashSize(dashSize).setStroke());
+      selectedShapes.forEach(shape -> {
+        shape.setDashSize(dashSize);
+        shape.setStroke();
+      });
       repaint();
     }
   }
@@ -336,11 +347,41 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void group() {
-
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      DrawGroup group = new DrawGroup();
+      selectedShapes.forEach(childShape -> {
+        shapes.remove(childShape);
+        childShape.setSelected(false);
+        group.addChildShape(childShape);
+      });
+      shapes.add(group);
+      setUpdate(true);
+      repaint();
+    }
   }
 
   public void ungroup() {
-
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      AtomicBoolean childExist = new AtomicBoolean(false);
+      List<DrawShape> temp = new ArrayList<>();
+      selectedShapes.forEach(shape -> {
+        if (shape instanceof DrawGroup) {
+          ((DrawGroup) shape).getChildShapes().forEach(childShape -> {
+            childShape.setSelected(true);
+            temp.add(childShape);
+          });
+          shapes.remove(shape);
+          childExist.set(true);
+        }
+      });
+      if (childExist.get()) {
+        shapes.addAll(temp);
+        setUpdate(true);
+        repaint();
+      }
+    }
   }
 
   public void bringForward() {
@@ -458,7 +499,9 @@ public class DrawingPanel extends JPanel implements Printable {
           }, () -> {
             setCurrentMode(Mode.SELECTION);
             setCurrentShape(currentShape.newShape());
-            currentShape.setOutlineSize(1).setDashSize(5).setStroke();
+            currentShape.setOutlineSize(1);
+            currentShape.setDashSize(5);
+            currentShape.setStroke();
             setTransformer(new Selector(currentShape));
           });
         } else {
