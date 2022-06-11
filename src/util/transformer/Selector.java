@@ -26,6 +26,6 @@ public class Selector extends Transformer {
 
   public void finishTransform(List<DrawShape> shapes) {
     shapes.stream().filter(drawShape -> shape.getBounds().contains(drawShape.getBounds()))
-        .forEach(drawShape -> drawShape.setSelected(true));
+        .forEach(selectedShape -> selectedShape.setSelected(true));
   }
 }
