@@ -9,20 +9,20 @@ import util.draw.DrawSelection;
 import util.draw.DrawShape;
 
 public enum ShapeToolItem {
-  cursor(new DrawSelection()),
-  rectangle(new DrawRectangle()),
-  ellipse(new DrawEllipse()),
-  line(new DrawLine()),
-  polygon(new DrawPolygon()),
-  pencil(new DrawPencil());
+  cursor(DrawSelection.class),
+  rectangle(DrawRectangle.class),
+  ellipse(DrawEllipse.class),
+  line(DrawLine.class),
+  polygon(DrawPolygon.class),
+  pencil(DrawPencil.class);
 
-  private final DrawShape shape;
+  private final Class<? extends DrawShape> shapeClass;
 
-  ShapeToolItem(DrawShape shape) {
-    this.shape = shape;
+  ShapeToolItem(Class<? extends DrawShape> shapeClass) {
+    this.shapeClass = shapeClass;
   }
 
-  public DrawShape newShape() {
-    return shape;
+  public Class<? extends DrawShape> getShapeClass() {
+    return shapeClass;
   }
 }

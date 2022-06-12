@@ -23,9 +23,4 @@ public class DrawLine extends DrawShape {
   public void setCurrentPoint(Point currentPoint) {
     line2D.setLine(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
   }
-
-  @Override
-  public DrawShape newShape() {
-    return new DrawLine();
-  }
 }

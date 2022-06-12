@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,6 +57,7 @@ public class DrawingPanel extends JPanel implements Printable {
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
   private Transformer transformer;
+  private Class<? extends DrawShape> shapeClass;
   private DrawShape currentShape;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
@@ -71,6 +73,7 @@ public class DrawingPanel extends JPanel implements Printable {
     undoManager = new UndoManager();
     mouseHandler = new MouseHandler();
     transformer = null;
+    shapeClass = null;
     currentShape = null;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
     fillColor = Constant.DEFAULT_FILL_COLOR;
@@ -120,18 +123,27 @@ public class DrawingPanel extends JPanel implements Printable {
     this.mode = mode;
   }
 
-  private boolean isCurrentShape(Class<?>... classes) {
-    return Arrays.stream(classes).anyMatch(aClass -> aClass.isInstance(currentShape));
+  public void updateShapeClass(Class<? extends DrawShape> shapeClass) {
+    this.shapeClass = shapeClass;
+    updateCursorStyle();
+    setIDLEMode();
+  }
+
+  private boolean isCurrentShapeClass(Class<?>... classes) {
+    return Arrays.stream(classes).anyMatch(aClass -> shapeClass == aClass);
+  }
+
+  public DrawShape newShapeInstance() {
+    try {
+      return shapeClass.getDeclaredConstructor().newInstance();
+    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+             NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public void setCurrentShape(DrawShape shape) {
     this.currentShape = shape;
-  }
-
-  public void updateCurrentShape(DrawShape currentShape) {
-    setCurrentShape(currentShape);
-    updateCursorStyle();
-    setIDLEMode();
   }
 
   private DrawShape getSelectedShape(Point currentPoint) {
@@ -154,8 +166,8 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void updateCursorStyle() {
-    setCursor(currentShape != null ? Constant.CROSSHAIR_STYLE_CURSOR
-        : Constant.DEFAULT_STYLE_CURSOR);
+    setCursor(shapeClass == DrawSelection.class ? Constant.DEFAULT_STYLE_CURSOR
+        : Constant.CROSSHAIR_STYLE_CURSOR);
   }
 
   private void updateCursorStyle(Point currentPoint) {
@@ -481,7 +493,7 @@ public class DrawingPanel extends JPanel implements Printable {
       } else if (isCurrentMode(Mode.IDLE)) {
         clearSelectedShapes();
         setSpinnerValue(outlineSize, dashSize);
-        if (isCurrentShape(DrawSelection.class)) {
+        if (isCurrentShapeClass(DrawSelection.class)) {
           Optional.ofNullable(getSelectedShape(e.getPoint())).ifPresentOrElse(selectedShape -> {
             selectedShape.setSelected(true);
             setSpinnerValue(selectedShape.getOutlineSize(),
@@ -498,16 +510,16 @@ public class DrawingPanel extends JPanel implements Printable {
             }
           }, () -> {
             setCurrentMode(Mode.SELECTION);
-            setCurrentShape(currentShape.newShape());
+            setCurrentShape(newShapeInstance());
             currentShape.setOutlineSize(1);
             currentShape.setDashSize(5);
             currentShape.setStroke();
             setTransformer(new Selector(currentShape));
           });
         } else {
-          setCurrentMode(isCurrentShape(DrawPolygon.class) ? Mode.DRAW_POLYGON
+          setCurrentMode(isCurrentShapeClass(DrawPolygon.class) ? Mode.DRAW_POLYGON
               : Mode.DRAW_NORMAL);
-          setCurrentShape(currentShape.newShape());
+          setCurrentShape(newShapeInstance());
           setShapeAttributes(currentShape);
           setTransformer(new Drawer(currentShape));
         }
@@ -518,7 +530,7 @@ public class DrawingPanel extends JPanel implements Printable {
     @Override
     public void mouseMoved(MouseEvent e) {
       if (isCurrentMode(Mode.IDLE)) {
-        if (isCurrentShape(DrawSelection.class)) {
+        if (isCurrentShapeClass(DrawSelection.class)) {
           updateCursorStyle(e.getPoint());
         }
       } else if (isCurrentMode(Mode.DRAW_POLYGON)) {

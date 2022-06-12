@@ -28,9 +28,4 @@ public class DrawPolygon extends DrawShape {
   public void keepDraw(Point currentPoint) {
     polygon.addPoint(currentPoint.x, currentPoint.y);
   }
-
-  @Override
-  public DrawShape newShape() {
-    return new DrawPolygon();
-  }
 }

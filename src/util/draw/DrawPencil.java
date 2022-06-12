@@ -24,9 +24,4 @@ public class DrawPencil extends DrawShape {
   public void setCurrentPoint(Point currentPoint) {
     path2D.lineTo(currentPoint.x, currentPoint.y);
   }
-
-  @Override
-  public DrawShape newShape() {
-    return new DrawPencil();
-  }
 }

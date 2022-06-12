@@ -125,9 +125,4 @@ public class DrawGroup extends DrawShape {
   public void setCurrentPoint(Point currentPoint) {
     childShapes.forEach(childShape -> childShape.setCurrentPoint(currentPoint));
   }
-
-  @Override
-  public DrawShape newShape() {
-    return null;
-  }
 }

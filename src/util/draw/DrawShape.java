@@ -172,6 +172,4 @@ public abstract class DrawShape implements Cloneable, Serializable {
   public abstract void setStartPoint(Point startPoint);
 
   public abstract void setCurrentPoint(Point currentPoint);
-
-  public abstract DrawShape newShape();
 }

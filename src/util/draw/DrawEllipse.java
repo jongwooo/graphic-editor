@@ -23,9 +23,4 @@ public class DrawEllipse extends DrawShape {
   public void setCurrentPoint(Point currentPoint) {
     ellipse2D.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
   }
-
-  @Override
-  public DrawShape newShape() {
-    return new DrawEllipse();
-  }
 }

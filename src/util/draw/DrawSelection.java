@@ -21,9 +21,4 @@ public class DrawSelection extends DrawShape {
   public void setCurrentPoint(Point currentPoint) {
     selection.setFrameFromDiagonal(startPoint.x, startPoint.y, currentPoint.x, currentPoint.y);
   }
-
-  @Override
-  public DrawShape newShape() {
-    return new DrawSelection();
-  }
 }

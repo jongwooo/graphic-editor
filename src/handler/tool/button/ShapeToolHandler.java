@@ -4,7 +4,6 @@ import components.panel.DrawingPanel;
 import global.tool.ShapeToolItem;
 import handler.ActionHandler;
 import java.lang.reflect.InvocationTargetException;
-import util.draw.DrawShape;
 
 public class ShapeToolHandler extends ActionHandler {
 
@@ -21,8 +20,8 @@ public class ShapeToolHandler extends ActionHandler {
   public void invokeMethod(String actionCommand) {
     try {
       DrawingPanel drawingPanel = DrawingPanel.getInstance();
-      drawingPanel.getClass().getMethod("updateCurrentShape", DrawShape.class)
-          .invoke(drawingPanel, ShapeToolItem.valueOf(actionCommand).newShape());
+      drawingPanel.getClass().getMethod("updateShapeClass", Class.class)
+          .invoke(drawingPanel, ShapeToolItem.valueOf(actionCommand).getShapeClass());
     } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {
       exception.printStackTrace();
     }
