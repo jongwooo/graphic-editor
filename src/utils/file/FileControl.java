@@ -93,7 +93,7 @@ public class FileControl {
         setFilePath(null);
         mainFrame.setTitle(Constant.MAINFRAME_TITLE);
         drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
-        drawingPanel.clearShapes();
+        drawingPanel.clearPanel();
         drawingPanel.setUpdate(false);
         drawingPanel.repaint();
 
@@ -207,7 +207,7 @@ public class FileControl {
     try {
       ObjectOutputStream objectOutputStream = new ObjectOutputStream(
           new BufferedOutputStream(new FileOutputStream(currentFile)));
-      drawingPanel.clearSelectedShapes();
+      drawingPanel.clearSelected();
       objectOutputStream.writeObject(drawingPanel.getShapes());
       drawingPanel.setSpinnerValue(Constant.DEFAULT_OUTLINE_SIZE, Constant.DEFAULT_DASH_SIZE);
       drawingPanel.setUpdate(false);

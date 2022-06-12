@@ -156,8 +156,17 @@ public class DrawingPanel extends JPanel implements Printable {
     return shapes.stream().filter(DrawShape::isSelected).collect(Collectors.toList());
   }
 
-  public void clearSelectedShapes() {
-    shapes.forEach(shape -> shape.setSelected(false));
+  public void removeSelectedShapes() {
+    List<DrawShape> selectedShapes  = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      shapes.removeAll(selectedShapes);
+      repaint();
+    }
+  }
+
+  public void clearSelected() {
+    List<DrawShape> selectedShapes  = getSelectedShapes();
+    selectedShapes.forEach(selectedShape -> selectedShape.setSelected(false));
     repaint();
   }
 
@@ -222,7 +231,7 @@ public class DrawingPanel extends JPanel implements Printable {
     setIDLEMode();
   }
 
-  public void clearShapes() {
+  public void clearPanel() {
     shapes.clear();
     setUpdate(true);
     setIDLEMode();
@@ -346,7 +355,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void paste() {
     if (!clipboard.isEmpty()) {
-      clearSelectedShapes();
+      clearSelected();
       clipboard.paste(bufferedImageGraphics2D).forEach(shape -> {
         shape.setSelected(true);
         undoManager.undoableEditHappened(
@@ -469,7 +478,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void undo() {
       super.undo();
-      clearSelectedShapes();
+      clearSelected();
       shapes.remove(shape);
       if (!shapes.isEmpty()) {
         shapes.get(shapes.size() - 1).setSelected(true);
@@ -479,7 +488,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
     public void redo() {
       super.redo();
-      clearSelectedShapes();
+      clearSelected();
       shapes.add(shape);
       shape.setSelected(true);
     }
@@ -492,7 +501,7 @@ public class DrawingPanel extends JPanel implements Printable {
       if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
         showPanelPopup(e.getPoint());
       } else if (isCurrentMode(Mode.IDLE)) {
-        clearSelectedShapes();
+        clearSelected();
         setSpinnerValue(outlineSize, dashSize);
         if (isCurrentShapeClass(DrawSelection.class)) {
           Optional.ofNullable(getSelectedShape(e.getPoint())).ifPresentOrElse(selectedShape -> {

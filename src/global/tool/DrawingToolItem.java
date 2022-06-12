@@ -1,7 +1,8 @@
 package global.tool;
 
 public enum DrawingToolItem {
-  clear("clearShapes"),
+  remove("removeSelectedShapes"),
+  clear("clearPanel"),
   outline("chooseOutlineColor"),
   fill("chooseFillColor");
 
