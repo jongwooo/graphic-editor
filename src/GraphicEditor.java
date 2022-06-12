@@ -1,4 +1,4 @@
-import frame.MainFrame;
+import frames.MainFrame;
 
 public class GraphicEditor {
 

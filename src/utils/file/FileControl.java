@@ -1,7 +1,7 @@
 package utils.file;
 
 import components.panel.DrawingPanel;
-import frame.MainFrame;
+import frames.MainFrame;
 import global.Constant;
 import global.dialog.FileDialog;
 import java.awt.print.PrinterException;

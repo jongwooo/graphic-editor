@@ -1,4 +1,4 @@
-package frame;
+package frames;
 
 import components.menu.MenuBar;
 import components.panel.DrawingPanel;
