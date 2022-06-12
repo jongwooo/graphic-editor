@@ -15,7 +15,7 @@ public class DrawAnchor implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private List<Ellipse2D> anchors;
+  private final List<Ellipse2D> anchors;
 
   public DrawAnchor() {
     anchors = new ArrayList<>();
