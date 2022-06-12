@@ -23,8 +23,7 @@ public class ShapeToolHandler extends ActionHandler {
       DrawingPanel drawingPanel = DrawingPanel.getInstance();
       drawingPanel.getClass().getMethod("updateCurrentShape", DrawShape.class)
           .invoke(drawingPanel, ShapeToolItem.valueOf(actionCommand).newShape());
-    } catch (InvocationTargetException | IllegalAccessException |
-             NoSuchMethodException exception) {
+    } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException exception) {
       exception.printStackTrace();
     }
   }
