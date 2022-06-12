@@ -160,7 +160,8 @@ public class DrawingPanel extends JPanel implements Printable {
     List<DrawShape> selectedShapes  = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
       shapes.removeAll(selectedShapes);
-      repaint();
+      setUpdate(true);
+      setIDLEMode();
     }
   }
 
