@@ -1,7 +1,7 @@
-package handler.tool.button;
+package handlers.tool.button;
 
 import components.panel.DrawingPanel;
-import handler.ActionHandler;
+import handlers.ActionHandler;
 import java.lang.reflect.InvocationTargetException;
 
 public class DrawingToolHandler extends ActionHandler {

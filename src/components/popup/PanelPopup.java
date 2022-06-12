@@ -4,7 +4,7 @@ import global.Constant;
 import global.menu.EditMenuItem;
 import global.menu.submenu.BringToFrontMenuItem;
 import global.menu.submenu.SendToBackMenuItem;
-import handler.popup.PanelPopupHandler;
+import handlers.popup.PanelPopupHandler;
 import java.util.Arrays;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

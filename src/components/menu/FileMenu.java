@@ -2,7 +2,7 @@ package components.menu;
 
 import global.Constant;
 import global.menu.FileMenuItem;
-import handler.menu.FileMenuHandler;
+import handlers.menu.FileMenuHandler;
 import java.util.Arrays;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;

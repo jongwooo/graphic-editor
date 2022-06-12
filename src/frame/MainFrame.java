@@ -4,7 +4,7 @@ import components.menu.MenuBar;
 import components.panel.DrawingPanel;
 import components.tool.ToolBar;
 import global.Constant;
-import handler.frame.WindowHandler;
+import handlers.frame.WindowHandler;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 

@@ -2,7 +2,7 @@ package components.tool.spinner;
 
 import global.Constant;
 import global.tool.SpinnerModels;
-import handler.tool.spinner.SpinnerHandler;
+import handlers.tool.spinner.SpinnerHandler;
 
 public class DashSizeSpinner extends SizeSpinner {
 

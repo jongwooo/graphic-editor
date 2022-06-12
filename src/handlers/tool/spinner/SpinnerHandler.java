@@ -1,4 +1,4 @@
-package handler.tool.spinner;
+package handlers.tool.spinner;
 
 import components.panel.DrawingPanel;
 import global.tool.SpinnerModels;

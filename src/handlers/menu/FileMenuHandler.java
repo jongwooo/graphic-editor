@@ -1,6 +1,6 @@
-package handler.menu;
+package handlers.menu;
 
-import handler.ActionHandler;
+import handlers.ActionHandler;
 import java.lang.reflect.InvocationTargetException;
 import utils.file.FileControl;
 

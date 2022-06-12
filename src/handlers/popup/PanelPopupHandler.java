@@ -1,6 +1,6 @@
-package handler.popup;
+package handlers.popup;
 
-import handler.menu.EditMenuHandler;
+import handlers.menu.EditMenuHandler;
 
 public class PanelPopupHandler extends EditMenuHandler {
 

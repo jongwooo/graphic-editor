@@ -1,7 +1,7 @@
-package handler.menu;
+package handlers.menu;
 
 import components.panel.DrawingPanel;
-import handler.ActionHandler;
+import handlers.ActionHandler;
 import java.lang.reflect.InvocationTargetException;
 
 public class EditMenuHandler extends ActionHandler {
