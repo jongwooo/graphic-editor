@@ -1,8 +1,8 @@
-package util.transformer;
+package utils.transformer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import util.draw.DrawShape;
+import utils.draw.DrawShape;
 
 public class Rotator extends Transformer {
 

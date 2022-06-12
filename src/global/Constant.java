@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.SpinnerNumberModel;
-import util.draw.stroke.CustomStroke;
+import utils.draw.stroke.CustomStroke;
 
 public class Constant {
 

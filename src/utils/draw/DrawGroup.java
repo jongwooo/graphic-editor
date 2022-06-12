@@ -1,4 +1,4 @@
-package util.draw;
+package utils.draw;
 
 import global.draw.Anchor;
 import java.awt.Color;
@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
-import util.transformer.dto.ScaleDto;
+import utils.transformer.dto.ScaleDto;
 
 public class DrawGroup extends DrawShape {
 

@@ -1,4 +1,4 @@
-package util.draw.stroke;
+package utils.draw.stroke;
 
 import java.awt.BasicStroke;
 import java.io.IOException;

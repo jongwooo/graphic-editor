@@ -29,16 +29,16 @@ import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
-import util.draw.DrawGroup;
-import util.draw.DrawPolygon;
-import util.draw.DrawSelection;
-import util.draw.DrawShape;
-import util.transformer.Drawer;
-import util.transformer.Mover;
-import util.transformer.Resizer;
-import util.transformer.Rotator;
-import util.transformer.Selector;
-import util.transformer.Transformer;
+import utils.draw.DrawGroup;
+import utils.draw.DrawPolygon;
+import utils.draw.DrawSelection;
+import utils.draw.DrawShape;
+import utils.transformer.Drawer;
+import utils.transformer.Mover;
+import utils.transformer.Resizer;
+import utils.transformer.Rotator;
+import utils.transformer.Selector;
+import utils.transformer.Transformer;
 
 public class DrawingPanel extends JPanel implements Printable {
 

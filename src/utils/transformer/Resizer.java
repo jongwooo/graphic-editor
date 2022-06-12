@@ -1,11 +1,11 @@
-package util.transformer;
+package utils.transformer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import util.draw.DrawShape;
-import util.transformer.dto.BoundDto;
-import util.transformer.dto.ScaleDto;
+import utils.draw.DrawShape;
+import utils.transformer.dto.BoundDto;
+import utils.transformer.dto.ScaleDto;
 
 public class Resizer extends Transformer {
 
