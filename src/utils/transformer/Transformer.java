@@ -2,17 +2,14 @@ package utils.transformer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.geom.AffineTransform;
 import utils.draw.DrawShape;
 
 public abstract class Transformer {
 
   protected DrawShape shape;
-  protected AffineTransform affineTransform;
 
   public Transformer(DrawShape shape) {
     this.shape = shape;
-    affineTransform = new AffineTransform();
   }
 
   public abstract void setPoint(Point point);
