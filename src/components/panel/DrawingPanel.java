@@ -52,10 +52,9 @@ public class DrawingPanel extends JPanel implements Printable {
   private boolean update;
   private Mode mode;
   private List<DrawShape> shapes;
-  private BufferedImage bufferedImage;
-  private Graphics2D bufferedImageGraphics2D;
   private final UndoManager undoManager;
   private final MouseHandler mouseHandler;
+  private BufferedImage bufferedImage;
   private Transformer transformer;
   private Class<? extends DrawShape> shapeClass;
   private DrawShape currentShape;
@@ -72,6 +71,7 @@ public class DrawingPanel extends JPanel implements Printable {
     shapes = new ArrayList<>();
     undoManager = new UndoManager();
     mouseHandler = new MouseHandler();
+    bufferedImage = null;
     transformer = null;
     shapeClass = null;
     currentShape = null;
@@ -197,16 +197,27 @@ public class DrawingPanel extends JPanel implements Printable {
     this.transformer = transformer;
   }
 
+  public void createBufferedImage() {
+    bufferedImage = (BufferedImage) createImage(this.getWidth(), this.getHeight());
+  }
+
+  public Graphics2D createBufferedImageGraphics2D() {
+    Graphics2D bufferedImageGraphics2D = (Graphics2D) bufferedImage.getGraphics();
+    bufferedImageGraphics2D.setBackground(Constant.BACKGROUND_COLOR);
+    return bufferedImageGraphics2D;
+  }
+
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    bufferedImage = (BufferedImage) createImage(this.getWidth(), this.getHeight());
-    bufferedImageGraphics2D = (Graphics2D) bufferedImage.getGraphics();
 
-    bufferedImageGraphics2D.setBackground(Constant.BACKGROUND_COLOR);
-    bufferedImageGraphics2D.clearRect(0, 0, this.getWidth(), this.getHeight());
+    if (bufferedImage == null) {
+      createBufferedImage();
+    }
+
+    Graphics2D bufferedImageGraphics2D = createBufferedImageGraphics2D();
+    bufferedImageGraphics2D.clearRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
     shapes.forEach(shape -> shape.draw(bufferedImageGraphics2D));
-
     graphics.drawImage(bufferedImage, 0, 0, this);
   }
 
@@ -357,7 +368,7 @@ public class DrawingPanel extends JPanel implements Printable {
   public void paste() {
     if (!clipboard.isEmpty()) {
       clearSelected();
-      clipboard.paste(bufferedImageGraphics2D).forEach(shape -> {
+      clipboard.paste(createBufferedImageGraphics2D()).forEach(shape -> {
         shape.setSelected(true);
         undoManager.undoableEditHappened(
             new UndoableEditEvent(this, new UndoablePanel(shape)));
@@ -547,7 +558,7 @@ public class DrawingPanel extends JPanel implements Printable {
       } else if (isCurrentMode(Mode.DRAW_POLYGON)) {
         getTransformer().ifPresent(
             transformer -> {
-              transformer.transform(bufferedImageGraphics2D, e.getPoint());
+              transformer.transform(createBufferedImageGraphics2D(), e.getPoint());
               getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
             });
       }
@@ -558,7 +569,7 @@ public class DrawingPanel extends JPanel implements Printable {
       if (!isCurrentMode(Mode.IDLE)) {
         getTransformer().ifPresent(
             transformer -> {
-              transformer.transform(bufferedImageGraphics2D, e.getPoint());
+              transformer.transform(createBufferedImageGraphics2D(), e.getPoint());
               getGraphics().drawImage(bufferedImage, 0, 0, DrawingPanel.getInstance());
             });
         if (isCurrentMode(Mode.MOVE, Mode.RESIZE, Mode.ROTATE)) {

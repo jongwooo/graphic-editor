@@ -46,6 +46,7 @@ public class MainFrame extends JFrame {
     menuBar.initialize();
     toolBar.initialize();
     drawingPanel.initialize();
+    addComponentListener(windowHandler);
     addWindowListener(windowHandler);
   }
 }
