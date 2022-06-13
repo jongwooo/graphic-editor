@@ -79,7 +79,7 @@ public class DrawingPanel extends JPanel implements Printable {
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
     dashSize = Constant.DEFAULT_DASH_SIZE;
-    clipboard = Clipboard.getInstance();
+    clipboard = new Clipboard(new ArrayList<>());
     panelPopup = PanelPopup.getInstance();
   }
 
@@ -340,18 +340,13 @@ public class DrawingPanel extends JPanel implements Printable {
     }
   }
 
-  private void registerClipboard(DrawShape shape) {
-    DrawShape copiedShape = shape.clone();
-    copiedShape.setSelected(true);
-    clipboard.add(copiedShape);
-  }
-
   public void cut() {
     List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
+      clipboard.clear();
       selectedShapes.forEach(shape -> {
         shapes.remove(shape);
-        registerClipboard(shape);
+        clipboard.add(shape.clone());
       });
       setUpdate(true);
       repaint();
@@ -361,14 +356,15 @@ public class DrawingPanel extends JPanel implements Printable {
   public void copy() {
     List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
-      selectedShapes.forEach(this::registerClipboard);
+      clipboard.clear();
+      selectedShapes.forEach(shape -> clipboard.add(shape.clone()));
     }
   }
 
   public void paste() {
     if (!clipboard.isEmpty()) {
       clearSelected();
-      clipboard.paste(createBufferedImageGraphics2D()).forEach(shape -> {
+      clipboard.paste().forEach(shape -> {
         shape.setSelected(true);
         undoManager.undoableEditHappened(
             new UndoableEditEvent(this, new UndoablePanel(shape)));
