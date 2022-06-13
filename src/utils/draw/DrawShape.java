@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
@@ -126,7 +125,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
   }
 
   private boolean isUnfilledShape() {
-    return shape instanceof Line2D.Double || shape instanceof Path2D.Float;
+    return this instanceof DrawLine || this instanceof DrawPencil;
   }
 
   private boolean isDefaultFillColor() {
