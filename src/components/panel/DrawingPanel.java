@@ -157,7 +157,7 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void removeSelectedShapes() {
-    List<DrawShape> selectedShapes  = getSelectedShapes();
+    List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
       shapes.removeAll(selectedShapes);
       setUpdate(true);
@@ -166,7 +166,7 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   public void clearSelected() {
-    List<DrawShape> selectedShapes  = getSelectedShapes();
+    List<DrawShape> selectedShapes = getSelectedShapes();
     selectedShapes.forEach(selectedShape -> selectedShape.setSelected(false));
     repaint();
   }
