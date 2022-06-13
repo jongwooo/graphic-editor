@@ -370,7 +370,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void group() {
     List<DrawShape> selectedShapes = getSelectedShapes();
-    if (!selectedShapes.isEmpty()) {
+    if (selectedShapes.size() > 1) {
       DrawGroup group = new DrawGroup();
       selectedShapes.forEach(childShape -> {
         shapes.remove(childShape);
