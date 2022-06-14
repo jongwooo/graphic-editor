@@ -6,14 +6,18 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import utils.transformer.dto.ScaleDto;
 
-public class DrawGroup extends DrawShape {
+public class DrawGroup extends DrawShape implements Cloneable, Serializable {
 
-  private final List<DrawShape> childShapes;
+  private static final long serialVersionUID = 1L;
+
+  private List<DrawShape> childShapes;
   private final DrawAnchor anchor;
   private Anchor currentAnchor;
 
@@ -31,6 +35,10 @@ public class DrawGroup extends DrawShape {
     } else {
       shape = shape.getBounds().createUnion(childShape.getBounds());
     }
+  }
+
+  public void addAll(List<DrawShape> childShapes) {
+    this.childShapes = childShapes;
   }
 
   public List<DrawShape> getChildShapes() {
@@ -115,6 +123,15 @@ public class DrawGroup extends DrawShape {
   public void resize(ScaleDto dto) {
     super.resize(dto);
     childShapes.forEach(childShape -> childShape.resize(dto));
+  }
+
+  @Override
+  public DrawShape clone() {
+    List<DrawShape> cloneList = childShapes.stream().map(DrawShape::clone)
+        .collect(Collectors.toList());
+    DrawGroup cloneShape = (DrawGroup) super.clone();
+    cloneShape.addAll(cloneList);
+    return cloneShape;
   }
 
   @Override
