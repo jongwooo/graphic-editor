@@ -4,6 +4,7 @@ import components.menu.MenuBar;
 import components.panel.DrawingPanel;
 import components.tool.ToolBar;
 import global.Constant;
+import handlers.frame.FrameHandler;
 import handlers.frame.KeyHandler;
 import handlers.frame.WindowHandler;
 import java.awt.BorderLayout;
@@ -37,9 +38,10 @@ public class MainFrame extends JFrame {
     this.add(BorderLayout.CENTER, drawingPanel);
 
     WindowHandler windowHandler = WindowHandler.getInstance();
+    FrameHandler frameHandler = FrameHandler.getInstance();
     KeyHandler keyHandler = KeyHandler.getInstance();
-    addComponentListener(windowHandler);
     addWindowListener(windowHandler);
+    addComponentListener(frameHandler);
     addKeyListener(keyHandler);
     setFocusable(true);
   }
