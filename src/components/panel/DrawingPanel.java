@@ -162,15 +162,6 @@ public class DrawingPanel extends JPanel implements Printable {
     return shapes.stream().filter(DrawShape::isSelected).collect(Collectors.toList());
   }
 
-  public void removeSelectedShapes() {
-    List<DrawShape> selectedShapes = getSelectedShapes();
-    if (!selectedShapes.isEmpty()) {
-      shapes.removeAll(selectedShapes);
-      setUpdate(true);
-      setIDLEMode();
-    }
-  }
-
   public void clearSelected() {
     List<DrawShape> selectedShapes = getSelectedShapes();
     selectedShapes.forEach(selectedShape -> selectedShape.setSelected(false));
@@ -384,6 +375,15 @@ public class DrawingPanel extends JPanel implements Printable {
       });
       setUpdate(true);
       repaint();
+    }
+  }
+
+  public void delete() {
+    List<DrawShape> selectedShapes = getSelectedShapes();
+    if (!selectedShapes.isEmpty()) {
+      shapes.removeAll(selectedShapes);
+      setUpdate(true);
+      setIDLEMode();
     }
   }
 

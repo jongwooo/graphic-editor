@@ -10,7 +10,8 @@ public enum EditMenuItem implements MenuItem {
   redo("Redo", KeyEvent.VK_Z, Constant.CMD_MASK + InputEvent.SHIFT_DOWN_MASK, true),
   cut("Cut", KeyEvent.VK_X, Constant.CMD_MASK),
   copy("Copy", KeyEvent.VK_C, Constant.CMD_MASK),
-  paste("Paste", KeyEvent.VK_V, Constant.CMD_MASK, true),
+  paste("Paste", KeyEvent.VK_V, Constant.CMD_MASK),
+  delete("Delete", KeyEvent.VK_D, Constant.CMD_MASK, true),
   group("Group", KeyEvent.VK_G, Constant.CMD_MASK),
   ungroup("Ungroup", KeyEvent.VK_G, Constant.CMD_MASK + InputEvent.SHIFT_DOWN_MASK, true);
 
