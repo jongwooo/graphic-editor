@@ -48,6 +48,7 @@ public class Constant {
 
   public static final Toolkit DEFAULT_TOOLKIT = Toolkit.getDefaultToolkit();
 
+  public static final int CMD_KEY = 157;
   public static final int CMD_MASK = System.getProperty("os.name").toLowerCase().contains("mac")
       ? DEFAULT_TOOLKIT.getMenuShortcutKeyMaskEx() : KeyEvent.CTRL_DOWN_MASK;
 

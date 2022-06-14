@@ -12,6 +12,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import utils.draw.stroke.CustomStroke;
 import utils.draw.stroke.StrokeFactory;
@@ -72,8 +73,13 @@ public abstract class DrawShape implements Cloneable, Serializable {
     return shape.getBounds();
   }
 
-  public boolean isCurrentAnchor(Anchor anchor) {
-    return currentAnchor == anchor;
+  public boolean isRotateAnchor() {
+    return currentAnchor == Anchor.RR;
+  }
+
+  public boolean isResizeAnchor() {
+    return Arrays.stream(Anchor.values()).filter(drawAnchor -> drawAnchor != Anchor.RR)
+        .anyMatch(drawAnchor -> drawAnchor == currentAnchor);
   }
 
   public Anchor getCurrentAnchor() {

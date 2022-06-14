@@ -2,29 +2,38 @@ package utils.transformer;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.List;
 import utils.draw.DrawShape;
 
 public class Rotator extends Transformer {
 
-  private Point previousPoint, rotatePoint;
+  private Point previousPoint;
 
-  public Rotator(DrawShape shape) {
-    super(shape);
+  public Rotator(List<DrawShape> shapeList) {
+    super(shapeList);
   }
 
   @Override
   public void setPoint(Point point) {
     previousPoint = point;
-    rotatePoint = shape.getCenterPoint();
   }
 
   @Override
   public void transform(Graphics2D graphics2D, Point currentPoint) {
     graphics2D.setXORMode(graphics2D.getBackground());
-    shape.draw(graphics2D);
-    shape.rotate(computeAngle(rotatePoint, previousPoint, currentPoint), rotatePoint);
-    shape.draw(graphics2D);
-    previousPoint = currentPoint;
+    shapeList.stream()
+        .filter(shape -> shape.getCurrentAnchor() != null)
+        .findFirst().ifPresent(rotateShape -> {
+          double computedAngle =
+              computeAngle(rotateShape.getCenterPoint(), previousPoint, currentPoint);
+
+          shapeList.forEach(shape -> {
+            shape.draw(graphics2D);
+            shape.rotate(computedAngle, shape.getCenterPoint());
+            shape.draw(graphics2D);
+          });
+          previousPoint = currentPoint;
+        });
   }
 
   private double computeAngle(Point rotatePoint, Point previousPoint, Point currentPoint) {

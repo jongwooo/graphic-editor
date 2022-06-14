@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import utils.transformer.dto.ScaleDto;
 
@@ -54,8 +55,14 @@ public class DrawGroup extends DrawShape {
   }
 
   @Override
-  public boolean isCurrentAnchor(Anchor anchor) {
-    return currentAnchor == anchor;
+  public boolean isRotateAnchor() {
+    return currentAnchor == Anchor.RR;
+  }
+
+  @Override
+  public boolean isResizeAnchor() {
+    return Arrays.stream(Anchor.values()).filter(drawAnchor -> drawAnchor != Anchor.RR)
+        .anyMatch(drawAnchor -> drawAnchor == currentAnchor);
   }
 
   @Override

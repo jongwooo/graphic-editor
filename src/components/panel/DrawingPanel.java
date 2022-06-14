@@ -3,8 +3,8 @@ package components.panel;
 import components.popup.PanelPopup;
 import components.tool.spinner.DashSizeSpinner;
 import components.tool.spinner.OutlineSizeSpinner;
+import frames.MainFrame;
 import global.Constant;
-import global.draw.Anchor;
 import global.transformer.Mode;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -50,27 +50,28 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   private boolean update;
+  private boolean multiple;
   private Mode mode;
   private List<DrawShape> shapes;
+  private final Clipboard clipboard;
   private final UndoManager undoManager;
-  private final MouseHandler mouseHandler;
   private BufferedImage bufferedImage;
   private Transformer transformer;
   private Class<? extends DrawShape> shapeClass;
   private DrawShape currentShape;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
-  private final Clipboard clipboard;
   private final PanelPopup panelPopup;
 
   private DrawingPanel() {
     setBackground(Constant.BACKGROUND_COLOR);
 
     update = false;
+    multiple = false;
     mode = Mode.IDLE;
     shapes = new ArrayList<>();
+    clipboard = new Clipboard(new ArrayList<>());
     undoManager = new UndoManager();
-    mouseHandler = new MouseHandler();
     bufferedImage = null;
     transformer = null;
     shapeClass = null;
@@ -79,8 +80,11 @@ public class DrawingPanel extends JPanel implements Printable {
     fillColor = Constant.DEFAULT_FILL_COLOR;
     outlineSize = Constant.DEFAULT_OUTLINE_SIZE;
     dashSize = Constant.DEFAULT_DASH_SIZE;
-    clipboard = new Clipboard(new ArrayList<>());
     panelPopup = PanelPopup.getInstance();
+
+    MouseHandler mouseHandler = new MouseHandler();
+    addMouseListener(mouseHandler);
+    addMouseMotionListener(mouseHandler);
   }
 
   public static DrawingPanel getInstance() {
@@ -89,8 +93,6 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void initialize() {
     panelPopup.initialize();
-    addMouseListener(mouseHandler);
-    addMouseMotionListener(mouseHandler);
   }
 
   private void showPanelPopup(Point currentPoint) {
@@ -113,6 +115,10 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void setUpdate(boolean update) {
     this.update = update;
+  }
+
+  public void setMultiple(boolean multiple) {
+    this.multiple = multiple;
   }
 
   private boolean isCurrentMode(Mode... modes) {
@@ -169,6 +175,12 @@ public class DrawingPanel extends JPanel implements Printable {
     List<DrawShape> selectedShapes = getSelectedShapes();
     selectedShapes.forEach(selectedShape -> selectedShape.setSelected(false));
     repaint();
+  }
+
+  private List<DrawShape> createSingleList(DrawShape shape) {
+    List<DrawShape> singleList = new ArrayList<>();
+    singleList.add(shape);
+    return singleList;
   }
 
   private boolean isCursorOnShape(Point currentPoint) {
@@ -509,37 +521,47 @@ public class DrawingPanel extends JPanel implements Printable {
       if (e.getButton() == MouseEvent.BUTTON3 && e.isPopupTrigger()) {
         showPanelPopup(e.getPoint());
       } else if (isCurrentMode(Mode.IDLE)) {
-        clearSelected();
-        setSpinnerValue(outlineSize, dashSize);
         if (isCurrentShapeClass(DrawSelection.class)) {
           Optional.ofNullable(getSelectedShape(e.getPoint())).ifPresentOrElse(selectedShape -> {
-            selectedShape.setSelected(true);
-            setSpinnerValue(selectedShape.getOutlineSize(),
-                selectedShape.getDashSize());
+            List<DrawShape> selectedShapes = getSelectedShapes();
+            if (!selectedShapes.contains(selectedShape)) {
+              MainFrame.getInstance().requestFocus();
+              if (!multiple) {
+                clearSelected();
+                selectedShapes.clear();
+              }
+              selectedShape.setSelected(true);
+              selectedShapes.add(selectedShape);
+              setSpinnerValue(selectedShape.getOutlineSize(), selectedShape.getDashSize());
+            }
+
             if (selectedShape.getCurrentAnchor(e.getPoint()) == null) {
               setCurrentMode(Mode.MOVE);
-              setTransformer(new Mover(selectedShape));
-            } else if (selectedShape.isCurrentAnchor(Anchor.RR)) {
+              setTransformer(new Mover(selectedShapes));
+            } else if (selectedShape.isRotateAnchor()) {
               setCurrentMode(Mode.ROTATE);
-              setTransformer(new Rotator(selectedShape));
-            } else {
+              setTransformer(new Rotator(selectedShapes));
+            } else if (selectedShape.isResizeAnchor()) {
               setCurrentMode(Mode.RESIZE);
-              setTransformer(new Resizer(selectedShape));
+              setTransformer(new Resizer(selectedShapes));
             }
           }, () -> {
+            clearSelected();
+            setSpinnerValue(outlineSize, dashSize);
             setCurrentMode(Mode.SELECTION);
             setCurrentShape(newShapeInstance());
             currentShape.setOutlineSize(1);
             currentShape.setDashSize(5);
             currentShape.setStroke();
-            setTransformer(new Selector(currentShape));
+            setTransformer(new Selector(createSingleList(currentShape)));
           });
         } else {
+          clearSelected();
           setCurrentMode(isCurrentShapeClass(DrawPolygon.class) ? Mode.DRAW_POLYGON
               : Mode.DRAW_NORMAL);
           setCurrentShape(newShapeInstance());
           setShapeAttributes(currentShape);
-          setTransformer(new Drawer(currentShape));
+          setTransformer(new Drawer(createSingleList(currentShape)));
         }
         getTransformer().ifPresent(transformer -> transformer.setPoint(e.getPoint()));
       }
