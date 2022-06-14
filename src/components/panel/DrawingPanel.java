@@ -532,7 +532,9 @@ public class DrawingPanel extends JPanel implements Printable {
               }
               selectedShape.setSelected(true);
               selectedShapes.add(selectedShape);
-              setSpinnerValue(selectedShape.getOutlineSize(), selectedShape.getDashSize());
+              if (selectedShapes.size() == 1) {
+                setSpinnerValue(selectedShape.getOutlineSize(), selectedShape.getDashSize());
+              }
             }
 
             if (selectedShape.getCurrentAnchor(e.getPoint()) == null) {
