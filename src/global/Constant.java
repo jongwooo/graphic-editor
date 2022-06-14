@@ -47,10 +47,13 @@ public class Constant {
   public static final CustomStroke DEFAULT_STROKE = new CustomStroke(DEFAULT_OUTLINE_SIZE);
 
   public static final Toolkit DEFAULT_TOOLKIT = Toolkit.getDefaultToolkit();
+  public static final boolean IS_MAC_OS =
+      System.getProperty("os.name").toLowerCase().contains("mac");
 
-  public static final int CMD_KEY = 157;
-  public static final int CMD_MASK = System.getProperty("os.name").toLowerCase().contains("mac")
-      ? DEFAULT_TOOLKIT.getMenuShortcutKeyMaskEx() : KeyEvent.CTRL_DOWN_MASK;
+  public static final int CMD_KEY =
+      IS_MAC_OS ? 157 : KeyEvent.VK_CONTROL;
+  public static final int CMD_MASK =
+      IS_MAC_OS ? DEFAULT_TOOLKIT.getMenuShortcutKeyMaskEx() : KeyEvent.CTRL_DOWN_MASK;
 
   public static final Cursor DEFAULT_STYLE_CURSOR = new Cursor(Cursor.DEFAULT_CURSOR);
   public static final Cursor HAND_STYLE_CURSOR = new Cursor(Cursor.HAND_CURSOR);
