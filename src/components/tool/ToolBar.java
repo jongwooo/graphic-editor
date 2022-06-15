@@ -27,7 +27,6 @@ public class ToolBar extends JToolBar {
 
   private final ShapeToolHandler shapeToolHandler;
   private final DrawingToolHandler drawingToolHandler;
-  private final ButtonGroup shapeToolBtnGroup;
   private final OutlineSizeSpinner outlineSizeSpinner;
   private final DashSizeSpinner dashSizeSpinner;
 
@@ -36,7 +35,6 @@ public class ToolBar extends JToolBar {
     setBorderPainted(true);
     setFloatable(false);
 
-    shapeToolBtnGroup = new ButtonGroup();
     shapeToolHandler = ShapeToolHandler.getInstance();
     drawingToolHandler = DrawingToolHandler.getInstance();
     outlineSizeSpinner = OutlineSizeSpinner.getInstance();
@@ -65,6 +63,7 @@ public class ToolBar extends JToolBar {
   }
 
   private void createShapeToolButtons() {
+    ButtonGroup shapeToolBtnGroup = new ButtonGroup();
     Arrays.stream(ShapeToolItem.values()).forEach(shapeToolItem -> {
       JRadioButton shapeToolBtn = new JRadioButton();
       shapeToolBtn.setToolTipText(shapeToolItem.name());
