@@ -13,11 +13,11 @@ public class OutlineSizeSpinner extends SizeSpinner {
     private static final OutlineSizeSpinner INSTANCE = new OutlineSizeSpinner();
   }
 
+  private final SpinnerHandler spinnerHandler;
+
   private OutlineSizeSpinner() {
     super(SpinnerModels.outlineSizeModel.getModel());
-
-    SpinnerHandler spinnerHandler = SpinnerHandler.getInstance();
-    addChangeListener(spinnerHandler);
+    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public static OutlineSizeSpinner getInstance() {
@@ -29,6 +29,7 @@ public class OutlineSizeSpinner extends SizeSpinner {
   }
 
   private void createOutlineSizeSpinner() {
+    addChangeListener(spinnerHandler);
     setToolTipText(Constant.OUTLINE_SPINNER_TITLE.toLowerCase().concat(" size"));
   }
 }

@@ -13,11 +13,11 @@ public class DashSizeSpinner extends SizeSpinner {
     private static final DashSizeSpinner INSTANCE = new DashSizeSpinner();
   }
 
+  private final SpinnerHandler spinnerHandler;
+
   private DashSizeSpinner() {
     super(SpinnerModels.dashSizeModel.getModel());
-
-    SpinnerHandler spinnerHandler = SpinnerHandler.getInstance();
-    addChangeListener(spinnerHandler);
+    spinnerHandler = SpinnerHandler.getInstance();
   }
 
   public static DashSizeSpinner getInstance() {
@@ -29,6 +29,7 @@ public class DashSizeSpinner extends SizeSpinner {
   }
 
   private void createDashSizeSpinner() {
+    addChangeListener(spinnerHandler);
     setToolTipText(Constant.DASH_SPINNER_TITLE.toLowerCase().concat(" size"));
   }
 }
