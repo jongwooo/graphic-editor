@@ -18,14 +18,10 @@ public class EditMenu extends JMenu {
     private static final EditMenu INSTANCE = new EditMenu();
   }
 
-  private final JMenu bringToFrontMenu;
-  private final JMenu sendToBackMenu;
   private final EditMenuHandler editMenuHandler;
 
   private EditMenu() {
     super(Constant.EDIT_MENU_TITLE);
-    bringToFrontMenu = new JMenu(Constant.BRING_TO_FRONT_MENU_TITLE);
-    sendToBackMenu = new JMenu(Constant.SEND_TO_BACK_MENU_TITLE);
     editMenuHandler = EditMenuHandler.getInstance();
   }
 
@@ -53,6 +49,7 @@ public class EditMenu extends JMenu {
   }
 
   private void createBringToFrontMenu() {
+    JMenu bringToFrontMenu = new JMenu(Constant.BRING_TO_FRONT_MENU_TITLE);
     Arrays.stream(BringToFrontMenuItem.values()).forEach(item -> {
       JMenuItem menuItem = new JMenuItem(item.getMenuName());
       menuItem.setActionCommand(item.name());
@@ -64,6 +61,7 @@ public class EditMenu extends JMenu {
   }
 
   private void createSendToBackMenuMenu() {
+    JMenu sendToBackMenu = new JMenu(Constant.SEND_TO_BACK_MENU_TITLE);
     Arrays.stream(SendToBackMenuItem.values()).forEach(item -> {
       JMenuItem menuItem = new JMenuItem(item.getMenuName());
       menuItem.setActionCommand(item.name());

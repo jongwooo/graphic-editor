@@ -19,13 +19,9 @@ public class PanelPopup extends JPopupMenu {
     private static final PanelPopup INSTANCE = new PanelPopup();
   }
 
-  private final JMenu bringToFrontMenu;
-  private final JMenu sendToBackMenu;
   private final PanelPopupHandler panelPopupHandler;
 
   private PanelPopup() {
-    bringToFrontMenu = new JMenu(Constant.BRING_TO_FRONT_MENU_TITLE);
-    sendToBackMenu = new JMenu(Constant.SEND_TO_BACK_MENU_TITLE);
     panelPopupHandler = PanelPopupHandler.getInstance();
   }
 
@@ -52,6 +48,7 @@ public class PanelPopup extends JPopupMenu {
   }
 
   private void createBringToFrontMenu() {
+    JMenu bringToFrontMenu = new JMenu(Constant.BRING_TO_FRONT_MENU_TITLE);
     Arrays.stream(BringToFrontMenuItem.values()).forEach(item -> {
       JMenuItem menuItem = new JMenuItem(item.getMenuName());
       menuItem.setActionCommand(item.name());
@@ -62,6 +59,7 @@ public class PanelPopup extends JPopupMenu {
   }
 
   private void createSendToBackMenuMenu() {
+    JMenu sendToBackMenu = new JMenu(Constant.SEND_TO_BACK_MENU_TITLE);
     Arrays.stream(SendToBackMenuItem.values()).forEach(item -> {
       JMenuItem menuItem = new JMenuItem(item.getMenuName());
       menuItem.setActionCommand(item.name());
