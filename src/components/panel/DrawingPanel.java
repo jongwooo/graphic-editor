@@ -239,9 +239,8 @@ public class DrawingPanel extends JPanel implements Printable {
   }
 
   private void finishDraw() {
-    undoManager.undoableEditHappened(
-        new UndoableEditEvent(this, new UndoablePanel(currentShape)));
     currentShape.setSelected(true);
+    registerToUndoManager(currentShape);
     setUpdate(true);
     setIDLEMode();
   }
@@ -370,8 +369,7 @@ public class DrawingPanel extends JPanel implements Printable {
       clearSelected();
       clipboard.paste().forEach(shape -> {
         shape.setSelected(true);
-        undoManager.undoableEditHappened(
-            new UndoableEditEvent(this, new UndoablePanel(shape)));
+        registerToUndoManager(shape);
         shapes.add(shape);
       });
       setUpdate(true);
@@ -486,6 +484,11 @@ public class DrawingPanel extends JPanel implements Printable {
       setUpdate(true);
       repaint();
     }
+  }
+
+  private void registerToUndoManager(DrawShape shape) {
+    undoManager.undoableEditHappened(
+        new UndoableEditEvent(this, new UndoablePanel(shape)));
   }
 
   private class UndoablePanel extends AbstractUndoableEdit {
