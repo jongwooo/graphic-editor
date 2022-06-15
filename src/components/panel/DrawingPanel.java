@@ -435,8 +435,8 @@ public class DrawingPanel extends JPanel implements Printable {
           .orElse(shapes.size() - 1);
 
       if (maxIndex < shapes.size() - 1) {
-        selectedShapes.forEach(shape -> shapes.remove(shape));
-        shapes.addAll(maxIndex, selectedShapes);
+        shapes.removeAll(selectedShapes);
+        shapes.addAll(maxIndex - selectedShapes.size() + 2, selectedShapes);
         setUpdate(true);
         repaint();
       }
@@ -450,7 +450,7 @@ public class DrawingPanel extends JPanel implements Printable {
           .orElse(-1);
 
       if (minIndex > 0) {
-        selectedShapes.forEach(shape -> shapes.remove(shape));
+        shapes.removeAll(selectedShapes);
         shapes.addAll(minIndex - 1, selectedShapes);
         setUpdate(true);
         repaint();
