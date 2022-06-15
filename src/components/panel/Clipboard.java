@@ -20,6 +20,10 @@ public class Clipboard {
     clipboard.add(shape);
   }
 
+  public void addAll(List<DrawShape> selectedShapes) {
+    clipboard.addAll(selectedShapes);
+  }
+
   public void clear() {
     clipboard.clear();
   }

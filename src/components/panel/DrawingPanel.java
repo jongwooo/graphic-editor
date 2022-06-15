@@ -361,7 +361,7 @@ public class DrawingPanel extends JPanel implements Printable {
     List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
       clipboard.clear();
-      selectedShapes.forEach(shape -> clipboard.add(shape.clone()));
+      clipboard.addAll(selectedShapes);
     }
   }
 
