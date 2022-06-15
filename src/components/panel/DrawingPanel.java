@@ -248,6 +248,7 @@ public class DrawingPanel extends JPanel implements Printable {
 
   public void clearPanel() {
     shapes.clear();
+    setSpinnerValue(outlineSize, dashSize);
     setUpdate(true);
     setIDLEMode();
   }
@@ -382,6 +383,7 @@ public class DrawingPanel extends JPanel implements Printable {
     List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
       shapes.removeAll(selectedShapes);
+      setSpinnerValue(outlineSize, dashSize);
       setUpdate(true);
       setIDLEMode();
     }
