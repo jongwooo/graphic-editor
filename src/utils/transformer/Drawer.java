@@ -8,7 +8,7 @@ import utils.draw.DrawShape;
 
 public class Drawer extends Transformer {
 
-  private final DrawShape shape;
+  protected final DrawShape shape;
 
   public Drawer(List<DrawShape> shapeList) {
     super(shapeList);
