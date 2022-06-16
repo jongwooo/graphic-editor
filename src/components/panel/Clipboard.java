@@ -6,7 +6,7 @@ import utils.draw.DrawShape;
 
 public class Clipboard {
 
-  private final List<DrawShape> clipboard;
+  private List<DrawShape> clipboard;
 
   public Clipboard(List<DrawShape> clipboard) {
     this.clipboard = clipboard;
@@ -29,12 +29,13 @@ public class Clipboard {
   }
 
   public List<DrawShape> paste() {
-    return clipboard.stream().map(this::move)
-        .collect(Collectors.toList());
+    clipboard = clipboard.stream().map(this::move).collect(Collectors.toList());
+    return clipboard;
   }
 
   public DrawShape move(DrawShape shape) {
-    shape.move(8, 8);
-    return shape.clone();
+    DrawShape clonedShape = shape.clone();
+    clonedShape.move(8, 8);
+    return clonedShape;
   }
 }
