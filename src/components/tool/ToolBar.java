@@ -97,9 +97,9 @@ public class ToolBar extends JToolBar {
     defaultBtn.doClick();
   }
 
-  private void addSizeSpinner(String label, SizeSpinner spinner) {
+  private void addSizeSpinner(String spinnerName, SizeSpinner spinner) {
     spinner.setMaximumSize();
-    this.add(new JLabel(label));
+    this.add(new JLabel(spinnerName));
     this.add(spinner);
     this.addSeparator();
   }
