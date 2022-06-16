@@ -56,10 +56,9 @@ public class ToolBar extends JToolBar {
     dashSizeSpinner.initialize();
   }
 
-  private ImageIcon createImageIcon(String imageName, boolean selected) {
+  private ImageIcon createImageIcon(String imageName) {
     return new ImageIcon(
-        Constant.IMAGE_ICON_PATH.concat(selected ? "selected_" : "").concat(imageName)
-            .concat(Constant.IMAGE_ICON_EXTENSION));
+        Constant.IMAGE_ICON_PATH.concat(imageName).concat(Constant.IMAGE_ICON_EXTENSION));
   }
 
   private void createShapeToolButtons() {
@@ -69,8 +68,8 @@ public class ToolBar extends JToolBar {
       shapeToolBtn.setToolTipText(shapeToolItem.name());
       shapeToolBtn.setActionCommand(shapeToolItem.name());
       shapeToolBtn.addActionListener(shapeToolHandler);
-      shapeToolBtn.setIcon(createImageIcon(shapeToolItem.name(), false));
-      shapeToolBtn.setSelectedIcon(createImageIcon(shapeToolItem.name(), true));
+      shapeToolBtn.setIcon(createImageIcon(shapeToolItem.name()));
+      shapeToolBtn.setSelectedIcon(createImageIcon("selected_" + shapeToolItem.name()));
       shapeToolBtnGroup.add(shapeToolBtn);
       this.add(shapeToolBtn);
     });
@@ -83,7 +82,7 @@ public class ToolBar extends JToolBar {
       drawingToolBtn.setToolTipText(drawingToolItem.name());
       drawingToolBtn.setActionCommand(drawingToolItem.getMethodName());
       drawingToolBtn.addActionListener(drawingToolHandler);
-      drawingToolBtn.setIcon(createImageIcon(drawingToolItem.name(), false));
+      drawingToolBtn.setIcon(createImageIcon(drawingToolItem.name()));
       drawingToolBtn.setBorderPainted(false);
       drawingToolBtn.setFocusPainted(false);
       drawingToolBtn.setContentAreaFilled(false);
