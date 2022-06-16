@@ -27,7 +27,8 @@ public class DrawAnchor implements Serializable {
 
   public void createAnchors(Rectangle bound) {
     anchors.clear();
-    anchors.addAll(Arrays.stream(Anchor.values()).map(anchor -> anchor.getAnchor(bound))
+    anchors.addAll(Arrays.stream(Anchor.values())
+        .map(anchor -> anchor.getAnchor(bound))
         .collect(Collectors.toList()));
   }
 

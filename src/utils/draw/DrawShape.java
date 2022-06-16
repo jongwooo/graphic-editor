@@ -78,7 +78,8 @@ public abstract class DrawShape implements Cloneable, Serializable {
   }
 
   public boolean isResizeAnchor() {
-    return Arrays.stream(Anchor.values()).filter(drawAnchor -> drawAnchor != Anchor.RR)
+    return Arrays.stream(Anchor.values())
+        .filter(drawAnchor -> drawAnchor != Anchor.RR)
         .anyMatch(drawAnchor -> drawAnchor == currentAnchor);
   }
 
@@ -88,7 +89,8 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   public Anchor getCurrentAnchor(Point currentPoint) {
     List<Ellipse2D> anchors = anchor.getAnchors();
-    currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
+    currentAnchor = anchors.stream()
+        .filter(anchor -> anchor.contains(currentPoint))
         .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
         .orElse(null);
     return currentAnchor;

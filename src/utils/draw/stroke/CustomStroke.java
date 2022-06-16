@@ -9,6 +9,29 @@ import java.io.Serializable;
 
 public class CustomStroke extends BasicStroke implements Serializable {
 
+  public CustomStroke() {
+    super();
+  }
+
+  public CustomStroke(float lineWidth) {
+    super(lineWidth);
+  }
+
+  public CustomStroke(float lineWidth, int endCap, int lineJoin, float miterLimit,
+      float[] dashArray, float dashPhase) {
+    super(lineWidth, endCap, lineJoin, miterLimit, dashArray, dashPhase);
+  }
+
+  public static BasicStroke serializable(BasicStroke target) {
+    return (target instanceof Serializable) ? target
+        : new CustomStroke(target.getLineWidth(), target.getEndCap(), target.getLineJoin(),
+            target.getMiterLimit(), target.getDashArray(), target.getDashPhase());
+  }
+
+  private Object writeReplace() throws ObjectStreamException {
+    return new Serial(this);
+  }
+
   private static class Serial implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,28 +62,5 @@ public class CustomStroke extends BasicStroke implements Serializable {
     private Object readResolve() {
       return replacement;
     }
-  }
-
-  public static BasicStroke serializable(BasicStroke target) {
-    return (target instanceof Serializable) ? target
-        : new CustomStroke(target.getLineWidth(), target.getEndCap(), target.getLineJoin(),
-            target.getMiterLimit(), target.getDashArray(), target.getDashPhase());
-  }
-
-  public CustomStroke() {
-    super();
-  }
-
-  public CustomStroke(float lineWidth) {
-    super(lineWidth);
-  }
-
-  public CustomStroke(float lineWidth, int endCap, int lineJoin, float miterLimit,
-      float[] dashArray, float dashPhase) {
-    super(lineWidth, endCap, lineJoin, miterLimit, dashArray, dashPhase);
-  }
-
-  private Object writeReplace() throws ObjectStreamException {
-    return new Serial(this);
   }
 }

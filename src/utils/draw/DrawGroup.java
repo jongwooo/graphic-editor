@@ -30,11 +30,8 @@ public class DrawGroup extends DrawShape implements Cloneable, Serializable {
 
   public void addChildShape(DrawShape childShape) {
     childShapes.add(0, childShape);
-    if (childShapes.size() == 1) {
-      shape = childShape.getBounds();
-    } else {
-      shape = shape.getBounds().createUnion(childShape.getBounds());
-    }
+    shape = childShapes.size() == 1 ?
+        childShape.getBounds() : shape.getBounds().createUnion(childShape.getBounds());
   }
 
   public void addAll(List<DrawShape> childShapes) {
@@ -69,7 +66,8 @@ public class DrawGroup extends DrawShape implements Cloneable, Serializable {
 
   @Override
   public boolean isResizeAnchor() {
-    return Arrays.stream(Anchor.values()).filter(drawAnchor -> drawAnchor != Anchor.RR)
+    return Arrays.stream(Anchor.values())
+        .filter(drawAnchor -> drawAnchor != Anchor.RR)
         .anyMatch(drawAnchor -> drawAnchor == currentAnchor);
   }
 
@@ -81,7 +79,8 @@ public class DrawGroup extends DrawShape implements Cloneable, Serializable {
   @Override
   public Anchor getCurrentAnchor(Point currentPoint) {
     List<Ellipse2D> anchors = anchor.getAnchors();
-    currentAnchor = anchors.stream().filter(anchor -> anchor.contains(currentPoint))
+    currentAnchor = anchors.stream()
+        .filter(anchor -> anchor.contains(currentPoint))
         .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
         .orElse(null);
     return currentAnchor;
@@ -127,7 +126,8 @@ public class DrawGroup extends DrawShape implements Cloneable, Serializable {
 
   @Override
   public DrawShape clone() {
-    List<DrawShape> cloneList = childShapes.stream().map(DrawShape::clone)
+    List<DrawShape> cloneList = childShapes.stream()
+        .map(DrawShape::clone)
         .collect(Collectors.toList());
     DrawGroup cloneShape = (DrawGroup) super.clone();
     cloneShape.addAll(cloneList);
