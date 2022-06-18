@@ -49,8 +49,7 @@ public class DrawingPanel extends JPanel implements Printable {
     private static final DrawingPanel INSTANCE = new DrawingPanel();
   }
 
-  private boolean update;
-  private boolean multiple;
+  private boolean update, multiple;
   private Mode mode;
   private List<DrawShape> shapes;
   private final Clipboard clipboard;
