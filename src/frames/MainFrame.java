@@ -3,7 +3,7 @@ package frames;
 import components.menu.MenuBar;
 import components.panel.DrawingPanel;
 import components.tool.ToolBar;
-import global.Constant;
+import constants.Constant;
 import handlers.frame.FrameHandler;
 import handlers.frame.KeyHandler;
 import handlers.frame.WindowHandler;

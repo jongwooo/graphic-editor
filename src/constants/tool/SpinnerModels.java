@@ -1,6 +1,6 @@
-package global.tool;
+package constants.tool;
 
-import global.Constant;
+import constants.Constant;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 

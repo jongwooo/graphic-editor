@@ -2,8 +2,8 @@ package utils.file;
 
 import components.panel.DrawingPanel;
 import frames.MainFrame;
-import global.Constant;
-import global.dialog.FileDialog;
+import constants.Constant;
+import constants.dialog.FileDialog;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.BufferedInputStream;

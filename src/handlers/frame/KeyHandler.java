@@ -1,7 +1,7 @@
 package handlers.frame;
 
 import components.panel.DrawingPanel;
-import global.Constant;
+import constants.Constant;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

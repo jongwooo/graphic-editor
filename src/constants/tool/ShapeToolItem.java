@@ -1,4 +1,4 @@
-package global.tool;
+package constants.tool;
 
 import utils.draw.DrawEllipse;
 import utils.draw.DrawLine;

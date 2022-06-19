@@ -1,4 +1,4 @@
-package global;
+package constants;
 
 import java.awt.Color;
 import java.awt.Cursor;

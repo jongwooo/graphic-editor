@@ -1,4 +1,4 @@
-package global.tool;
+package constants.tool;
 
 public enum DrawingToolItem {
   delete("delete"),

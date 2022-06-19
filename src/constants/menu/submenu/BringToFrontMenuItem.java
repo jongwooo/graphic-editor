@@ -1,7 +1,7 @@
-package global.menu.submenu;
+package constants.menu.submenu;
 
-import global.Constant;
-import global.menu.MenuItem;
+import constants.Constant;
+import constants.menu.MenuItem;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.KeyStroke;

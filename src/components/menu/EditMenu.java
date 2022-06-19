@@ -1,9 +1,9 @@
 package components.menu;
 
-import global.Constant;
-import global.menu.EditMenuItem;
-import global.menu.submenu.BringToFrontMenuItem;
-import global.menu.submenu.SendToBackMenuItem;
+import constants.Constant;
+import constants.menu.EditMenuItem;
+import constants.menu.submenu.BringToFrontMenuItem;
+import constants.menu.submenu.SendToBackMenuItem;
 import handlers.menu.EditMenuHandler;
 import java.util.Arrays;
 import javax.swing.JMenu;

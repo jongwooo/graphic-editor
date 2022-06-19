@@ -1,4 +1,4 @@
-package global.transformer;
+package constants.transformer;
 
 public enum Mode {
   IDLE,

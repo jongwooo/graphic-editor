@@ -1,7 +1,7 @@
 package components.tool.spinner;
 
-import global.Constant;
-import global.tool.SpinnerModels;
+import constants.Constant;
+import constants.tool.SpinnerModels;
 import handlers.tool.spinner.SpinnerHandler;
 
 public class OutlineSizeSpinner extends SizeSpinner {

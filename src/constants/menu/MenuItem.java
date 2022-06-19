@@ -1,4 +1,4 @@
-package global.menu;
+package constants.menu;
 
 import javax.swing.KeyStroke;
 

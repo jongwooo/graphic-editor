@@ -1,6 +1,6 @@
-package global.draw;
+package constants.draw;
 
-import global.Constant;
+import constants.Constant;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Rectangle;

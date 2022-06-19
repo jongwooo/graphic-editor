@@ -1,6 +1,6 @@
-package global.menu;
+package constants.menu;
 
-import global.Constant;
+import constants.Constant;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.KeyStroke;

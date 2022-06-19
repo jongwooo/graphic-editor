@@ -1,4 +1,4 @@
-package global.dialog;
+package constants.dialog;
 
 public class FileDialog {
 

@@ -1,7 +1,7 @@
 package handlers.tool.button;
 
 import components.panel.DrawingPanel;
-import global.tool.ShapeToolItem;
+import constants.tool.ShapeToolItem;
 import handlers.ActionHandler;
 import java.lang.reflect.InvocationTargetException;
 
