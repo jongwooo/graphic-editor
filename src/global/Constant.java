@@ -25,7 +25,7 @@ public class Constant {
   public static final String OUTLINE_SPINNER_TITLE = "Outline";
   public static final String DASH_SPINNER_TITLE = "Dash";
 
-  public static final String IMAGE_ICON_PATH = "src/global/image/button/";
+  public static final String IMAGE_ICON_PATH = "static/image/button/";
   public static final String IMAGE_ICON_EXTENSION = ".png";
 
   public static final String FILE_EXTENSION = "graphic";
@@ -67,5 +67,5 @@ public class Constant {
   public static final Cursor NE_CURSOR = new Cursor(Cursor.NE_RESIZE_CURSOR);
   public static final Cursor NN_CURSOR = new Cursor(Cursor.N_RESIZE_CURSOR);
   public static final Cursor ROTATE_CURSOR = DEFAULT_TOOLKIT.createCustomCursor(
-      DEFAULT_TOOLKIT.getImage("src/global/image/cursor/rotate.png"), new Point(8, 8), "Rotate");
+      DEFAULT_TOOLKIT.getImage("static/image/cursor/rotate.png"), new Point(8, 8), "Rotate");
 }
