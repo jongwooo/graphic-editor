@@ -27,19 +27,23 @@ public class Resizer extends Transformer {
     shapeList.stream()
         .filter(shape -> shape.getCurrentAnchor() != null)
         .findFirst().ifPresent(resizeShape -> {
-          Rectangle bound = resizeShape.getBounds();
-          if (bound.getWidth() > 0 && bound.getHeight() > 0) {
-            ScaleDto dto = resizeShape.getCurrentAnchor().computeScale(
-                BoundDto.builder()
-                    .boundX(bound.getMinX())
-                    .boundY(bound.getMinY())
-                    .boundWidth(bound.getWidth())
-                    .boundHeight(bound.getHeight())
-                    .xFactor((currentPoint.x - previousPoint.x) / bound.getWidth())
-                    .yFactor((currentPoint.y - previousPoint.y) / bound.getHeight())
-                    .build());
+          Rectangle resizeShapeBound = resizeShape.getBounds();
+          double resizeShapeWidth = resizeShapeBound.getWidth();
+          double resizeShapeHeight = resizeShapeBound.getHeight();
 
+          if (resizeShapeWidth > 0 && resizeShapeHeight > 0) {
             shapeList.forEach(shape -> {
+              Rectangle bound = shape.getBounds();
+              ScaleDto dto = resizeShape.getCurrentAnchor().computeScale(
+                  BoundDto.builder()
+                      .boundX(bound.getMinX())
+                      .boundY(bound.getMinY())
+                      .boundWidth(bound.getWidth())
+                      .boundHeight(bound.getHeight())
+                      .xFactor((currentPoint.x - previousPoint.x) / resizeShapeWidth)
+                      .yFactor((currentPoint.y - previousPoint.y) / resizeShapeHeight)
+                      .build());
+
               shape.draw(graphics2D);
               shape.resize(dto);
               shape.draw(graphics2D);
