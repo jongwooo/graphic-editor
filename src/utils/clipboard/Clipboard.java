@@ -1,4 +1,4 @@
-package components.panel;
+package utils.clipboard;
 
 import java.util.List;
 import java.util.stream.Collectors;
