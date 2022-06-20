@@ -1,5 +1,6 @@
 package components.tool.spinner;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 
@@ -10,8 +11,10 @@ public abstract class SizeSpinner extends JSpinner {
 
     if (this.getEditor() instanceof JSpinner.DefaultEditor) {
       JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) this.getEditor();
-      editor.getTextField().setEnabled(true);
-      editor.getTextField().setEditable(false);
+      JFormattedTextField editorTextField = editor.getTextField();
+      editorTextField.setEnabled(true);
+      editorTextField.setEditable(false);
+
     }
   }
 
