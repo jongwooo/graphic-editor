@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import utils.draw.anchor.DrawAnchor;
 import utils.draw.stroke.CustomStroke;
 import utils.draw.stroke.StrokeFactory;
 import utils.transformer.dto.ScaleDto;

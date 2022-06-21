@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import utils.draw.anchor.DrawAnchor;
 import utils.transformer.dto.ScaleDto;
 
 public class DrawGroup extends DrawShape implements Cloneable, Serializable {
