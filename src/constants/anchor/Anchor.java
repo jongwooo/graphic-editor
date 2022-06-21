@@ -1,4 +1,4 @@
-package constants.draw;
+package constants.anchor;
 
 import constants.Constant;
 import java.awt.Cursor;

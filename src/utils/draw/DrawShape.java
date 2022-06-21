@@ -1,7 +1,7 @@
 package utils.draw;
 
 import constants.Constant;
-import constants.draw.Anchor;
+import constants.anchor.Anchor;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
