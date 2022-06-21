@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import utils.draw.DrawShape;
-import utils.draw.anchor.AnchorList;
+import utils.anchor.AnchorList;
 import utils.transformer.dto.ScaleDto;
 
 public class DrawGroup extends DrawShape {

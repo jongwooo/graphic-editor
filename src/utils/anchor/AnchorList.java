@@ -1,4 +1,4 @@
-package utils.draw.anchor;
+package utils.anchor;
 
 import constants.Constant;
 import constants.draw.Anchor;
