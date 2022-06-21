@@ -82,8 +82,8 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   public boolean isResizeAnchor() {
     return Arrays.stream(Anchor.values())
-        .filter(drawAnchor -> drawAnchor != Anchor.RR)
-        .anyMatch(drawAnchor -> drawAnchor == currentAnchor);
+        .filter(anchor -> anchor != Anchor.RR)
+        .anyMatch(anchor -> anchor == currentAnchor);
   }
 
   public Anchor getCurrentAnchor() {
