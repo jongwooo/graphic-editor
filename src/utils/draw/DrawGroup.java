@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 import utils.draw.anchor.DrawAnchor;
 import utils.transformer.dto.ScaleDto;
 
-public class DrawGroup extends DrawShape implements Cloneable, Serializable {
+public class DrawGroup extends DrawShape {
 
   private static final long serialVersionUID = 1L;
 
