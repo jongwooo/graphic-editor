@@ -1,7 +1,8 @@
-package utils.draw;
+package utils.draw.shape;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import utils.draw.DrawShape;
 
 public class DrawRectangle extends DrawShape {
 

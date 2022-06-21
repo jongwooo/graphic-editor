@@ -1,10 +1,10 @@
 package constants.tool;
 
-import utils.draw.DrawEllipse;
-import utils.draw.DrawLine;
-import utils.draw.DrawPencil;
-import utils.draw.DrawPolygon;
-import utils.draw.DrawRectangle;
+import utils.draw.shape.DrawEllipse;
+import utils.draw.shape.DrawLine;
+import utils.draw.shape.DrawPencil;
+import utils.draw.shape.DrawPolygon;
+import utils.draw.shape.DrawRectangle;
 import utils.draw.selection.DrawSelection;
 import utils.draw.DrawShape;
 

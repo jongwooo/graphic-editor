@@ -1,8 +1,9 @@
-package utils.draw;
+package utils.draw.shape;
 
 import java.awt.Point;
 import java.awt.geom.Path2D;
 import java.awt.geom.Path2D.Float;
+import utils.draw.DrawShape;
 
 public class DrawPencil extends DrawShape {
 

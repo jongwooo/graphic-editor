@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import utils.draw.anchor.DrawAnchor;
+import utils.draw.shape.DrawLine;
+import utils.draw.shape.DrawPencil;
 import utils.stroke.CustomStroke;
 import utils.stroke.StrokeFactory;
 import utils.transformer.dto.ScaleDto;

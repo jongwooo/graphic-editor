@@ -1,7 +1,8 @@
-package utils.draw;
+package utils.draw.shape;
 
 import java.awt.Point;
 import java.awt.Polygon;
+import utils.draw.DrawShape;
 
 public class DrawPolygon extends DrawShape {
 

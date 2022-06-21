@@ -1,7 +1,8 @@
-package utils.draw;
+package utils.draw.shape;
 
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
+import utils.draw.DrawShape;
 
 public class DrawEllipse extends DrawShape {
 

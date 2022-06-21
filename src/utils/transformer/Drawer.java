@@ -3,7 +3,7 @@ package utils.transformer;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.List;
-import utils.draw.DrawPolygon;
+import utils.draw.shape.DrawPolygon;
 import utils.draw.DrawShape;
 
 public class Drawer extends Transformer {
