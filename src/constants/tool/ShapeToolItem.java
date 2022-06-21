@@ -5,7 +5,7 @@ import utils.draw.DrawLine;
 import utils.draw.DrawPencil;
 import utils.draw.DrawPolygon;
 import utils.draw.DrawRectangle;
-import utils.draw.DrawSelection;
+import utils.draw.selection.DrawSelection;
 import utils.draw.DrawShape;
 
 public enum ShapeToolItem {

@@ -32,7 +32,7 @@ import javax.swing.undo.UndoManager;
 import utils.clipboard.Clipboard;
 import utils.draw.group.DrawGroup;
 import utils.draw.DrawPolygon;
-import utils.draw.DrawSelection;
+import utils.draw.selection.DrawSelection;
 import utils.draw.DrawShape;
 import utils.transformer.Drawer;
 import utils.transformer.Mover;
