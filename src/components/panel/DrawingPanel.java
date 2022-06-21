@@ -30,7 +30,7 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
 import utils.clipboard.Clipboard;
-import utils.draw.DrawGroup;
+import utils.draw.group.DrawGroup;
 import utils.draw.DrawPolygon;
 import utils.draw.DrawSelection;
 import utils.draw.DrawShape;
