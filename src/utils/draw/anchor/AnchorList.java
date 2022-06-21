@@ -11,29 +11,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DrawAnchor implements Serializable {
+public class AnchorList implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private final List<Ellipse2D> anchors;
+  private final List<Ellipse2D> anchorList;
 
-  public DrawAnchor() {
-    anchors = new ArrayList<>();
+  public AnchorList() {
+    anchorList = new ArrayList<>();
   }
 
-  public List<Ellipse2D> getAnchors() {
-    return anchors;
+  public List<Ellipse2D> getAnchorList() {
+    return anchorList;
   }
 
   public void createAnchors(Rectangle bound) {
-    anchors.clear();
-    anchors.addAll(Arrays.stream(Anchor.values())
+    anchorList.clear();
+    anchorList.addAll(Arrays.stream(Anchor.values())
         .map(anchor -> anchor.getAnchor(bound))
         .collect(Collectors.toList()));
   }
 
   public void draw(Graphics2D graphics2D) {
-    anchors.forEach(anchor -> {
+    anchorList.forEach(anchor -> {
       graphics2D.setColor(graphics2D.getBackground());
       graphics2D.fill(anchor);
       graphics2D.setColor(Constant.DEFAULT_OUTLINE_COLOR);

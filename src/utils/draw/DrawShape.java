@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-import utils.draw.anchor.DrawAnchor;
+import utils.draw.anchor.AnchorList;
 import utils.draw.shape.DrawLine;
 import utils.draw.shape.DrawPencil;
 import utils.stroke.CustomStroke;
@@ -28,7 +28,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
   protected Shape shape;
   protected Point startPoint;
   private final AffineTransform affineTransform;
-  private final DrawAnchor anchor;
+  private final AnchorList anchorList;
   private Anchor currentAnchor;
   private boolean selected;
   private Color outlineColor, fillColor;
@@ -39,7 +39,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
   public DrawShape(Shape shape) {
     this.shape = shape;
     affineTransform = new AffineTransform();
-    anchor = new DrawAnchor();
+    anchorList = new AnchorList();
     currentAnchor = null;
     selected = false;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
@@ -60,8 +60,8 @@ public abstract class DrawShape implements Cloneable, Serializable {
     graphics2D.draw(shape);
 
     if (selected) {
-      anchor.createAnchors(shape.getBounds());
-      anchor.draw(graphics2D);
+      anchorList.createAnchors(shape.getBounds());
+      anchorList.draw(graphics2D);
     }
   }
 
@@ -91,7 +91,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
   }
 
   public Anchor getCurrentAnchor(Point currentPoint) {
-    List<Ellipse2D> anchors = anchor.getAnchors();
+    List<Ellipse2D> anchors = anchorList.getAnchorList();
     currentAnchor = anchors.stream()
         .filter(anchor -> anchor.contains(currentPoint))
         .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])

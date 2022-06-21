@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import utils.draw.DrawShape;
-import utils.draw.anchor.DrawAnchor;
+import utils.draw.anchor.AnchorList;
 import utils.transformer.dto.ScaleDto;
 
 public class DrawGroup extends DrawShape {
@@ -19,13 +19,13 @@ public class DrawGroup extends DrawShape {
   private static final long serialVersionUID = 1L;
 
   private List<DrawShape> childShapes;
-  private final DrawAnchor anchor;
+  private final AnchorList anchorList;
   private Anchor currentAnchor;
 
   public DrawGroup() {
     super(new Rectangle());
     childShapes = new ArrayList<>();
-    anchor = new DrawAnchor();
+    anchorList = new AnchorList();
     currentAnchor = null;
   }
 
@@ -48,8 +48,8 @@ public class DrawGroup extends DrawShape {
     childShapes.forEach(shape -> shape.draw(graphics2D));
 
     if (isSelected()) {
-      anchor.createAnchors(this.getBounds());
-      anchor.draw(graphics2D);
+      anchorList.createAnchors(this.getBounds());
+      anchorList.draw(graphics2D);
     }
   }
 
@@ -79,7 +79,7 @@ public class DrawGroup extends DrawShape {
 
   @Override
   public Anchor getCurrentAnchor(Point currentPoint) {
-    List<Ellipse2D> anchors = anchor.getAnchors();
+    List<Ellipse2D> anchors = anchorList.getAnchorList();
     currentAnchor = anchors.stream()
         .filter(anchor -> anchor.contains(currentPoint))
         .findFirst().map(anchor -> Anchor.values()[anchors.indexOf(anchor)])
