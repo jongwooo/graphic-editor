@@ -1,4 +1,4 @@
-package constants.tool;
+package constants.tool.spinner;
 
 import constants.Constant;
 import javax.swing.SpinnerModel;

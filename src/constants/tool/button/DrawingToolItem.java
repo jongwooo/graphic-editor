@@ -1,4 +1,4 @@
-package constants.tool;
+package constants.tool.button;
 
 public enum DrawingToolItem {
   delete("delete"),

@@ -1,4 +1,4 @@
-package constants.tool;
+package constants.tool.button;
 
 import utils.draw.shape.DrawEllipse;
 import utils.draw.shape.DrawLine;

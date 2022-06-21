@@ -1,7 +1,7 @@
 package handlers.tool.spinner;
 
 import components.panel.DrawingPanel;
-import constants.tool.SpinnerModels;
+import constants.tool.spinner.SpinnerModels;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
