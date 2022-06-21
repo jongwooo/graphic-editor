@@ -15,8 +15,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import utils.draw.anchor.DrawAnchor;
-import utils.draw.stroke.CustomStroke;
-import utils.draw.stroke.StrokeFactory;
+import utils.stroke.CustomStroke;
+import utils.stroke.StrokeFactory;
 import utils.transformer.dto.ScaleDto;
 
 public abstract class DrawShape implements Cloneable, Serializable {
