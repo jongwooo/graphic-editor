@@ -15,7 +15,7 @@ public class AnchorList implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private final List<Ellipse2D> anchorList;
+  private List<Ellipse2D> anchorList;
 
   public AnchorList() {
     anchorList = new ArrayList<>();
@@ -26,10 +26,9 @@ public class AnchorList implements Serializable {
   }
 
   public void createAnchors(Rectangle bound) {
-    anchorList.clear();
-    anchorList.addAll(Arrays.stream(Anchor.values())
+    anchorList = Arrays.stream(Anchor.values())
         .map(anchor -> anchor.getAnchor(bound))
-        .collect(Collectors.toList()));
+        .collect(Collectors.toList());
   }
 
   public void draw(Graphics2D graphics2D) {
