@@ -30,10 +30,10 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoManager;
 import utils.clipboard.Clipboard;
-import utils.draw.group.DrawGroup;
-import utils.draw.shape.DrawPolygon;
-import utils.draw.selection.DrawSelection;
 import utils.draw.DrawShape;
+import utils.draw.group.DrawGroup;
+import utils.draw.selection.DrawSelection;
+import utils.draw.shape.DrawPolygon;
 import utils.transformer.Drawer;
 import utils.transformer.Mover;
 import utils.transformer.Resizer;
@@ -346,11 +346,9 @@ public class DrawingPanel extends JPanel implements Printable {
   public void cut() {
     List<DrawShape> selectedShapes = getSelectedShapes();
     if (!selectedShapes.isEmpty()) {
+      shapes.removeAll(selectedShapes);
       clipboard.clear();
-      selectedShapes.forEach(shape -> {
-        shapes.remove(shape);
-        clipboard.add(shape.clone());
-      });
+      clipboard.addAll(selectedShapes);
       setUpdate(true);
       repaint();
     }
