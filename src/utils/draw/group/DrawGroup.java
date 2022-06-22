@@ -47,8 +47,8 @@ public class DrawGroup extends DrawShape {
   public void draw(Graphics2D graphics2D) {
     childShapes.forEach(shape -> shape.draw(graphics2D));
 
-    if (isSelected()) {
-      anchorList.createAnchors(this.getBounds());
+    if (selected) {
+      anchorList.createAnchors(shape.getBounds());
       anchorList.draw(graphics2D);
     }
   }

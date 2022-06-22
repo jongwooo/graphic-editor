@@ -27,10 +27,10 @@ public abstract class DrawShape implements Cloneable, Serializable {
 
   protected Shape shape;
   protected Point startPoint;
+  protected boolean selected;
   private final AffineTransform affineTransform;
   private final AnchorList anchorList;
   private Anchor currentAnchor;
-  private boolean selected;
   private Color outlineColor, fillColor;
   private int outlineSize, dashSize;
   private CustomStroke customStroke;
