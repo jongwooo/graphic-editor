@@ -11,56 +11,64 @@ import utils.transformer.dto.BoundDto;
 import utils.transformer.dto.ScaleDto;
 
 public enum Anchor {
-  NW(Constant.NW_CURSOR, bound -> new Point(bound.x, bound.y),
+  NW(Constant.NW_CURSOR,
+      bound -> new Point(bound.x, bound.y),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX() + dto.getBoundWidth())
           .translateY(dto.getBoundY() + dto.getBoundHeight())
           .scaleX(1 - dto.getXFactor())
           .scaleY(1 - dto.getYFactor())
           .build()),
-  WW(Constant.WW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height / 2),
+  WW(Constant.WW_CURSOR,
+      bound -> new Point(bound.x, bound.y + bound.height / 2),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX() + dto.getBoundWidth())
           .translateY(0)
           .scaleX(1 - dto.getXFactor())
           .scaleY(1)
           .build()),
-  SW(Constant.SW_CURSOR, bound -> new Point(bound.x, bound.y + bound.height),
+  SW(Constant.SW_CURSOR,
+      bound -> new Point(bound.x, bound.y + bound.height),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX() + dto.getBoundWidth())
           .translateY(dto.getBoundY())
           .scaleX(1 - dto.getXFactor())
           .scaleY(1 + dto.getYFactor())
           .build()),
-  SS(Constant.SS_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y + bound.height),
+  SS(Constant.SS_CURSOR,
+      bound -> new Point(bound.x + bound.width / 2, bound.y + bound.height),
       dto -> ScaleDto.builder()
           .translateX(0)
           .translateY(dto.getBoundY())
           .scaleX(1)
           .scaleY(1 + dto.getYFactor())
           .build()),
-  SE(Constant.SE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height),
+  SE(Constant.SE_CURSOR,
+      bound -> new Point(bound.x + bound.width, bound.y + bound.height),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX())
           .translateY(dto.getBoundY())
           .scaleX(1 + dto.getXFactor())
           .scaleY(1 + dto.getYFactor())
           .build()),
-  EE(Constant.EE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y + bound.height / 2),
+  EE(Constant.EE_CURSOR,
+      bound -> new Point(bound.x + bound.width, bound.y + bound.height / 2),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX())
           .translateY(0)
           .scaleX(1 + dto.getXFactor())
           .scaleY(1)
           .build()),
-  NE(Constant.NE_CURSOR, bound -> new Point(bound.x + bound.width, bound.y),
+  NE(Constant.NE_CURSOR,
+      bound -> new Point(bound.x + bound.width, bound.y),
       dto -> ScaleDto.builder()
           .translateX(dto.getBoundX())
           .translateY(dto.getBoundY() + dto.getBoundHeight())
           .scaleX(1 + dto.getXFactor())
           .scaleY(1 - dto.getYFactor())
           .build()),
-  NN(Constant.NN_CURSOR, bound -> new Point(bound.x + bound.width / 2, bound.y),
+  NN(Constant.NN_CURSOR,
+      bound -> new Point(bound.x + bound.width / 2, bound.y),
       dto -> ScaleDto.builder()
           .translateX(0)
           .translateY(dto.getBoundY() + dto.getBoundHeight())
