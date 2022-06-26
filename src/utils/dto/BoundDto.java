@@ -1,4 +1,4 @@
-package utils.transformer.dto;
+package utils.dto;
 
 public class BoundDto {
 

@@ -5,8 +5,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 import utils.draw.DrawShape;
-import utils.transformer.dto.BoundDto;
-import utils.transformer.dto.ScaleDto;
+import utils.dto.BoundDto;
+import utils.dto.ScaleDto;
 
 public class Resizer extends Transformer {
 

@@ -19,7 +19,7 @@ import utils.draw.shape.DrawLine;
 import utils.draw.shape.DrawPencil;
 import utils.stroke.CustomStroke;
 import utils.stroke.StrokeFactory;
-import utils.transformer.dto.ScaleDto;
+import utils.dto.ScaleDto;
 
 public abstract class DrawShape implements Cloneable, Serializable {
 
