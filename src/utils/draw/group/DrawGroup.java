@@ -25,7 +25,7 @@ public class DrawGroup extends DrawShape {
   public DrawGroup() {
     super(new Rectangle());
     childShapes = new ArrayList<>();
-    anchorList = new AnchorList();
+    anchorList = new AnchorList(new ArrayList<>());
     currentAnchor = null;
   }
 

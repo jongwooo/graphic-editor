@@ -12,6 +12,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D.Double;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import utils.anchor.AnchorList;
@@ -39,7 +40,7 @@ public abstract class DrawShape implements Cloneable, Serializable {
   public DrawShape(Shape shape) {
     this.shape = shape;
     affineTransform = new AffineTransform();
-    anchorList = new AnchorList();
+    anchorList = new AnchorList(new ArrayList<>());
     currentAnchor = null;
     selected = false;
     outlineColor = Constant.DEFAULT_OUTLINE_COLOR;
